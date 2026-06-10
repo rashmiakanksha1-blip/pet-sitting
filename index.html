@@ -18,16 +18,16 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #121816;
-      --bg-warm: #181f1b;
-      --surface: #1f2822;
-      --surface-raised: #283229;
-      --text: #e6ebe7;
-      --text-muted: #9aa89f;
-      --border: #354038;
-      --sage: #7fa886;
-      --sage-light: #2a332c;
-      --sage-dark: #5f8a67;
+      --bg: #141018;
+      --bg-warm: #1a1520;
+      --surface: #221c28;
+      --surface-raised: #2b2434;
+      --text: #ece9f0;
+      --text-muted: #a39aad;
+      --border: #3a3348;
+      --sage: #c49ab8;
+      --sage-light: #2a2432;
+      --sage-dark: #8a6a96;
       --coral: #d4846a;
       --coral-light: #3a2a24;
       --amber: #d4ad3a;
@@ -36,10 +36,10 @@
       --rose-light: #352328;
       --slate: #8a9aab;
       --slate-light: #2a2e34;
-      --tier-off-bg: #283229;
-      --tier-peak-bg: #352c24;
+      --tier-off-bg: #2b2434;
+      --tier-peak-bg: #342c28;
       --tier-peak-border: #5a4838;
-      --tier-super-bg: #32242c;
+      --tier-super-bg: #342432;
       --tier-super-border: #5a3d48;
       --tier-peak-label: #d4a574;
       --tier-super-label: #d492a8;
@@ -64,9 +64,9 @@
     body {
       font-family: 'Outfit', sans-serif;
       background:
-        radial-gradient(ellipse 95% 65% at 6% -8%, rgba(95, 138, 103, 0.18), transparent 60%),
-        radial-gradient(ellipse 75% 55% at 96% 4%, rgba(80, 120, 130, 0.12), transparent 58%),
-        radial-gradient(ellipse 85% 60% at 92% 106%, rgba(180, 110, 90, 0.1), transparent 60%),
+        radial-gradient(ellipse 95% 65% at 6% -8%, rgba(138, 106, 150, 0.16), transparent 60%),
+        radial-gradient(ellipse 75% 55% at 96% 4%, rgba(196, 154, 184, 0.1), transparent 58%),
+        radial-gradient(ellipse 85% 60% at 92% 106%, rgba(180, 110, 130, 0.08), transparent 60%),
         linear-gradient(160deg, var(--bg) 0%, var(--bg-warm) 100%);
       background-attachment: fixed;
       color: var(--text);
@@ -291,25 +291,78 @@
       font-weight: 300;
     }
 
-    .layout {
+    .main-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .section-row,
+    .rates-block {
       display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 1.75rem;
+      grid-template-columns: minmax(130px, 200px) 1fr;
+      gap: 1rem 1.75rem;
       align-items: start;
     }
 
-    @media (max-width: 900px) {
-      .layout { grid-template-columns: 1fr; }
+    .section-heading-col {
+      text-align: left;
     }
 
-    /* Rates live in the sidebar — stack vertically to fill the column */
-    .sidebar .rates-section { margin-top: 0; }
-    .sidebar .rates-grid { grid-template-columns: 1fr; }
-    .sidebar .rate-service-card {
-      border-right: none;
-      border-bottom: 1px solid var(--border);
+    .section-heading-col h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.35rem;
     }
-    .sidebar .rate-service-card:last-child { border-bottom: none; }
+
+    .section-heading-col p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .calendar-months {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      padding: 0 1rem 0.5rem;
+    }
+
+    .month-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .calendar-month .weekdays {
+      padding: 0.35rem 0 0.2rem;
+    }
+
+    .calendar-month .days-grid {
+      padding: 0.2rem 0 0.5rem;
+      gap: 4px;
+    }
+
+    .calendar-month .day {
+      aspect-ratio: 1.1;
+      padding: 0.25rem 0.3rem;
+    }
+
+    .calendar-month .day-num { font-size: 0.82rem; }
+    .calendar-month .day-tier-label { font-size: 0.46rem; }
+    .calendar-month .status-label { font-size: 0.48rem; }
+
+    @media (max-width: 900px) {
+      .calendar-months { grid-template-columns: 1fr; }
+      .section-row,
+      .rates-block { grid-template-columns: 1fr; }
+      .rates-block .rates-grid { grid-template-columns: 1fr !important; }
+    }
 
     /* Calendar panel */
     .calendar-panel {
@@ -650,53 +703,6 @@
     .legend-dot.tier-peak { background: var(--tier-peak-bg); border: 1px solid var(--tier-peak-border); }
     .legend-dot.tier-super { background: var(--tier-super-bg); border: 1px solid var(--tier-super-border); }
 
-    /* Sidebar */
-    .sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      min-height: 0;
-    }
-
-    .sidebar .selected-day-panel {
-      flex-shrink: 0;
-    }
-
-    /* Sidebar height is synced to the calendar via JS; rates flex to fill,
-       and the book button is pinned to the column bottom. */
-    .sidebar .rates-section {
-      flex: 1 1 0;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    .sidebar .rates-grid {
-      flex: 1 1 0;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-    }
-    .sidebar .rate-service-card {
-      flex: 1 1 0;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0.75rem 1.15rem;
-    }
-    .sidebar .rates-card-header { padding: 0.75rem 1.15rem 0.4rem; flex-shrink: 0; }
-    .sidebar .rates-card-header h3 { font-size: 1.35rem; }
-    .sidebar .service-card-title { font-size: 1.05rem; margin-bottom: 0.05rem; }
-    .sidebar .service-card-sub { font-size: 0.68rem; margin-bottom: 0.35rem; }
-    .sidebar .rate-rows { gap: 0.25rem; }
-    .sidebar .rate-row { padding: 0.32rem 0.55rem; }
-    .sidebar .bottom-book-wrap {
-      flex-shrink: 0;
-      margin-top: auto;
-      padding: 0;
-    }
-
     .rates-scroll-hint {
       text-align: center;
       font-size: 0.85rem;
@@ -712,27 +718,9 @@
       padding: 0 0.25rem;
     }
 
-    .reviews-header {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
     .title-play {
       font-style: italic;
       color: var(--sage);
-    }
-
-    .reviews-header h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 0.35rem;
-    }
-
-    .reviews-header p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
     }
 
     .reviews-carousel {
@@ -832,18 +820,6 @@
     .about-section {
       margin-top: 2.5rem;
       padding: 0 0.25rem;
-    }
-
-    .about-header {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .about-header h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
-      font-weight: 600;
-      color: var(--text);
     }
 
     /* Same carousel shell as reviews; card matches .review-card tile width */
@@ -999,54 +975,25 @@
 
     .rates-scroll-hint a:hover { text-decoration: underline; }
 
-    .rates-section {
+    .rates-block {
       background: var(--surface);
       border-radius: var(--radius);
       box-shadow: var(--shadow-lg);
       border: 1px solid var(--border);
-      overflow: hidden;
-      margin-top: 0.75rem;
+      padding: 1.25rem 1.5rem;
     }
 
-    .rates-card-header {
-      padding: 1.25rem 1.25rem 0.75rem;
-    }
-
-    .rates-card-header h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-
-    .rates-card-header p {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .rates-grid {
+    .rates-block .rates-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      border-top: 1px solid var(--border);
-    }
-
-    @media (max-width: 768px) {
-      .rates-grid { grid-template-columns: 1fr; }
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
     }
 
     .rate-service-card {
-      padding: 1.25rem 1.5rem;
-      border-right: 1px solid var(--border);
-    }
-
-    .rate-service-card:last-child { border-right: none; }
-
-    @media (max-width: 768px) {
-      .rate-service-card {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-      }
-      .rate-service-card:last-child { border-bottom: none; }
+      padding: 1rem 1.15rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg-warm);
     }
 
     .rate-service-card.visit {
@@ -1363,7 +1310,7 @@
       .status-dot { width: 6px; height: 6px; }
       .day-client { font-size: 0.42rem; }
 
-      .layout { gap: 1rem; }
+      .main-stack { gap: 1rem; }
       .rates-scroll-hint { font-size: 0.78rem; margin-top: 0.5rem; }
       .legend-item { font-size: 0.66rem; }
       .legend-title { font-size: 0.62rem; }
@@ -1425,7 +1372,7 @@
       Tap a day to update availability · saves automatically<span id="syncStatus"></span>
     </p>
 
-    <div class="layout">
+    <div class="main-stack">
       <div class="calendar-column">
         <div class="info-ribbon pet-fact" id="petFactBar" aria-live="polite">
           <span class="pet-fact-label">Did you know?</span>
@@ -1434,56 +1381,73 @@
             <p class="pet-fact-text" id="petFactText">Your cat spends up to 16 hours a day resting, but rarely sleeps deeply - they stay half-alert even with their eyes closed.</p>
           </div>
         </div>
-      <main class="calendar-panel">
-        <div class="calendar-header">
-          <button class="nav-btn" id="prevMonth" aria-label="Previous month">‹</button>
-          <h2 id="monthLabel"></h2>
-          <button class="nav-btn" id="nextMonth" aria-label="Next month">›</button>
-        </div>
-        <p class="calendar-hint" id="calendarHint" hidden>Click a day to update availability</p>
-        <div class="weekdays">
-          <div class="weekday">Mon</div>
-          <div class="weekday">Tue</div>
-          <div class="weekday">Wed</div>
-          <div class="weekday">Thu</div>
-          <div class="weekday">Fri</div>
-          <div class="weekday">Sat</div>
-          <div class="weekday">Sun</div>
-        </div>
-        <div class="days-grid" id="daysGrid"></div>
-        <div class="legend-card calendar-legend">
-          <div class="legend-section">
-            <div class="legend-title">Availability</div>
-            <div class="legend-item"><span class="legend-dot dot-available" aria-hidden="true"></span> Available</div>
-            <div class="legend-item"><span class="legend-dot dot-booked" aria-hidden="true"></span> Booked</div>
-            <div class="legend-item"><span class="legend-dot dot-unavailable" aria-hidden="true"></span> Unavailable</div>
+        <main class="calendar-panel">
+          <div class="calendar-header">
+            <button class="nav-btn" id="prevMonth" aria-label="Previous months">‹</button>
+            <h2 id="monthRangeLabel"></h2>
+            <button class="nav-btn" id="nextMonth" aria-label="Next months">›</button>
           </div>
-          <div class="legend-section rate-period-legend" id="ratePeriodLegend">
-            <div class="legend-title">Rate period</div>
-            <div class="legend-item"><span class="legend-dot tier-off" aria-hidden="true"></span> Off-peak</div>
-            <div class="legend-item"><span class="legend-dot tier-peak" aria-hidden="true"></span> Peak</div>
-            <div class="legend-item"><span class="legend-dot tier-super" aria-hidden="true"></span> Super peak</div>
+          <p class="calendar-hint" id="calendarHint" hidden>Click a day to update availability</p>
+          <div class="calendar-months">
+            <div class="calendar-month">
+              <h3 class="month-title" id="monthLabel0"></h3>
+              <div class="weekdays">
+                <div class="weekday">Mon</div>
+                <div class="weekday">Tue</div>
+                <div class="weekday">Wed</div>
+                <div class="weekday">Thu</div>
+                <div class="weekday">Fri</div>
+                <div class="weekday">Sat</div>
+                <div class="weekday">Sun</div>
+              </div>
+              <div class="days-grid" id="daysGrid0"></div>
+            </div>
+            <div class="calendar-month">
+              <h3 class="month-title" id="monthLabel1"></h3>
+              <div class="weekdays">
+                <div class="weekday">Mon</div>
+                <div class="weekday">Tue</div>
+                <div class="weekday">Wed</div>
+                <div class="weekday">Thu</div>
+                <div class="weekday">Fri</div>
+                <div class="weekday">Sat</div>
+                <div class="weekday">Sun</div>
+              </div>
+              <div class="days-grid" id="daysGrid1"></div>
+            </div>
           </div>
-        </div>
-      </main>
+          <div class="legend-card calendar-legend">
+            <div class="legend-section">
+              <div class="legend-title">Availability</div>
+              <div class="legend-item"><span class="legend-dot dot-available" aria-hidden="true"></span> Available</div>
+              <div class="legend-item"><span class="legend-dot dot-booked" aria-hidden="true"></span> Booked</div>
+              <div class="legend-item"><span class="legend-dot dot-unavailable" aria-hidden="true"></span> Unavailable</div>
+            </div>
+            <div class="legend-section rate-period-legend" id="ratePeriodLegend">
+              <div class="legend-title">Rate period</div>
+              <div class="legend-item"><span class="legend-dot tier-off" aria-hidden="true"></span> Off-peak</div>
+              <div class="legend-item"><span class="legend-dot tier-peak" aria-hidden="true"></span> Peak</div>
+              <div class="legend-item"><span class="legend-dot tier-super" aria-hidden="true"></span> Super peak</div>
+            </div>
+          </div>
+        </main>
       </div>
 
-      <aside class="sidebar">
-        <div class="selected-day-panel" id="selectedPanel">
-          <h4 id="selectedDateLabel">Select a date</h4>
-          <div class="detail owner-only" id="selectedTier"></div>
-          <div class="detail owner-only" id="selectedRates"></div>
-          <div class="detail" id="selectedStatus"></div>
-          <div class="detail owner-only" id="selectedBooking"></div>
-          <div class="status-picker" id="statusPicker"></div>
-        </div>
-
-        <section class="rates-section" id="ratesSection">
-      <div class="rates-card-header">
-        <h3>Rates</h3>
-        <p>Pricing varies by season &amp; demand</p>
+      <div class="selected-day-panel" id="selectedPanel">
+        <h4 id="selectedDateLabel">Select a date</h4>
+        <div class="detail owner-only" id="selectedTier"></div>
+        <div class="detail owner-only" id="selectedRates"></div>
+        <div class="detail" id="selectedStatus"></div>
+        <div class="detail owner-only" id="selectedBooking"></div>
+        <div class="status-picker" id="statusPicker"></div>
       </div>
-      <div class="rates-grid">
+
+      <section class="rates-block" id="ratesSection">
+        <div class="section-heading-col rates-card-header">
+          <h3>Rates</h3>
+          <p>Pricing varies by season &amp; demand</p>
+        </div>
+        <div class="rates-grid">
         <div class="rate-service-card visit">
           <div class="service-card-title">Visit</div>
           <div class="service-card-sub">25-45 min · max 2 per day</div>
@@ -1540,16 +1504,15 @@
           </div>
         </div>
       </div>
-        </section>
+      </section>
 
-        <div class="bottom-book-wrap">
-          <a class="bottom-book-btn" id="bookBtnBottom" href="#">Book my pet sitting</a>
-        </div>
-      </aside>
+      <div class="bottom-book-wrap">
+        <a class="bottom-book-btn" id="bookBtnBottom" href="#">Book my pet sitting</a>
+      </div>
     </div>
 
-    <section class="reviews-section" aria-label="Client reviews">
-      <div class="reviews-header">
+    <section class="reviews-section section-row" aria-label="Client reviews">
+      <div class="section-heading-col reviews-header">
         <h3>Passed the <span class="title-play">sniff</span> test</h3>
         <p>London pet parents, in their own words</p>
       </div>
@@ -1593,8 +1556,8 @@
       </div>
     </section>
 
-    <section class="about-section" aria-label="About us">
-      <div class="about-header">
+    <section class="about-section section-row" aria-label="About us">
+      <div class="section-heading-col about-header">
         <h3>The faces behind your <span class="title-play">photo updates</span></h3>
       </div>
       <div class="reviews-carousel about-carousel">
@@ -1644,12 +1607,12 @@
     </section>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (o)</span><br />
+      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (p)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
 
-  <script src="config.js?v=20260610o"></script>
+  <script src="config.js?v=20260610p"></script>
   <script src="auth.js"></script>
   <script src="shared.js"></script>
   <script>
@@ -1719,23 +1682,11 @@
 
     let availability = {};
 
-    function syncLayoutHeights() {
-      const col = document.querySelector('.calendar-column');
-      const sidebar = document.querySelector('.sidebar');
-      if (!col || !sidebar) return;
-      if (window.matchMedia('(max-width: 900px)').matches) {
-        sidebar.style.height = '';
-        return;
-      }
-      sidebar.style.height = col.offsetHeight + 'px';
-    }
-
     async function boot() {
       await hydrateFromStore();
       ensureBookings();
       availability = syncAvailabilityFromBookings();
       renderCalendar();
-      requestAnimationFrame(syncLayoutHeights);
     }
 
     function dateKey(y, m, d) {
@@ -1768,20 +1719,15 @@
       return cmp < today;
     }
 
-    function renderCalendar() {
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth();
+    const MONTH_NAMES = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December',
+    ];
 
-      const monthNames = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December',
-      ];
-      document.getElementById('monthLabel').textContent = `${monthNames[month]} ${year}`;
-
+    function renderMonthGrid(grid, year, month) {
+      if (!grid) return;
       const firstDay = getMondayWeekStartPad(new Date(year, month, 1));
       const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-      const grid = document.getElementById('daysGrid');
       grid.innerHTML = '';
 
       for (let i = 0; i < firstDay; i++) {
@@ -1795,7 +1741,6 @@
         const status = getStatus(date);
         const past = isPast(date);
         const key = dateKey(year, month, d);
-
         const booking = owner ? getBookingForDate(key) : null;
         const tier = getTier(date);
         const tierDayClass = tier === 'peak' ? 'tier-peak-day'
@@ -1822,7 +1767,22 @@
 
         grid.appendChild(cell);
       }
-      requestAnimationFrame(syncLayoutHeights);
+    }
+
+    function renderCalendar() {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      const next = new Date(year, month + 1, 1);
+      const nextYear = next.getFullYear();
+      const nextMonth = next.getMonth();
+
+      document.getElementById('monthLabel0').textContent = `${MONTH_NAMES[month]} ${year}`;
+      document.getElementById('monthLabel1').textContent = `${MONTH_NAMES[nextMonth]} ${nextYear}`;
+      document.getElementById('monthRangeLabel').textContent =
+        `${MONTH_NAMES[month]} & ${MONTH_NAMES[nextMonth]} ${nextYear}`;
+
+      renderMonthGrid(document.getElementById('daysGrid0'), year, month);
+      renderMonthGrid(document.getElementById('daysGrid1'), nextYear, nextMonth);
     }
 
     function selectDay(date) {
@@ -1872,10 +1832,7 @@
         });
       }
       updateBookLink();
-      requestAnimationFrame(syncLayoutHeights);
     }
-
-    window.addEventListener('resize', syncLayoutHeights);
 
     document.getElementById('prevMonth').addEventListener('click', () => {
       currentDate.setMonth(currentDate.getMonth() - 1);
