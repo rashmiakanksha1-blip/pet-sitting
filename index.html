@@ -1543,15 +1543,18 @@
     </section>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
+      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;"></span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
 
-  <script src="config.js"></script>
+  <script src="config.js?v=20260610"></script>
   <script src="auth.js"></script>
   <script src="shared.js"></script>
   <script>
     document.title = `${SITE_CONFIG.customerPageTitle} — ${SITE_CONFIG.businessName}`;
+    const ver = document.getElementById('siteVersion');
+    if (ver && SITE_CONFIG.siteVersion) ver.textContent = `Site updated ${SITE_CONFIG.siteVersion}`;
     document.getElementById('businessName').textContent = SITE_CONFIG.businessName;
     document.getElementById('tagline').textContent = SITE_CONFIG.tagline;
     if (SITE_CONFIG.petsInfo) {
