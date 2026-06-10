@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing Sheet — Paws & Stay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .pricing-note {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      background: var(--bg-warm);
+      border-bottom: 1px solid var(--border);
+    }
+    .rate-override {
+      width: 72px;
+      padding: 0.3rem 0.4rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      text-align: right;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (max-width: 700px) { .summary-grid { grid-template-columns: 1fr; } }
+    .summary-item {
+      background: var(--bg-warm);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+    }
+    .summary-item .label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .summary-item .value { font-size: 1rem; font-weight: 500; margin-top: 0.2rem; }
+    .toolbar {
+      display: flex;
+      gap: 0.75rem;
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">
+        <div class="logo-icon">🐾</div>
+        <h1>Paws & Stay</h1>
+      </div>
+      <p class="tagline">Pricing sheet — your earnings record</p>
+    </header>
+
+    <nav class="site-nav">
+      <a href="index.html">Public calendar</a>
+      <a href="inbox.html">Inbox</a>
+      <a href="bookings.html">Bookings</a>
+      <a href="pricing.html" class="active">Pricing sheet</a>
+      <a href="receipts.html">Receipts</a>
+      <button class="btn" type="button" onclick="logout()" style="margin-left:0.25rem;">Log out</button>
+    </nav>
+
+    <div class="panel">
+      <div class="panel-header"><h2>Pricing sheet</h2></div>
+      <p class="pricing-note">After an enquiry email, build a quote here and send it to the client. Dates stay open on the calendar until you confirm the booking.</p>
+
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="bookingSelect">Quote</label>
+          <select id="bookingSelect"></select>
+        </div>
+        <div class="form-field">
+          <label for="serviceType">Service type</label>
+          <select id="serviceType">
+            <option value="overnight">Overnight stay</option>
+            <option value="visit">Visit</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="clientName">Client</label>
+          <input type="text" id="clientName" />
+        </div>
+        <div class="form-field">
+          <label for="petName">Pet name</label>
+          <input type="text" id="petName" />
+        </div>
+        <div class="form-field">
+          <label for="petType">Pet type</label>
+          <input type="text" id="petType" />
+        </div>
+        <div class="form-field">
+          <label for="extraPets">Additional pets</label>
+          <input type="number" id="extraPets" min="0" value="0" />
+        </div>
+        <div class="form-field">
+          <label for="startDate">Start date</label>
+          <input type="date" id="startDate" />
+        </div>
+        <div class="form-field">
+          <label for="endDate">End date</label>
+          <input type="date" id="endDate" />
+        </div>
+        <div class="form-field full">
+          <label for="notes">Notes (internal)</label>
+          <textarea id="notes" rows="2"></textarea>
+        </div>
+      </div>
+
+      <div class="summary-grid" id="summaryGrid"></div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Rate period</th>
+            <th>Service</th>
+            <th>Base rate</th>
+            <th>Extra pets</th>
+            <th>Override</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="lineItems"></tbody>
+      </table>
+
+      <div class="total-bar">
+        <span><strong>Total earnings</strong></span>
+        <span class="amount" id="grandTotal">£0</span>
+      </div>
+
+      <div class="toolbar no-print">
+        <button class="btn" id="newQuoteBtn">New quote</button>
+        <button class="btn btn-primary" id="saveBtn">Save quote</button>
+        <a class="btn" id="receiptLink" href="receipts.html">Receipt</a>
+        <button class="btn" id="confirmBtn" hidden>Confirm booking</button>
+        <button class="btn" onclick="window.print()">Print sheet</button>
+      </div>
+    </div>
+
+    <footer>© 2026 Paws & Stay · Internal record — not for client distribution</footer>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+  <script src="shared.js"></script>
+  <script>
+    requireAuth();
+
+    let bookings = [];
+    let overrides = {};
+    let currentId = null;
+
+    const params = new URLSearchParams(location.search);
+    let isNewQuote = params.get('new') === '1';
+    const inquiryId = params.get('inquiry');
+    const initialId = isNewQuote ? null : (params.get('id') || bookings[0]?.id);
+
+    function loadOverrides(id) {
+      try {
+        const all = JSON.parse(localStorage.getItem(STORAGE_KEYS.pricing) || '{}');
+        overrides = all[id] || {};
+      } catch {
+        overrides = {};
+      }
+    }
+
+    function saveOverrides(id) {
+      const all = JSON.parse(localStorage.getItem(STORAGE_KEYS.pricing) || '{}');
+      all[id] = overrides;
+      localStorage.setItem(STORAGE_KEYS.pricing, JSON.stringify(all));
+    }
+
+    function getCurrentBooking() {
+      return {
+        id: currentId,
+        clientName: document.getElementById('clientName').value,
+        petName: document.getElementById('petName').value,
+        petType: document.getElementById('petType').value,
+        startDate: document.getElementById('startDate').value,
+        endDate: document.getElementById('endDate').value,
+        serviceType: document.getElementById('serviceType').value,
+        extraPets: parseInt(document.getElementById('extraPets').value, 10) || 0,
+        notes: document.getElementById('notes').value,
+        paymentStatus: bookings.find(b => b.id === currentId)?.paymentStatus || 'pending',
+        status: bookings.find(b => b.id === currentId)?.status || BOOKING_STATUS.QUOTED,
+      };
+    }
+
+    function updateConfirmButton(booking) {
+      const btn = document.getElementById('confirmBtn');
+      if (!booking?.id || isConfirmedBooking(booking)) {
+        btn.hidden = true;
+        return;
+      }
+      btn.hidden = false;
+      btn.onclick = async () => {
+        if (!confirm('Mark this booking as confirmed? Those dates will show as booked on your calendar.')) return;
+        confirmBooking(booking.id);
+        bookings = ensureBookings();
+        loadBooking(booking.id);
+        alert('Booking confirmed. Calendar updated.');
+      };
+    }
+
+    function populateSelect() {
+      const sel = document.getElementById('bookingSelect');
+      sel.innerHTML = bookings.map(b =>
+        `<option value="${b.id}">${b.clientName} · ${b.petName} (${b.startDate}) — ${BOOKING_STATUS_LABELS[b.status] || b.status}</option>`
+      ).join('');
+      if (isNewQuote || !bookings.length) {
+        startNewQuote();
+        return;
+      }
+      sel.value = initialId;
+      loadBooking(initialId);
+    }
+
+    function startNewQuote() {
+      currentId = null;
+      overrides = {};
+      document.getElementById('clientName').value = params.get('client') || '';
+      document.getElementById('petName').value = params.get('pet') || '';
+      document.getElementById('petType').value = params.get('petType') || '';
+      document.getElementById('startDate').value = params.get('start') || '';
+      document.getElementById('endDate').value = params.get('end') || params.get('start') || '';
+      document.getElementById('serviceType').value = params.get('service') || 'overnight';
+      document.getElementById('extraPets').value = params.get('extraPets') || '0';
+      document.getElementById('notes').value = params.get('notes') || '';
+      document.getElementById('receiptLink').textContent = 'Receipt';
+      document.getElementById('receiptLink').href = 'receipts.html';
+      document.getElementById('confirmBtn').hidden = true;
+      document.getElementById('lineItems').innerHTML = '';
+      document.getElementById('summaryGrid').innerHTML = '';
+      document.getElementById('grandTotal').textContent = '£0';
+    }
+
+    function loadBooking(id) {
+      currentId = id;
+      const b = bookings.find(x => x.id === id) || bookings[0];
+      if (!b) return;
+      currentId = b.id;
+      loadOverrides(b.id);
+      document.getElementById('clientName').value = b.clientName;
+      document.getElementById('petName').value = b.petName;
+      document.getElementById('petType').value = b.petType;
+      document.getElementById('startDate').value = b.startDate;
+      document.getElementById('endDate').value = b.endDate;
+      document.getElementById('serviceType').value = b.serviceType;
+      document.getElementById('extraPets').value = b.extraPets || 0;
+      document.getElementById('notes').value = b.notes || '';
+      const savedReceipt = getReceiptForBooking(b.id);
+      const link = document.getElementById('receiptLink');
+      link.textContent = savedReceipt ? 'View receipt' : 'Create receipt';
+      link.href = savedReceipt
+        ? `receipt.html?id=${savedReceipt.id}`
+        : `receipt.html?booking=${b.id}`;
+      updateConfirmButton(b);
+      renderLines();
+    }
+
+    function renderLines() {
+      const booking = getCurrentBooking();
+      if (!booking.startDate || !booking.endDate) return;
+
+      const items = buildLineItems(booking);
+      const tbody = document.getElementById('lineItems');
+      let total = 0;
+
+      tbody.innerHTML = items.map(item => {
+        const ov = overrides[item.date];
+        const subtotal = ov !== undefined && ov !== '' ? parseFloat(ov) : item.subtotal;
+        total += subtotal;
+        return `
+          <tr>
+            <td>${item.dateLabel}</td>
+            <td>${item.tierLabel}</td>
+            <td>${item.serviceLabel}</td>
+            <td>${formatMoney(item.rate)}</td>
+            <td>${item.extraPets ? formatMoney(item.extraCharge) : '—'}</td>
+            <td><input class="rate-override" type="number" step="0.01" min="0" data-date="${item.date}"
+              value="${ov !== undefined ? ov : ''}" placeholder="${item.subtotal.toFixed(2)}" /></td>
+            <td><strong>${formatMoney(subtotal)}</strong></td>
+          </tr>
+        `;
+      }).join('');
+
+      document.getElementById('grandTotal').textContent = formatMoney(total);
+
+      const nights = items.length;
+      document.getElementById('summaryGrid').innerHTML = `
+        <div class="summary-item"><div class="label">Client</div><div class="value">${booking.clientName}</div></div>
+        <div class="summary-item"><div class="label">Pet</div><div class="value">${booking.petType} · ${booking.petName}</div></div>
+        <div class="summary-item"><div class="label">Period</div><div class="value">${formatDateRange(booking.startDate, booking.endDate)} (${nights} night${nights !== 1 ? 's' : ''})</div></div>
+      `;
+
+      tbody.querySelectorAll('.rate-override').forEach(input => {
+        input.addEventListener('input', () => {
+          const v = input.value;
+          if (v === '') delete overrides[input.dataset.date];
+          else overrides[input.dataset.date] = v;
+          saveOverrides(currentId);
+          renderLines();
+        });
+      });
+    }
+
+    async function saveBooking() {
+      const updated = getCurrentBooking();
+      const idx = bookings.findIndex(b => b.id === currentId);
+      if (idx >= 0) {
+        bookings[idx] = { ...bookings[idx], ...updated };
+      } else {
+        updated.id = 'booking-' + Date.now();
+        updated.status = BOOKING_STATUS.QUOTED;
+        bookings.push(updated);
+        currentId = updated.id;
+      }
+      saveBookings(bookings);
+      syncAvailabilityFromBookings();
+      await persistOwnerStore();
+      isNewQuote = false;
+      const sel = document.getElementById('bookingSelect');
+      sel.innerHTML = bookings.map(b =>
+        `<option value="${b.id}">${b.clientName} · ${b.petName} (${b.startDate}) — ${BOOKING_STATUS_LABELS[b.status] || b.status}</option>`
+      ).join('');
+      sel.value = currentId;
+      loadBooking(currentId);
+      if (inquiryId) markInquiryQuotedLocally(inquiryId);
+      alert('Quote saved. Send the receipt to your client — dates stay open until they confirm.');
+    }
+
+    document.getElementById('newQuoteBtn').addEventListener('click', () => {
+      isNewQuote = true;
+      startNewQuote();
+    });
+    document.getElementById('bookingSelect').addEventListener('change', e => loadBooking(e.target.value));
+    ['clientName','petName','petType','startDate','endDate','serviceType','extraPets','notes'].forEach(id => {
+      document.getElementById(id).addEventListener('input', renderLines);
+      document.getElementById(id).addEventListener('change', renderLines);
+    });
+    document.getElementById('saveBtn').addEventListener('click', () => { saveBooking(); });
+
+    async function boot() {
+      await hydrateFromStore();
+      bookings = ensureBookings();
+      syncAvailabilityFromBookings();
+      populateSelect();
+    }
+
+    boot();
+  </script>
+</body>
+</html>

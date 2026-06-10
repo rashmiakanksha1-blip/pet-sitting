@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inbox — Paws & Stay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .inbox-intro {
+      padding: 1rem 1.5rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-warm);
+    }
+    .inquiry-card {
+      padding: 1.1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .inquiry-card:last-child { border-bottom: none; }
+    .inquiry-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.35rem;
+    }
+    .inquiry-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: grid;
+      gap: 0.25rem;
+      margin-bottom: 0.75rem;
+    }
+    .inquiry-meta strong { color: var(--text); }
+    .inquiry-preview {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+      margin-bottom: 0.75rem;
+      white-space: pre-wrap;
+      max-height: 120px;
+      overflow: auto;
+    }
+    .inquiry-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .badge-new {
+      display: inline-block;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--amber-light);
+      color: #9a7b10;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-bottom: 0.35rem;
+    }
+    .badge-quoted {
+      background: var(--sage-light);
+      color: var(--sage-dark);
+    }
+    .empty-state {
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">
+        <div class="logo-icon">🐾</div>
+        <h1>Paws & Stay</h1>
+      </div>
+      <p class="tagline">Enquiry inbox</p>
+    </header>
+
+    <nav class="site-nav">
+      <a href="index.html">Public calendar</a>
+      <a href="inbox.html" class="active">Inbox</a>
+      <a href="bookings.html">Bookings</a>
+      <a href="pricing.html">Pricing sheet</a>
+      <a href="receipts.html">Receipts</a>
+      <button class="btn" type="button" onclick="logout()" style="margin-left:0.25rem;">Log out</button>
+    </nav>
+
+    <div class="panel">
+      <div class="panel-header"><h2>Email enquiries</h2></div>
+      <p class="inbox-intro" id="inboxIntro">Loading…</p>
+      <div id="inquiryList"></div>
+    </div>
+
+    <footer>© 2026 Paws & Stay</footer>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+  <script src="shared.js"></script>
+  <script>
+    requireAuth();
+
+    function formatReceived(iso) {
+      try {
+        return new Date(iso).toLocaleString('en-GB', {
+          weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit',
+        });
+      } catch {
+        return iso;
+      }
+    }
+
+    function renderInquiries(inquiries) {
+      const newCount = countNewInquiries(inquiries);
+      document.getElementById('inboxIntro').textContent = newCount
+        ? `${newCount} new enquiry${newCount !== 1 ? 'ies' : ''} — create a quote when you're ready. Nothing is booked until the client accepts.`
+        : 'No new enquiries. Your daily inbox check adds requests here automatically.';
+
+      const el = document.getElementById('inquiryList');
+      if (!inquiries.length) {
+        el.innerHTML = '<div class="empty-state">When a client emails your booking address, it will appear here.</div>';
+        return;
+      }
+
+      el.innerHTML = inquiries.map(inq => {
+        const isNew = inq.status === 'new';
+        const badge = isNew ? 'badge-new' : 'badge-new badge-quoted';
+        const badgeText = isNew ? 'New' : 'Quote started';
+        const dates = inq.startDate
+          ? (inq.endDate && inq.endDate !== inq.startDate
+            ? formatDateRange(inq.startDate, inq.endDate)
+            : inq.startDate)
+          : 'Dates TBC';
+        return `
+          <div class="inquiry-card" data-id="${inq.id}">
+            <span class="${badge}">${badgeText}</span>
+            <h3>${inq.clientName || inq.fromName || 'Unknown client'}</h3>
+            <div class="inquiry-meta">
+              <div><strong>From:</strong> ${inq.fromName || ''} &lt;${inq.from || ''}&gt;</div>
+              <div><strong>Received:</strong> ${formatReceived(inq.receivedAt)}</div>
+              <div><strong>Pet:</strong> ${inq.petType || '—'} · ${inq.petName || 'TBC'}</div>
+              <div><strong>Dates:</strong> ${dates}</div>
+            </div>
+            <div class="inquiry-preview">${(inq.notes || inq.subject || '').replace(/</g, '&lt;')}</div>
+            <div class="inquiry-actions">
+              <a class="btn btn-primary" href="${buildPricingUrlFromInquiry(inq)}">Create quote</a>
+              <button class="btn" type="button" onclick="dismissInquiry('${inq.id}')">Dismiss</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.dismissInquiry = function(id) {
+      dismissInquiryLocally(id);
+      loadInquiriesFromFile().then(renderInquiries);
+    };
+
+    loadInquiriesFromFile().then(renderInquiries);
+  </script>
+</body>
+</html>

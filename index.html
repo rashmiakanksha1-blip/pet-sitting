@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Check availability</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f6f9f6;
+      --bg-warm: #e9f1ec;
+      --surface: #ffffff;
+      --text: #26302a;
+      --text-muted: #6d7c72;
+      --border: #dde8e0;
+      --sage: #6b8f71;
+      --sage-light: #e8f0e9;
+      --sage-dark: #4a6b50;
+      --coral: #d4846a;
+      --coral-light: #fdf0eb;
+      --amber: #c9a227;
+      --amber-light: #fdf8e8;
+      --rose: #b85c6e;
+      --rose-light: #fceef1;
+      --slate: #8a9aab;
+      --slate-light: #eef1f4;
+      --shadow: 0 4px 24px rgba(44, 36, 25, 0.06);
+      --shadow-lg: 0 12px 48px rgba(44, 36, 25, 0.1);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background:
+        radial-gradient(ellipse 95% 65% at 6% -8%, rgba(107, 143, 113, 0.22), transparent 60%),
+        radial-gradient(ellipse 75% 55% at 96% 4%, rgba(122, 168, 184, 0.18), transparent 58%),
+        radial-gradient(ellipse 85% 60% at 92% 106%, rgba(230, 154, 122, 0.16), transparent 60%),
+        radial-gradient(ellipse 75% 55% at 2% 98%, rgba(140, 184, 150, 0.16), transparent 58%),
+        linear-gradient(160deg, var(--bg) 0%, var(--bg-warm) 100%);
+      background-attachment: fixed;
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%236b8f71' fill-opacity='0.05'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3Cg transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-size: 220px 220px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 560px;
+      height: 560px;
+      margin: -280px 0 0 -280px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(107, 143, 113, 0.16), transparent 65%),
+        radial-gradient(circle at 50% 50%, rgba(201, 162, 39, 0.14) 0%, transparent 38%);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+      will-change: transform;
+    }
+
+    .bg-glow-core {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 240px;
+      height: 240px;
+      margin: -120px 0 0 -120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 132, 106, 0.18), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      will-change: transform;
+    }
+
+    .bg-glow.active, .bg-glow-core.active { opacity: 1; }
+
+    .paw-trail {
+      position: fixed;
+      z-index: 0;
+      pointer-events: none;
+      width: 26px;
+      height: 26px;
+      margin: -13px 0 0 -13px;
+      opacity: 0;
+      transform: translateY(0) scale(0.5);
+      animation: pawFloat 1.7s ease-out forwards;
+    }
+
+    .paw-trail::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      transform: rotate(var(--paw-rot, 0deg));
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%236b8f71'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .paw-trail.alt::before { filter: hue-rotate(8deg); }
+
+    @keyframes pawFloat {
+      14% { opacity: 0.55; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-18px) scale(0.92); }
+    }
+
+    .ambient-paw {
+      position: fixed;
+      bottom: -40px;
+      z-index: 0;
+      pointer-events: none;
+      width: 30px;
+      height: 30px;
+      opacity: 0;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%236b8f71'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
+      animation: ambientRise linear forwards;
+    }
+
+    @keyframes ambientRise {
+      0% { opacity: 0; transform: translateY(0) rotate(var(--amb-rot, 0deg)); }
+      12% { opacity: 0.16; }
+      88% { opacity: 0.16; }
+      100% { opacity: 0; transform: translateY(-115vh) rotate(var(--amb-rot, 0deg)); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bg-glow, .bg-glow-core, .paw-trail, .ambient-paw { display: none !important; }
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+    }
+
+    header {
+      position: relative;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding-top: 0.25rem;
+    }
+
+    .header-book-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0.65rem 1.1rem;
+      background: linear-gradient(135deg, var(--sage-dark), var(--sage));
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      text-align: center;
+      white-space: nowrap;
+      box-shadow: var(--shadow);
+      z-index: 2;
+    }
+
+    .header-book-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lg);
+      color: white;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--sage), var(--sage-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: var(--shadow);
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .pets-info {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .pets-info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.65rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow);
+      font-size: 0.88rem;
+    }
+
+    .pets-info-icon { font-size: 1.35rem; line-height: 1; }
+
+    .pets-info-item strong {
+      display: block;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .pets-info-item span {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+    }
+
+    .tagline {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      font-weight: 300;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 1.75rem;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+
+    /* Calendar panel */
+    .calendar-panel {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      overflow: visible;
+      min-width: 0;
+    }
+
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(to bottom, #fff, var(--bg-warm));
+    }
+
+    .calendar-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .nav-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--text);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-btn:hover {
+      background: var(--sage-light);
+      border-color: var(--sage);
+      color: var(--sage-dark);
+    }
+
+    .calendar-hint {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      background: var(--bg-warm);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      padding: 0.75rem 1rem 0.25rem;
+      gap: 4px;
+    }
+
+    .weekday {
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 0.5rem 0;
+    }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 6px;
+      padding: 0.25rem 1rem 1.25rem;
+      min-width: 0;
+    }
+
+    .day {
+      aspect-ratio: 1;
+      min-height: 0;
+      min-width: 0;
+      width: 100%;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+      padding: 0.4rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .day.tier-off-day {
+      background: #ffffff;
+      border-color: var(--border);
+    }
+
+    .day.tier-peak-day {
+      background: #f8e8d8;
+      border-color: #e8cdb8;
+    }
+
+    .day.tier-super-day {
+      background: #f5e4ec;
+      border-color: #e8cdd8;
+    }
+
+    .day:hover:not(.empty):not(.past) {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .day.empty { cursor: default; background: transparent; }
+    .day.past { opacity: 0.45; cursor: not-allowed; }
+
+    .day-num {
+      font-size: 0.9rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .day-tier-label {
+      font-size: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-top: 3px;
+      line-height: 1.1;
+    }
+
+    .day.tier-peak-day .day-tier-label { color: #b8885a; }
+    .day.tier-super-day .day-tier-label { color: #b87a94; }
+
+    .day-status {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: auto;
+      align-self: flex-start;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .status-label {
+      font-size: 0.52rem;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    .day.available .status-dot { background: #4caf50; }
+    .day.available .status-label { color: #3d8b40; }
+    .day.booked .status-dot { background: #e05252; }
+    .day.booked .status-label { color: #c04040; }
+    .day.unavailable .status-dot { background: #9e9e9e; }
+    .day.unavailable .status-label { color: #757575; }
+
+    /* Tier legend */
+    .tier-off { background: #ffffff; border: 1px solid var(--border); }
+    .tier-peak { background: #f8e8d8; border: 1px solid #e8cdb8; }
+    .tier-super { background: #f5e4ec; border: 1px solid #e8cdd8; }
+
+    .legend-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .legend-section {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.35rem 0.6rem;
+    }
+
+    .legend-section + .legend-section {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .legend-title {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-right: 0.15rem;
+      flex-shrink: 0;
+    }
+
+    .legend-title::after {
+      content: '·';
+      margin-left: 0.35rem;
+      font-weight: 400;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .legend-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      min-width: 10px;
+      min-height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .legend-dot.dot-available { background: #4caf50; }
+    .legend-dot.dot-booked { background: #e05252; }
+    .legend-dot.dot-unavailable { background: #9e9e9e; }
+
+    .legend-dot.tier-off,
+    .legend-dot.tier-peak,
+    .legend-dot.tier-super {
+      width: 20px;
+      height: 12px;
+      min-width: 20px;
+      min-height: 12px;
+      border-radius: 4px;
+    }
+
+    .legend-dot.tier-off { background: #ffffff; border: 1px solid var(--border); }
+    .legend-dot.tier-peak { background: #f8e8d8; border: 1px solid #e8cdb8; }
+    .legend-dot.tier-super { background: #f5e4ec; border: 1px solid #e8cdd8; }
+
+    /* Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .rates-scroll-hint {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 0.65rem 1rem;
+      background: var(--bg-warm);
+      border-radius: var(--radius-sm);
+      border: 1px dashed var(--border);
+    }
+
+    .reviews-section {
+      margin-top: 2.5rem;
+      padding: 0 0.25rem;
+    }
+
+    .reviews-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .reviews-header h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .reviews-header p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .reviews-carousel {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .reviews-arrow {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--sage-dark);
+      font-size: 1.35rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .reviews-arrow:hover:not(:disabled) {
+      background: var(--sage-light);
+      border-color: var(--sage);
+    }
+
+    .reviews-arrow:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .reviews-track-wrap {
+      flex: 1;
+      min-width: 0;
+      position: relative;
+    }
+
+    .reviews-track-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 2.5rem;
+      background: linear-gradient(to right, transparent, var(--bg));
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.2s;
+    }
+
+    .reviews-track-wrap.at-end::after {
+      opacity: 0;
+    }
+
+    .reviews-track {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 0.25rem 0.5rem 0.25rem 0.15rem;
+    }
+
+    .reviews-track::-webkit-scrollbar { display: none; }
+
+    .review-card {
+      flex: 0 0 min(300px, calc(100vw - 7rem));
+      scroll-snap-align: start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.35rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 600px) {
+      .reviews-arrow { width: 36px; height: 36px; font-size: 1.15rem; }
+      .review-card { flex-basis: min(280px, calc(100vw - 5.5rem)); }
+    }
+
+    .review-stars {
+      color: var(--amber);
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+    }
+
+    .review-text {
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .review-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 0.75rem;
+    }
+
+    .review-meta strong {
+      color: var(--sage-dark);
+      font-weight: 500;
+    }
+
+    .bottom-book-wrap {
+      margin-top: 1.5rem;
+      padding: 0 0.25rem;
+    }
+
+    .bottom-book-btn {
+      display: block;
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 0.9rem 1.25rem;
+      background: linear-gradient(135deg, var(--sage-dark), var(--sage));
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: center;
+      text-decoration: none;
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .bottom-book-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(44, 36, 25, 0.12);
+      color: white;
+    }
+
+    .rates-scroll-hint a {
+      color: var(--sage-dark);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .rates-scroll-hint a:hover { text-decoration: underline; }
+
+    .rates-section {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-top: 0.75rem;
+    }
+
+    .rates-card-header {
+      padding: 1.25rem 1.25rem 0.75rem;
+    }
+
+    .rates-card-header h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .rates-card-header p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .rates-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 768px) {
+      .rates-grid { grid-template-columns: 1fr; }
+    }
+
+    .rate-service-card {
+      padding: 1.25rem 1.5rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .rate-service-card:last-child { border-right: none; }
+
+    @media (max-width: 768px) {
+      .rate-service-card {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .rate-service-card:last-child { border-bottom: none; }
+    }
+
+    .rate-service-card.visit {
+      background: linear-gradient(to bottom, var(--sage-light), transparent);
+    }
+
+    .rate-service-card.overnight {
+      background: linear-gradient(to bottom, var(--bg-warm), transparent);
+    }
+
+    .service-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .service-card-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .tier-badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+
+    .tier-badge.off { background: var(--sage); color: white; }
+    .tier-badge.peak { background: var(--amber); color: white; }
+    .tier-badge.super { background: var(--coral); color: white; }
+
+    .tier-when {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .rate-rows {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .rate-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.55rem 0.75rem;
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 8px;
+    }
+
+    .rate-type {
+      font-size: 0.85rem;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.3rem;
+    }
+
+    .rate-type .tier-when {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .rate-price {
+      font-size: 1.25rem;
+      font-weight: 600;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .rate-price small {
+      font-size: 0.75rem;
+      font-weight: 400;
+      font-family: 'Outfit', sans-serif;
+      color: var(--text-muted);
+    }
+
+    .contact-card {
+      background: linear-gradient(135deg, var(--sage-dark), var(--sage));
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      color: white;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .contact-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-card p {
+      font-size: 0.88rem;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+      font-weight: 300;
+    }
+
+    .contact-btn {
+      display: block;
+      width: 100%;
+      padding: 0.75rem;
+      background: white;
+      color: var(--sage-dark);
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .selected-day-panel {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow);
+      display: none;
+    }
+
+    .selected-day-panel.visible { display: block; }
+
+    .selected-day-panel h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .selected-day-panel .detail {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .selected-day-panel .detail strong {
+      color: var(--text);
+    }
+
+    .status-picker {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .status-btn {
+      padding: 0.35rem 0.65rem;
+      border-radius: 20px;
+      border: 1.5px solid var(--border);
+      background: white;
+      font-size: 0.72rem;
+      font-family: 'Outfit', sans-serif;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .status-btn:hover, .status-btn.active {
+      border-color: var(--sage);
+      background: var(--sage-light);
+      color: var(--sage-dark);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .site-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .site-nav a {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      border-color: var(--sage);
+      background: var(--sage-light);
+      color: var(--sage-dark);
+    }
+
+    .day-client {
+      font-size: 0.48rem;
+      color: var(--rose);
+      margin-top: 2px;
+      line-height: 1.1;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .owner-only[hidden],
+    [hidden] { display: none !important; }
+
+    .owner-hint {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: -1rem 0 1.5rem;
+    }
+
+    #syncStatus {
+      color: var(--sage-dark);
+      font-weight: 500;
+      margin-left: 0.35rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn:hover {
+      border-color: var(--sage);
+      background: var(--sage-light);
+      color: var(--sage-dark);
+    }
+
+    .site-nav .btn {
+      font-size: 0.85rem;
+      padding: 0.5rem 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .page { padding: 1rem 0.5rem 2rem; }
+      h1 { font-size: 1.85rem; }
+      .tagline { font-size: 0.92rem; }
+      .site-nav a, .site-nav .btn { font-size: 0.8rem; padding: 0.45rem 0.85rem; }
+      .owner-hint { font-size: 0.78rem; margin: -0.75rem 0 1.25rem; }
+
+      .calendar-header { padding: 0.85rem 0.5rem; }
+      .calendar-header h2 { font-size: 1.25rem; min-width: 0; }
+      .nav-btn { width: 36px; height: 36px; font-size: 1rem; flex-shrink: 0; }
+
+      .calendar-hint {
+        padding: 0.55rem 0.65rem;
+        font-size: 0.72rem;
+        line-height: 1.4;
+      }
+
+      .weekdays {
+        padding: 0.4rem 0.35rem 0.15rem;
+        gap: 2px;
+      }
+      .weekday {
+        font-size: 0.58rem;
+        letter-spacing: 0.04em;
+        padding: 0.2rem 0;
+      }
+
+      .days-grid {
+        gap: 3px;
+        padding: 0.15rem 0.35rem 0.65rem;
+      }
+
+      .day {
+        padding: 0.15rem;
+        border-radius: 6px;
+        border-width: 1px;
+      }
+
+      .day-num { font-size: 0.7rem; }
+      .day-tier-label {
+        font-size: 0.42rem;
+        margin-top: 1px;
+        line-height: 1;
+      }
+      .status-label {
+        display: inline;
+        font-size: 0.48rem;
+      }
+      .status-dot { width: 6px; height: 6px; }
+      .day-client { font-size: 0.42rem; }
+
+      .layout { gap: 1rem; }
+      .rates-scroll-hint { font-size: 0.78rem; margin-top: 0.5rem; }
+      .legend-item { font-size: 0.66rem; }
+      .legend-title { font-size: 0.62rem; }
+      .legend-dot { width: 9px; height: 9px; min-width: 9px; min-height: 9px; }
+      .legend-dot.tier-off,
+      .legend-dot.tier-peak,
+      .legend-dot.tier-super { width: 18px; height: 11px; min-width: 18px; min-height: 11px; }
+      header { padding-top: 2.75rem; }
+      .header-book-btn {
+        font-size: 0.72rem;
+        padding: 0.55rem 0.7rem;
+        max-width: 42%;
+        white-space: normal;
+        line-height: 1.25;
+        text-align: right;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow" id="bgGlow" aria-hidden="true"></div>
+  <div class="bg-glow-core" id="bgGlowCore" aria-hidden="true"></div>
+  <div class="page">
+    <header>
+      <a class="header-book-btn" id="bookBtn" href="#">Book pet sitting</a>
+      <div class="logo">
+        <div class="logo-icon">🐾</div>
+        <h1 id="businessName">Paws & Stay</h1>
+      </div>
+      <p class="tagline" id="tagline">Loving care for your pets while you're away</p>
+      <div class="pets-info" id="petsInfo">
+        <div class="pets-info-item">
+          <span class="pets-info-icon" aria-hidden="true">🐱</span>
+          <div>
+            <strong>Cats</strong>
+            <span id="petsCats">All sizes welcome</span>
+          </div>
+        </div>
+        <div class="pets-info-item">
+          <span class="pets-info-icon" aria-hidden="true">🐕</span>
+          <div>
+            <strong>Dogs</strong>
+            <span id="petsDogs">Small breeds · pug-sized &amp; similar</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="site-nav owner-only" id="ownerNav" hidden>
+      <a href="index.html" class="active">Calendar</a>
+      <a href="inbox.html">Inbox</a>
+      <a href="bookings.html">Bookings</a>
+      <a href="pricing.html">Pricing sheet</a>
+      <a href="receipts.html">Receipts</a>
+      <a href="index.html?view=client">Client preview</a>
+      <button class="btn" type="button" onclick="logout()">Log out</button>
+    </nav>
+    <p class="owner-hint owner-only" id="ownerHint" hidden>
+      Tap a day to update availability · saves automatically<span id="syncStatus"></span>
+    </p>
+
+    <div class="layout">
+      <main class="calendar-panel">
+        <div class="calendar-header">
+          <button class="nav-btn" id="prevMonth" aria-label="Previous month">‹</button>
+          <h2 id="monthLabel"></h2>
+          <button class="nav-btn" id="nextMonth" aria-label="Next month">›</button>
+        </div>
+        <p class="calendar-hint" id="calendarHint" hidden>Click a day to update availability</p>
+        <div class="weekdays">
+          <div class="weekday">Mon</div>
+          <div class="weekday">Tue</div>
+          <div class="weekday">Wed</div>
+          <div class="weekday">Thu</div>
+          <div class="weekday">Fri</div>
+          <div class="weekday">Sat</div>
+          <div class="weekday">Sun</div>
+        </div>
+        <div class="days-grid" id="daysGrid"></div>
+      </main>
+
+      <aside class="sidebar">
+        <p class="rates-scroll-hint" id="ratesScrollHint">
+          <a href="#ratesSection">↓ Scroll down to see full rates</a>
+        </p>
+
+        <div class="selected-day-panel" id="selectedPanel">
+          <h4 id="selectedDateLabel">Select a date</h4>
+          <div class="detail owner-only" id="selectedTier"></div>
+          <div class="detail owner-only" id="selectedRates"></div>
+          <div class="detail" id="selectedStatus"></div>
+          <div class="detail owner-only" id="selectedBooking"></div>
+          <div class="status-picker" id="statusPicker"></div>
+        </div>
+
+        <div class="legend-card">
+          <div class="legend-section">
+            <div class="legend-title">Availability</div>
+            <div class="legend-item"><span class="legend-dot dot-available" aria-hidden="true"></span> Available</div>
+            <div class="legend-item"><span class="legend-dot dot-booked" aria-hidden="true"></span> Booked</div>
+            <div class="legend-item"><span class="legend-dot dot-unavailable" aria-hidden="true"></span> Unavailable</div>
+          </div>
+          <div class="legend-section rate-period-legend" id="ratePeriodLegend">
+            <div class="legend-title">Rate period</div>
+            <div class="legend-item"><span class="legend-dot tier-off" aria-hidden="true"></span> Off-peak</div>
+            <div class="legend-item"><span class="legend-dot tier-peak" aria-hidden="true"></span> Peak</div>
+            <div class="legend-item"><span class="legend-dot tier-super" aria-hidden="true"></span> Super peak</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <section class="rates-section" id="ratesSection">
+      <div class="rates-card-header">
+        <h3>Rates</h3>
+        <p>Pricing varies by season & demand</p>
+      </div>
+      <div class="rates-grid">
+        <div class="rate-service-card visit">
+          <div class="service-card-title">Visit</div>
+          <div class="service-card-sub">25–45 min · max 2 per day</div>
+          <div class="rate-rows">
+            <div class="rate-row">
+              <div class="rate-type">
+                <span class="tier-badge off">Off-peak</span>
+                <span class="tier-when">Mon–Fri (not bank holidays)</span>
+              </div>
+              <div class="rate-price">£13 <small>/ visit</small></div>
+            </div>
+            <div class="rate-row">
+              <div class="rate-type">
+                <span class="tier-badge peak">Peak</span>
+                <span class="tier-when">Every Saturday & Sunday</span>
+              </div>
+              <div class="rate-price">£14 <small>/ visit</small></div>
+            </div>
+            <div class="rate-row">
+              <div class="rate-type">
+                <span class="tier-badge super">Super peak</span>
+                <span class="tier-when">Bank holidays · 24 Dec – 1 Jan</span>
+              </div>
+              <div class="rate-price">£16 <small>/ visit</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rate-service-card overnight">
+          <div class="service-card-title">Overnight stay</div>
+          <div class="service-card-sub">In your home · per night</div>
+          <div class="rate-rows">
+            <div class="rate-row">
+              <div class="rate-type">
+                <span class="tier-badge off">Off-peak</span>
+                <span class="tier-when">Mon–Fri (not bank holidays)</span>
+              </div>
+              <div class="rate-price">£25 <small>/ night</small></div>
+            </div>
+            <div class="rate-row">
+              <div class="rate-type">
+                <span class="tier-badge peak">Peak</span>
+                <span class="tier-when">Every Saturday & Sunday</span>
+              </div>
+              <div class="rate-price">£27 <small>/ night</small></div>
+            </div>
+            <div class="rate-row">
+              <div class="rate-type">
+                <span class="tier-badge super">Super peak</span>
+                <span class="tier-when">Bank holidays · 24 Dec – 1 Jan</span>
+              </div>
+              <div class="rate-price">£30 <small>/ night</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="bottom-book-wrap">
+      <a class="bottom-book-btn" id="bookBtnBottom" href="#">Book my pet sitting</a>
+    </div>
+
+    <section class="reviews-section" aria-label="Client reviews">
+      <div class="reviews-header">
+        <h3>What pet parents say</h3>
+        <p>Trusted by dog &amp; cat parents across London</p>
+      </div>
+      <div class="reviews-carousel">
+        <button class="reviews-arrow" id="reviewsPrev" type="button" aria-label="Previous reviews">‹</button>
+        <div class="reviews-track-wrap" id="reviewsTrackWrap">
+          <div class="reviews-track" id="reviewsTrack">
+            <article class="review-card">
+              <div class="review-stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="review-text">“Brilliant with our nervous rescue cat. Feeding, litter, and playtime were all exactly as we asked. We’ve already booked again for the summer.”</p>
+              <div class="review-meta"><strong>James &amp; Priya</strong> · daily visits · cat</div>
+            </article>
+            <article class="review-card">
+              <div class="review-stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="review-text">“Our big Maine Coon needs plenty of attention — no problem at all. Medication and grooming were handled perfectly while we were away.”</p>
+              <div class="review-meta"><strong>Helen</strong> · overnight stay · cat</div>
+            </article>
+            <article class="review-card">
+              <div class="review-stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="review-text">“Our dog Zelda was so relaxed when we got home — daily updates and photos put us completely at ease on a two-week trip. Couldn’t recommend more.”</p>
+              <div class="review-meta"><strong>Ines</strong> · overnight stay · dog</div>
+            </article>
+            <article class="review-card">
+              <div class="review-stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="review-text">“Our pug Winston is a bit of a character — lots of energy in a small package. He was totally happy and well walked every day. Exactly the kind of sitter you want.”</p>
+              <div class="review-meta"><strong>Sophie</strong> · daily visits · dog</div>
+            </article>
+            <article class="review-card">
+              <div class="review-stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="review-text">“We have two indoor cats who don’t love strangers — they warmed up straight away. Came home to happy cats and a tidy flat. Will use again without hesitation.”</p>
+              <div class="review-meta"><strong>Mark &amp; Lisa</strong> · overnight stay · cats</div>
+            </article>
+            <article class="review-card">
+              <div class="review-stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="review-text">“Reliable, kind, and great with our little terrier. Short visits while we were at work — always on time and sends a quick photo so we know she’s fine.”</p>
+              <div class="review-meta"><strong>Anna</strong> · daily visits · dog</div>
+            </article>
+          </div>
+        </div>
+        <button class="reviews-arrow" id="reviewsNext" type="button" aria-label="Next reviews">›</button>
+      </div>
+    </section>
+
+    <footer>© 2026 Paws & Stay · Rates subject to change<br />
+      <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
+    </footer>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+  <script src="shared.js"></script>
+  <script>
+    document.title = `${SITE_CONFIG.customerPageTitle} — ${SITE_CONFIG.businessName}`;
+    document.getElementById('businessName').textContent = SITE_CONFIG.businessName;
+    document.getElementById('tagline').textContent = SITE_CONFIG.tagline;
+    if (SITE_CONFIG.petsInfo) {
+      document.getElementById('petsCats').textContent = SITE_CONFIG.petsInfo.cats;
+      document.getElementById('petsDogs').textContent = SITE_CONFIG.petsInfo.dogs;
+    }
+
+    const bookBtn = document.getElementById('bookBtn');
+    const bookBtnBottom = document.getElementById('bookBtnBottom');
+    let selectedDateKey = null;
+
+    function updateBookLink() {
+      const dates = selectedDateKey ? [selectedDateKey] : [];
+      const url = buildBookingMailtoUrl(dates);
+      bookBtn.href = url;
+      bookBtnBottom.href = url;
+    }
+    updateBookLink();
+
+    const STATUSES = ['available', 'booked', 'unavailable'];
+    const STATUS_LABELS = {
+      available: 'Available',
+      booked: 'Booked',
+      unavailable: 'Unavailable',
+    };
+
+    const STATUS_SHORT = {
+      available: 'Available',
+      booked: 'Booked',
+      unavailable: 'Unavailable',
+    };
+
+    const forceClientView = new URLSearchParams(location.search).get('view') === 'client';
+    const owner = isAuthenticated() && !forceClientView;
+    let currentDate = new Date(2026, 5, 1);
+
+    function applyClientView() {
+      document.querySelectorAll('.owner-only').forEach(el => el.hidden = true);
+      if (!SITE_CONFIG.showRatesToPublic) {
+        document.getElementById('ratesSection').hidden = true;
+        document.getElementById('ratesScrollHint').hidden = true;
+      }
+      document.getElementById('calendarHint').hidden = true;
+    }
+
+    if (owner) {
+      document.getElementById('ownerLoginLink').hidden = true;
+      document.querySelectorAll('.owner-only').forEach(el => el.hidden = false);
+      const hint = document.getElementById('calendarHint');
+      hint.hidden = false;
+      hint.textContent = 'Click a day to see clients & update availability';
+    } else {
+      applyClientView();
+    }
+
+    let availability = {};
+
+    async function boot() {
+      await hydrateFromStore();
+      ensureBookings();
+      availability = syncAvailabilityFromBookings();
+      renderCalendar();
+    }
+
+    function dateKey(y, m, d) {
+      return dateKeyFromDate(new Date(y, m, d));
+    }
+
+    function getDefaultStatus() {
+      return 'available';
+    }
+
+    function getStatus(date) {
+      const key = dateKeyFromDate(date);
+      const saved = availability[key];
+      if (saved === 'limited') return 'available';
+      return saved || getDefaultStatus();
+    }
+
+    async function setStatus(date, status) {
+      const key = dateKeyFromDate(date);
+      availability[key] = status;
+      saveAvailability(availability);
+      if (owner) await persistOwnerStore();
+    }
+
+    function isPast(date) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const cmp = new Date(date);
+      cmp.setHours(0, 0, 0, 0);
+      return cmp < today;
+    }
+
+    function renderCalendar() {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+
+      const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December',
+      ];
+      document.getElementById('monthLabel').textContent = `${monthNames[month]} ${year}`;
+
+      const firstDay = getMondayWeekStartPad(new Date(year, month, 1));
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      const grid = document.getElementById('daysGrid');
+      grid.innerHTML = '';
+
+      for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'day empty';
+        grid.appendChild(empty);
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(year, month, d);
+        const status = getStatus(date);
+        const past = isPast(date);
+        const key = dateKey(year, month, d);
+
+        const booking = owner ? getBookingForDate(key) : null;
+        const tier = getTier(date);
+        const tierDayClass = tier === 'peak' ? 'tier-peak-day'
+          : tier === 'super-peak' ? 'tier-super-day' : 'tier-off-day';
+        const cell = document.createElement('div');
+        cell.className = `day ${status} ${tierDayClass}${past ? ' past' : ''}`.trim();
+        cell.dataset.date = key;
+
+        const tierLabel = tier === 'peak' ? 'Peak' : tier === 'super-peak' ? 'Super peak' : '';
+
+        cell.innerHTML = `
+          <span class="day-num">${d}</span>
+          ${tierLabel ? `<span class="day-tier-label">${tierLabel}</span>` : ''}
+          <span class="day-status">
+            <span class="status-dot"></span>
+            <span class="status-label">${STATUS_SHORT[status]}</span>
+          </span>
+          ${owner && booking ? `<span class="day-client">${!isConfirmedBooking(booking) ? 'Quote: ' : ''}${booking.petName}</span>` : ''}
+        `;
+
+        if (!past) {
+          cell.addEventListener('click', () => selectDay(date));
+        }
+
+        grid.appendChild(cell);
+      }
+    }
+
+    function selectDay(date) {
+      selectedDateKey = dateKey(date.getFullYear(), date.getMonth(), date.getDate());
+      const tier = getTier(date);
+      const status = getStatus(date);
+      const rates = RATES[tier];
+
+      const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+      document.getElementById('selectedDateLabel').textContent = date.toLocaleDateString('en-US', options);
+      if (owner) {
+        document.getElementById('selectedTier').innerHTML = `<strong>Rate period:</strong> ${rates.label}`;
+        document.getElementById('selectedRates').innerHTML =
+          `<strong>Visit:</strong> ${formatMoney(rates.visit)} &nbsp;·&nbsp; <strong>Overnight:</strong> ${formatMoney(rates.overnight)}`;
+        const booking = getBookingForDate(dateKeyFromDate(date));
+        document.getElementById('selectedBooking').innerHTML = booking
+          ? `<strong>${isConfirmedBooking(booking) ? 'Booking' : 'Quote (not confirmed)'}:</strong> ${booking.clientName}<br /><strong>Pet:</strong> ${booking.petType} · ${booking.petName}`
+          : '';
+      }
+
+      if (owner) {
+        document.getElementById('selectedStatus').innerHTML =
+          `<strong>Status:</strong> ${STATUS_LABELS[status]}`;
+      } else {
+        document.getElementById('selectedStatus').innerHTML =
+          status === 'booked'
+            ? '<strong>Booked</strong>'
+            : `<strong>${STATUS_LABELS[status]}</strong>`;
+      }
+
+      const panel = document.getElementById('selectedPanel');
+      panel.classList.add('visible');
+
+      const picker = document.getElementById('statusPicker');
+      picker.innerHTML = '';
+      if (owner) {
+        STATUSES.forEach(s => {
+          const btn = document.createElement('button');
+          btn.className = `status-btn${s === status ? ' active' : ''}`;
+          btn.textContent = STATUS_LABELS[s];
+          btn.addEventListener('click', async () => {
+            await setStatus(date, s);
+            renderCalendar();
+            selectDay(date);
+          });
+          picker.appendChild(btn);
+        });
+      }
+      updateBookLink();
+    }
+
+    document.getElementById('prevMonth').addEventListener('click', () => {
+      currentDate.setMonth(currentDate.getMonth() - 1);
+      renderCalendar();
+    });
+
+    document.getElementById('nextMonth').addEventListener('click', () => {
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      renderCalendar();
+    });
+
+    (function initReviewsCarousel() {
+      const track = document.getElementById('reviewsTrack');
+      const wrap = document.getElementById('reviewsTrackWrap');
+      const prev = document.getElementById('reviewsPrev');
+      const next = document.getElementById('reviewsNext');
+      if (!track || !prev || !next) return;
+
+      const scrollStep = () => {
+        const card = track.querySelector('.review-card');
+        return card ? card.offsetWidth + 16 : 316;
+      };
+
+      const updateArrows = () => {
+        const maxScroll = track.scrollWidth - track.clientWidth - 2;
+        prev.disabled = track.scrollLeft <= 2;
+        next.disabled = track.scrollLeft >= maxScroll;
+        wrap.classList.toggle('at-end', track.scrollLeft >= maxScroll);
+      };
+
+      prev.addEventListener('click', () => {
+        track.scrollBy({ left: -scrollStep(), behavior: 'smooth' });
+      });
+      next.addEventListener('click', () => {
+        track.scrollBy({ left: scrollStep(), behavior: 'smooth' });
+      });
+      track.addEventListener('scroll', updateArrows, { passive: true });
+      window.addEventListener('resize', updateArrows);
+      updateArrows();
+    })();
+
+    (function initInteractiveBackground() {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
+      if (reduceMotion) return;
+
+      // Ambient paws drift up gently on every device
+      (function ambientPaws() {
+        const tints = ['', 'hue-rotate(15deg) saturate(0.8)', 'hue-rotate(-12deg)'];
+        function spawn() {
+          const paw = document.createElement('div');
+          paw.className = 'ambient-paw';
+          const size = 22 + Math.random() * 22;
+          paw.style.width = paw.style.height = size + 'px';
+          paw.style.left = (Math.random() * 96) + 'vw';
+          paw.style.filter = tints[Math.floor(Math.random() * tints.length)];
+          paw.style.setProperty('--amb-rot', (Math.random() * 60 - 30) + 'deg');
+          const dur = 14 + Math.random() * 12;
+          paw.style.animationDuration = dur + 's';
+          document.body.appendChild(paw);
+          setTimeout(() => paw.remove(), dur * 1000 + 200);
+        }
+        for (let i = 0; i < 3; i++) setTimeout(spawn, i * 2500);
+        setInterval(spawn, 3800);
+      })();
+
+      if (!finePointer) return;
+
+      const glow = document.getElementById('bgGlow');
+      const core = document.getElementById('bgGlowCore');
+      let targetX = window.innerWidth / 2;
+      let targetY = window.innerHeight / 2;
+      let gx = targetX, gy = targetY;   // big glow (laggy)
+      let cx = targetX, cy = targetY;   // core (snappy)
+      let ticking = false;
+
+      let lastPawX = targetX;
+      let lastPawY = targetY;
+      let stepSide = 1;
+      const pawMinGap = 60;
+
+      function spawnPaw(x, y, angleDeg) {
+        const paw = document.createElement('div');
+        paw.className = 'paw-trail' + (stepSide > 0 ? ' alt' : '');
+        // offset perpendicular to travel direction so paws alternate like real steps
+        const rad = (angleDeg - 90) * Math.PI / 180;
+        const off = 9 * stepSide;
+        paw.style.left = (x + Math.cos(rad) * off) + 'px';
+        paw.style.top = (y + Math.sin(rad) * off) + 'px';
+        paw.style.setProperty('--paw-rot', (angleDeg + 90) + 'deg');
+        document.body.appendChild(paw);
+        stepSide *= -1;
+        setTimeout(() => paw.remove(), 1700);
+      }
+
+      function animate() {
+        gx += (targetX - gx) * 0.08;
+        gy += (targetY - gy) * 0.08;
+        cx += (targetX - cx) * 0.22;
+        cy += (targetY - cy) * 0.22;
+        glow.style.transform = `translate(${gx}px, ${gy}px)`;
+        core.style.transform = `translate(${cx}px, ${cy}px)`;
+        if (Math.abs(targetX - gx) > 0.5 || Math.abs(targetY - gy) > 0.5) {
+          requestAnimationFrame(animate);
+        } else {
+          ticking = false;
+        }
+      }
+
+      window.addEventListener('pointermove', (e) => {
+        if (e.pointerType && e.pointerType !== 'mouse') return;
+        targetX = e.clientX;
+        targetY = e.clientY;
+        glow.classList.add('active');
+        core.classList.add('active');
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(animate);
+        }
+        const dx = e.clientX - lastPawX;
+        const dy = e.clientY - lastPawY;
+        if (dx * dx + dy * dy >= pawMinGap * pawMinGap) {
+          const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+          lastPawX = e.clientX;
+          lastPawY = e.clientY;
+          spawnPaw(e.clientX, e.clientY, angle);
+        }
+      }, { passive: true });
+
+      window.addEventListener('mouseleave', () => {
+        glow.classList.remove('active');
+        core.classList.remove('active');
+      });
+    })();
+
+    boot();
+  </script>
+</body>
+</html>

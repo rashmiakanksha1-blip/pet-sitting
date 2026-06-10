@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Receipt — Paws & Stay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .receipt-wrap { max-width: 720px; margin: 0 auto; }
+    .receipt-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 2rem 2rem 1.5rem;
+      border-bottom: 2px solid var(--sage);
+      gap: 1rem;
+    }
+    .receipt-brand h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--sage-dark);
+    }
+    .receipt-brand p { font-size: 0.85rem; color: var(--text-muted); }
+    .receipt-meta { text-align: right; font-size: 0.88rem; color: var(--text-muted); }
+    .receipt-meta strong { display: block; color: var(--text); font-size: 1rem; margin-bottom: 0.25rem; }
+    .receipt-body { padding: 1.5rem 2rem; }
+    .bill-to {
+      margin-bottom: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: var(--bg-warm);
+      border-radius: var(--radius-sm);
+    }
+    .bill-to h3 {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .receipt-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      background: var(--sage-light);
+      border-top: 1px solid var(--border);
+    }
+    .receipt-total .amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--sage-dark);
+    }
+    .receipt-footer {
+      padding: 1.25rem 2rem 2rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .toolbar {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .status-select {
+      padding: 0.6rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: 'Outfit', sans-serif;
+    }
+    .paid-stamp {
+      display: inline-block;
+      color: var(--sage-dark);
+      border: 2px solid var(--sage);
+      padding: 0.2rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.5rem;
+    }
+    .missing-receipt {
+      max-width: 480px;
+      margin: 2rem auto;
+      padding: 2rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="no-print">
+      <div class="logo">
+        <div class="logo-icon">🐾</div>
+        <h1>Paws & Stay</h1>
+      </div>
+      <p class="tagline">Client receipt</p>
+    </header>
+
+    <nav class="site-nav no-print">
+      <a href="index.html">Availability</a>
+      <a href="inbox.html">Inbox</a>
+      <a href="bookings.html">Bookings</a>
+      <a href="pricing.html">Pricing sheet</a>
+      <a href="receipts.html">Receipts</a>
+      <button class="btn" type="button" onclick="logout()">Log out</button>
+    </nav>
+
+    <div class="toolbar no-print" id="toolbar" hidden>
+      <select class="status-select" id="paymentStatus">
+        <option value="pending">Payment pending</option>
+        <option value="paid">Paid</option>
+      </select>
+      <select class="status-select" id="emailTemplate">
+        <option value="quote">Email: Price quote</option>
+        <option value="confirmed">Email: Booking confirmed</option>
+        <option value="reminder">Email: Payment reminder</option>
+      </select>
+      <button class="btn btn-primary" id="emailReplyBtn">Reply to client</button>
+      <button class="btn" id="copyEmailBtn">Copy email text</button>
+      <button class="btn btn-primary" id="confirmBookingBtn" hidden>Confirm booking</button>
+      <button class="btn" id="regenerateBtn">Update from quote</button>
+      <button class="btn" onclick="window.print()">Print / Save PDF</button>
+      <a class="btn" href="receipts.html">All receipts</a>
+    </div>
+
+    <div id="missing" class="panel missing-receipt no-print" hidden>
+      <h2 style="font-family:'Cormorant Garamond',serif;margin-bottom:0.5rem;">No receipt yet</h2>
+      <p style="color:var(--text-muted);margin-bottom:1rem;">Create a saved receipt from this booking first.</p>
+      <button class="btn btn-primary" id="createBtn">Create receipt</button>
+    </div>
+
+    <div class="receipt-wrap panel" id="receipt" hidden>
+      <div class="receipt-top">
+        <div class="receipt-brand">
+          <h2>Paws & Stay</h2>
+          <p>Pet sitting services</p>
+          <p id="receiptContactEmail"></p>
+        </div>
+        <div class="receipt-meta">
+          <strong>RECEIPT</strong>
+          <div id="receiptNumber"></div>
+          <div id="receiptDate"></div>
+          <div id="paymentBadge"></div>
+        </div>
+      </div>
+      <div class="receipt-body">
+        <div class="bill-to">
+          <h3>Bill to</h3>
+          <div id="billTo"></div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr><th>Date</th><th>Description</th><th>Amount</th></tr>
+          </thead>
+          <tbody id="receiptLines"></tbody>
+        </table>
+      </div>
+      <div class="receipt-total">
+        <span><strong>Total due</strong></span>
+        <span class="amount" id="receiptTotal">£0</span>
+      </div>
+      <div class="receipt-footer">
+        Thank you for trusting Paws & Stay with your pet!<br />
+        Questions? Email <span id="receiptFooterEmail"></span>
+      </div>
+    </div>
+
+    <footer class="no-print">© 2026 Paws & Stay</footer>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+  <script src="shared.js"></script>
+  <script>
+    requireAuth();
+
+    const contactEmail = SITE_CONFIG.contactEmail || SITE_CONFIG.bookingEmail;
+    document.getElementById('receiptContactEmail').textContent = contactEmail;
+    document.getElementById('receiptFooterEmail').textContent = contactEmail;
+
+    const params = new URLSearchParams(location.search);
+    let receiptId = params.get('id');
+    let bookingId = params.get('booking');
+    let currentReceipt = null;
+
+    function getEmailTemplateKey() {
+      return document.getElementById('emailTemplate').value;
+    }
+
+    function showReceipt(receipt) {
+      currentReceipt = receipt;
+      document.getElementById('missing').hidden = true;
+      document.getElementById('receipt').hidden = false;
+      document.getElementById('toolbar').hidden = false;
+
+      document.getElementById('receiptNumber').textContent = receipt.receiptNumber;
+      document.getElementById('receiptDate').textContent =
+        `Issued ${new Date(receipt.issuedDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
+      document.getElementById('paymentStatus').value = receipt.paymentStatus || 'pending';
+
+      const paid = receipt.paymentStatus === 'paid';
+      document.getElementById('paymentBadge').innerHTML = paid
+        ? '<span class="paid-stamp">Paid</span>'
+        : '<span style="font-size:0.8rem;color:var(--amber)">Payment pending</span>';
+
+      document.getElementById('billTo').innerHTML = `
+        <strong>${receipt.clientName}</strong><br />
+        Pet: ${receipt.petType} · ${receipt.petName}<br />
+        Service period: ${formatDateRange(receipt.startDate, receipt.endDate)}
+      `;
+
+      document.getElementById('receiptLines').innerHTML = receipt.lineItems.map(line =>
+        `<tr><td>${line.dateLabel}</td><td>${line.description}</td><td>${formatMoney(line.amount)}</td></tr>`
+      ).join('');
+
+      document.getElementById('receiptTotal').textContent = formatMoney(receipt.total);
+
+      document.getElementById('regenerateBtn').onclick = () => {
+        if (confirm('Replace this receipt with the latest booking data?')) {
+          const updated = createReceiptFromBooking(receipt.bookingId, true);
+          showReceipt(updated);
+        }
+      };
+
+      document.getElementById('paymentStatus').onchange = e => {
+        updateReceiptPayment(receipt.id, e.target.value);
+        receipt.paymentStatus = e.target.value;
+        showReceipt(getReceiptById(receipt.id));
+      };
+
+      document.getElementById('emailReplyBtn').onclick = () => {
+        location.href = buildReceiptMailtoUrl(receipt, getEmailTemplateKey());
+      };
+
+      document.getElementById('copyEmailBtn').onclick = async () => {
+        const tpl = RECEIPT_EMAIL_TEMPLATES[getEmailTemplateKey()];
+        const text = tpl.build(receipt);
+        try {
+          await navigator.clipboard.writeText(text);
+          alert('Email text copied — paste into your reply.');
+        } catch {
+          prompt('Copy this text into your email reply:', text);
+        }
+      };
+
+      const booking = ensureBookings().find(b => b.id === receipt.bookingId);
+      const confirmBtn = document.getElementById('confirmBookingBtn');
+      if (booking && !isConfirmedBooking(booking)) {
+        confirmBtn.hidden = false;
+        confirmBtn.onclick = () => {
+          if (!confirm('Client accepted? Those dates will show as booked on your calendar.')) return;
+          confirmBooking(booking.id);
+          document.getElementById('emailTemplate').value = 'confirmed';
+          alert('Booking confirmed. Send the confirmation email to your client.');
+        };
+      } else {
+        confirmBtn.hidden = true;
+      }
+    }
+
+    function init() {
+      let receipt = receiptId ? getReceiptById(receiptId) : null;
+
+      if (!receipt && bookingId) {
+        receipt = getReceiptForBooking(bookingId);
+        if (receipt) receiptId = receipt.id;
+      }
+
+      if (receipt) {
+        showReceipt(receipt);
+        return;
+      }
+
+      if (bookingId) {
+        document.getElementById('missing').hidden = false;
+        document.getElementById('createBtn').onclick = () => {
+          const created = createReceiptFromBooking(bookingId, false);
+          location.href = `receipt.html?id=${created.id}`;
+        };
+        return;
+      }
+
+      location.href = 'receipts.html';
+    }
+
+    init();
+  </script>
+</body>
+</html>

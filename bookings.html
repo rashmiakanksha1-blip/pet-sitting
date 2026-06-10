@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bookings — Paws & Stay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .bookings-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 1.75rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .bookings-layout { grid-template-columns: 1fr; } }
+
+    .schedule-month { padding: 0 1rem 1rem; }
+
+    .weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      margin-bottom: 4px;
+    }
+    .weekday {
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      padding: 0.5rem 0;
+    }
+
+    .event-lane {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      min-height: 36px;
+      margin-bottom: 6px;
+      position: relative;
+    }
+
+    .event-bar.quoted {
+      background: transparent;
+      color: var(--amber);
+      border: 2px dashed var(--amber);
+      box-shadow: none;
+    }
+    .event-bar {
+      grid-row: 1;
+      background: linear-gradient(135deg, var(--rose), #c94d62);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.35rem 0.5rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      align-self: center;
+      box-shadow: var(--shadow);
+      cursor: default;
+    }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+
+    .sched-day {
+      min-height: 64px;
+      padding: 0.35rem;
+      border-radius: 8px;
+      background: var(--bg);
+      border: 1px solid transparent;
+      font-size: 0.85rem;
+    }
+    .sched-day.other-month { opacity: 0.35; }
+    .sched-day.in-booking {
+      background: var(--rose-light);
+      border-color: rgba(184, 92, 110, 0.3);
+    }
+    .sched-day .num { font-weight: 500; }
+
+    .booking-card {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .booking-card:last-child { border-bottom: none; }
+    .booking-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .booking-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: grid;
+      gap: 0.3rem;
+    }
+    .booking-meta strong { color: var(--text); }
+    .booking-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .booking-actions a { font-size: 0.8rem; }
+    .service-pill {
+      display: inline-block;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--sage-light);
+      color: var(--sage-dark);
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-top: 0.35rem;
+    }
+    .status-pill.quoted {
+      background: var(--amber-light);
+      color: #9a7b10;
+    }
+    .status-pill.confirmed {
+      background: var(--sage-light);
+      color: var(--sage-dark);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">
+        <div class="logo-icon">🐾</div>
+        <h1>Paws & Stay</h1>
+      </div>
+      <p class="tagline">Quotes & confirmed bookings</p>
+    </header>
+
+    <nav class="site-nav">
+      <a href="index.html">Public calendar</a>
+      <a href="inbox.html">Inbox</a>
+      <a href="bookings.html" class="active">Bookings</a>
+      <a href="pricing.html">Pricing sheet</a>
+      <a href="receipts.html">Receipts</a>
+      <button class="btn" type="button" onclick="logout()" style="margin-left:0.25rem;">Log out</button>
+    </nav>
+
+    <div class="bookings-layout">
+      <div class="panel">
+        <div class="panel-header">
+          <button class="nav-btn" id="prevMonth">‹</button>
+          <h2 id="monthLabel"></h2>
+          <button class="nav-btn" id="nextMonth">›</button>
+        </div>
+        <div class="schedule-month">
+          <div class="weekdays">
+            <div class="weekday">Mon</div>
+            <div class="weekday">Tue</div>
+            <div class="weekday">Wed</div>
+            <div class="weekday">Thu</div>
+            <div class="weekday">Fri</div>
+            <div class="weekday">Sat</div>
+            <div class="weekday">Sun</div>
+          </div>
+          <div id="eventLanes"></div>
+          <div class="days-grid" id="daysGrid"></div>
+        </div>
+      </div>
+
+      <aside class="panel">
+        <div class="panel-header">
+          <h2>Quotes & bookings</h2>
+          <a class="btn btn-primary" href="pricing.html?new=1" style="font-size:0.8rem;">New quote</a>
+        </div>
+        <div id="bookingList"></div>
+      </aside>
+    </div>
+
+    <footer>© 2026 Paws & Stay</footer>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+  <script src="shared.js"></script>
+  <script>
+    requireAuth();
+
+    let viewDate = new Date(2026, 5, 1);
+    let bookings = [];
+
+    window.confirmBookingFromList = function(bookingId) {
+      if (!confirm('Client accepted? Those dates will show as booked on your calendar.')) return;
+      confirmBooking(bookingId);
+      bookings = ensureBookings();
+      renderBookingList();
+      renderSchedule();
+    };
+
+    function renderBookingList() {
+      const el = document.getElementById('bookingList');
+      if (!bookings.length) {
+        el.innerHTML = '<div class="booking-card"><p style="color:var(--text-muted);font-size:0.9rem;">No quotes yet. When an enquiry email arrives, create a quote — don\'t add a booking until the client accepts.</p></div>';
+        return;
+      }
+      el.innerHTML = bookings.map(b => {
+        const total = calcBookingTotalWithOverrides(b);
+        const savedReceipt = getReceiptForBooking(b.id);
+        const nights = countNights(b.startDate, b.endDate);
+        const statusLabel = BOOKING_STATUS_LABELS[b.status] || b.status;
+        const statusClass = isConfirmedBooking(b) ? 'confirmed' : 'quoted';
+        return `
+          <div class="booking-card">
+            <h3>${b.clientName}</h3>
+            <div class="booking-meta">
+              <div><strong>Pet:</strong> ${b.petType} · ${b.petName}</div>
+              <div><strong>Dates:</strong> ${formatDateRange(b.startDate, b.endDate)}</div>
+              <div><strong>Service:</strong> ${b.serviceType === 'overnight' ? 'Overnight stay' : 'Drop-in visit'} (${nights} night${nights !== 1 ? 's' : ''})</div>
+              <div><strong>Total:</strong> ${formatMoney(total)}</div>
+            </div>
+            <span class="service-pill status-pill ${statusClass}">${statusLabel}</span>
+            <div class="booking-actions">
+              <a class="btn" href="pricing.html?id=${b.id}">Edit quote</a>
+              ${savedReceipt
+                ? `<a class="btn" href="receipt.html?id=${savedReceipt.id}">View receipt</a>`
+                : `<a class="btn btn-primary" href="receipt.html?booking=${b.id}">Create receipt</a>`}
+              ${!isConfirmedBooking(b) ? `<button class="btn btn-primary" type="button" onclick="confirmBookingFromList('${b.id}')">Confirm booking</button>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function getMonthGrid(year, month) {
+      const first = new Date(year, month, 1);
+      const startPad = getMondayWeekStartPad(first);
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const daysInPrev = new Date(year, month, 0).getDate();
+      const cells = [];
+
+      for (let i = startPad - 1; i >= 0; i--) {
+        const d = daysInPrev - i;
+        cells.push({ date: new Date(year, month - 1, d), inMonth: false });
+      }
+      for (let d = 1; d <= daysInMonth; d++) {
+        cells.push({ date: new Date(year, month, d), inMonth: true });
+      }
+      let nextDay = 1;
+      while (cells.length % 7 !== 0) {
+        cells.push({ date: new Date(year, month + 1, nextDay++), inMonth: false });
+      }
+      return cells;
+    }
+
+    function bookingSpansMonth(booking, year, month) {
+      const monthStart = new Date(year, month, 1);
+      const monthEnd = new Date(year, month + 1, 0);
+      const bStart = parseDateKey(booking.startDate);
+      const bEnd = parseDateKey(booking.endDate);
+      if (bEnd < monthStart || bStart > monthEnd) return null;
+
+      const cells = getMonthGrid(year, month);
+      let startIdx = -1;
+      let endIdx = -1;
+
+      cells.forEach((cell, i) => {
+        const key = dateKeyFromDate(cell.date);
+        if (key >= booking.startDate && key <= booking.endDate) {
+          if (startIdx === -1) startIdx = i;
+          endIdx = i;
+        }
+      });
+
+      if (startIdx === -1) return null;
+
+      const weeks = [];
+      let rowStart = startIdx;
+      while (rowStart <= endIdx) {
+        const rowEnd = Math.min(endIdx, Math.floor(rowStart / 7) * 7 + 6);
+        weeks.push({ start: rowStart % 7, span: rowEnd - rowStart + 1, row: Math.floor(rowStart / 7) });
+        rowStart = rowEnd + 1;
+      }
+      return weeks;
+    }
+
+    function renderSchedule() {
+      const year = viewDate.getFullYear();
+      const month = viewDate.getMonth();
+      const names = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      document.getElementById('monthLabel').textContent = `${names[month]} ${year}`;
+
+      const cells = getMonthGrid(year, month);
+      const lanesEl = document.getElementById('eventLanes');
+      lanesEl.innerHTML = '';
+
+      const rowCount = cells.length / 7;
+      const laneRows = Array.from({ length: rowCount }, () => []);
+
+      bookings.forEach(booking => {
+        const spans = bookingSpansMonth(booking, year, month);
+        if (!spans) return;
+        spans.forEach(span => {
+          laneRows[span.row].push({
+            booking,
+            start: span.start + 1,
+            span: span.span,
+            label: `${booking.clientName} · ${booking.petName}`,
+          });
+        });
+      });
+
+      laneRows.forEach((rowEvents, rowIdx) => {
+        if (!rowEvents.length) return;
+        rowEvents.forEach((ev, laneIdx) => {
+          const lane = document.createElement('div');
+          lane.className = 'event-lane';
+          lane.style.marginTop = rowIdx === 0 && laneIdx === 0 ? '0' : '0';
+          const bar = document.createElement('div');
+          bar.className = `event-bar${isConfirmedBooking(ev.booking) ? '' : ' quoted'}`;
+          bar.style.gridColumn = `${ev.start} / span ${ev.span}`;
+          bar.textContent = isConfirmedBooking(ev.booking) ? ev.label : `${ev.label} (quote)`;
+          bar.title = `${ev.booking.clientName} — ${ev.booking.petName} (${formatDateRange(ev.booking.startDate, ev.booking.endDate)})`;
+          lane.appendChild(bar);
+          lanesEl.appendChild(lane);
+        });
+      });
+
+      const grid = document.getElementById('daysGrid');
+      grid.innerHTML = cells.map(cell => {
+        const key = dateKeyFromDate(cell.date);
+        const booking = getBookingForDate(key, { confirmedOnly: true });
+        const cls = ['sched-day', cell.inMonth ? '' : 'other-month', booking ? 'in-booking' : ''].filter(Boolean).join(' ');
+        return `<div class="${cls}"><span class="num">${cell.date.getDate()}</span></div>`;
+      }).join('');
+    }
+
+    document.getElementById('prevMonth').addEventListener('click', () => {
+      viewDate.setMonth(viewDate.getMonth() - 1);
+      renderSchedule();
+    });
+    document.getElementById('nextMonth').addEventListener('click', () => {
+      viewDate.setMonth(viewDate.getMonth() + 1);
+      renderSchedule();
+    });
+
+    async function boot() {
+      await hydrateFromStore();
+      bookings = ensureBookings();
+      syncAvailabilityFromBookings();
+      renderBookingList();
+      renderSchedule();
+    }
+
+    boot();
+  </script>
+</body>
+</html>

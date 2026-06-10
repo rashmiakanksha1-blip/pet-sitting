@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.pawsstay.inquiry-check</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/python3</string>
+    <string>REPLACE_WITH_FULL_PATH/pet-sitting/scripts/agent-daily.py</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>8</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>REPLACE_WITH_FULL_PATH/pet-sitting/data/inquiry-check.log</string>
+  <key>StandardErrorPath</key>
+  <string>REPLACE_WITH_FULL_PATH/pet-sitting/data/inquiry-check.log</string>
+</dict>
+</plist>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Receipts — Paws & Stay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .receipt-row:last-child { border-bottom: none; }
+    .receipt-row h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.25rem;
+    }
+    .receipt-row p { font-size: 0.85rem; color: var(--text-muted); }
+    .receipt-row .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .empty-state {
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .pill {
+      display: inline-block;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-top: 0.35rem;
+    }
+    .pill.paid { background: var(--sage-light); color: var(--sage-dark); }
+    .pill.pending { background: var(--amber-light); color: #8a6d10; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">
+        <div class="logo-icon">🐾</div>
+        <h1>Paws & Stay</h1>
+      </div>
+      <p class="tagline">Saved client receipts</p>
+    </header>
+
+    <nav class="site-nav">
+      <a href="index.html">Availability</a>
+      <a href="inbox.html">Inbox</a>
+      <a href="bookings.html">Bookings</a>
+      <a href="pricing.html">Pricing sheet</a>
+      <a href="receipts.html" class="active">Receipts</a>
+      <button class="btn" type="button" onclick="logout()">Log out</button>
+    </nav>
+
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Receipts</h2>
+      </div>
+      <p class="pricing-note" style="padding:0.75rem 1.5rem;font-size:0.82rem;color:var(--text-muted);background:var(--bg-warm);border-bottom:1px solid var(--border);">
+        Create a receipt from any quote — send it by email while you wait for the client to confirm.
+      </p>
+      <div id="pendingBookings"></div>
+      <div id="receiptList"></div>
+    </div>
+
+    <footer>© 2026 Paws & Stay</footer>
+  </div>
+
+  <script src="auth.js"></script>
+  <script src="shared.js"></script>
+  <script>
+    requireAuth();
+
+    const bookings = ensureBookings();
+
+    function render() {
+      const receipts = loadReceipts();
+      const listEl = document.getElementById('receiptList');
+      const pendingEl = document.getElementById('pendingBookings');
+
+      const withoutReceipt = bookings.filter(b => !getReceiptForBooking(b.id));
+
+      if (withoutReceipt.length) {
+        pendingEl.innerHTML = `
+          <div style="padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:var(--amber-light);">
+            <strong style="font-size:0.85rem;">Bookings without a receipt</strong>
+            ${withoutReceipt.map(b => `
+              <div class="receipt-row" style="padding:0.75rem 0 0;border:none;">
+                <div>
+                  <h3>${b.clientName} · ${b.petName}</h3>
+                  <p>${formatDateRange(b.startDate, b.endDate)} · ${formatMoney(calcBookingTotalWithOverrides(b))}</p>
+                </div>
+                <button class="btn btn-primary" onclick="createAndOpen('${b.id}')">Create receipt</button>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else {
+        pendingEl.innerHTML = '';
+      }
+
+      if (!receipts.length) {
+        listEl.innerHTML = '<div class="empty-state">No receipts yet. Create one from a booking above.</div>';
+        return;
+      }
+
+      listEl.innerHTML = receipts.map(r => `
+        <div class="receipt-row">
+          <div>
+            <h3>${r.receiptNumber} — ${r.clientName}</h3>
+            <p>${r.petName} (${r.petType}) · ${formatDateRange(r.startDate, r.endDate)}</p>
+            <p><strong>${formatMoney(r.total)}</strong> · Issued ${new Date(r.issuedDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+            <span class="pill ${r.paymentStatus === 'paid' ? 'paid' : 'pending'}">${r.paymentStatus === 'paid' ? 'Paid' : 'Pending'}</span>
+          </div>
+          <div class="actions">
+            <a class="btn" href="receipt.html?id=${r.id}">View / Print</a>
+            <button class="btn" onclick="regenerate('${r.bookingId}')">Update from booking</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    window.createAndOpen = function(bookingId) {
+      const receipt = createReceiptFromBooking(bookingId, false);
+      location.href = `receipt.html?id=${receipt.id}`;
+    };
+
+    window.regenerate = function(bookingId) {
+      if (confirm('Update this receipt with the latest booking & pricing data?')) {
+        createReceiptFromBooking(bookingId, true);
+        render();
+      }
+    };
+
+    render();
+  </script>
+</body>
+</html>

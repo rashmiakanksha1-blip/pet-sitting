@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Owner Login — Paws & Stay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .login-wrap {
+      max-width: 400px;
+      margin: 4rem auto 2rem;
+    }
+    .login-panel {
+      padding: 2rem;
+      text-align: center;
+    }
+    .login-panel h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .login-panel p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .pin-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      text-align: center;
+      letter-spacing: 0.2em;
+      margin-bottom: 1rem;
+    }
+    .pin-input:focus {
+      outline: none;
+      border-color: var(--sage);
+      box-shadow: 0 0 0 3px var(--sage-light);
+    }
+    .error {
+      color: var(--rose);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      min-height: 1.25rem;
+    }
+    .back-link {
+      display: block;
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .access-guide {
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      padding: 1.25rem 1.5rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .access-guide h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+    .access-guide code {
+      display: block;
+      background: var(--bg-warm);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      margin: 0.35rem 0 0.75rem;
+      font-size: 0.78rem;
+      word-break: break-all;
+    }
+    .access-guide strong { color: var(--text); }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="access-guide panel">
+      <h3>Your two links</h3>
+      <p><strong>Send to customers</strong> — availability only:</p>
+      <code id="customerLink">availability.html</code>
+      <p><strong>Keep for yourself</strong> — bookings, pricing, receipts:</p>
+      <code id="ownerLink">owner.html</code>
+      <p style="margin-top:0.75rem;">To share with customers online, upload the <strong>pet-sitting</strong> folder to a free host (e.g. Netlify or GitHub Pages). Edit your business name in <strong>config.js</strong>.</p>
+    </div>
+
+    <div class="login-wrap panel login-panel">
+      <div class="logo" style="justify-content:center;margin-bottom:1rem;">
+        <div class="logo-icon">🔒</div>
+      </div>
+      <h2 id="loginTitle">Owner login</h2>
+      <p id="loginHint">Enter your PIN to access bookings and pricing.</p>
+      <div class="error" id="error"></div>
+      <form id="loginForm">
+        <input class="pin-input" type="password" id="pin" inputmode="numeric" autocomplete="current-password" placeholder="••••" required />
+        <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;">Continue</button>
+      </form>
+      <a class="back-link" href="availability.html">← Back to public calendar</a>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    document.title = `${SITE_CONFIG.ownerPageTitle} — ${SITE_CONFIG.businessName}`;
+    document.getElementById('customerLink').textContent = new URL('availability.html', location.href).href;
+    document.getElementById('ownerLink').textContent = new URL('owner.html', location.href).href;
+
+    const params = new URLSearchParams(location.search);
+    const returnTo = params.get('return') || 'index.html';
+
+    if (isAuthenticated()) {
+      location.replace(returnTo);
+    }
+
+    if (!getStoredPin()) {
+      document.getElementById('loginTitle').textContent = 'Set your PIN';
+      document.getElementById('loginHint').textContent = 'First time here? Choose a private PIN (4+ characters). You\'ll need it to open your admin pages.';
+      document.getElementById('pin').autocomplete = 'new-password';
+      document.getElementById('pin').placeholder = 'New PIN';
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const pin = document.getElementById('pin').value;
+      const result = login(pin);
+      if (result.ok) {
+        location.href = returnTo;
+      } else {
+        document.getElementById('error').textContent = result.msg;
+        document.getElementById('pin').value = '';
+      }
+    });
+  </script>
+</body>
+</html>
