@@ -234,12 +234,24 @@
       min-width: 0;
     }
 
+    .pets-info {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
     .pets-info-item {
       display: flex;
       align-items: center;
-      gap: 0.55rem;
-      min-width: 0;
-      font-size: 0.82rem;
+      gap: 0.65rem;
+      padding: 0.65rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow);
+      font-size: 0.88rem;
     }
 
     .pets-info-icon { font-size: 1.35rem; line-height: 1; }
@@ -345,19 +357,6 @@
       transform: translateY(8px);
     }
 
-    .pets-info-sidebar {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.65rem;
-    }
-
-    .pets-info-sidebar .pets-info-item {
-      padding: 0;
-      background: transparent;
-      border: none;
-      box-shadow: none;
-    }
-
     @media (max-width: 600px) {
       .pet-fact {
         align-items: flex-start;
@@ -365,11 +364,6 @@
       }
 
       .pet-fact-body { flex: 1 1 100%; }
-
-      .pets-info-sidebar {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-      }
     }
 
     .calendar-header {
@@ -645,10 +639,6 @@
       flex-direction: column;
       gap: 0.75rem;
       min-height: 0;
-    }
-
-    .sidebar .pets-info-sidebar {
-      flex-shrink: 0;
     }
 
     .sidebar .selected-day-panel {
@@ -1386,6 +1376,22 @@
         <h1 id="businessName">Paws & Stay</h1>
       </div>
       <p class="tagline" id="tagline">Sit, stay. We'll take it from here</p>
+      <div class="pets-info" id="petsInfo">
+        <div class="pets-info-item">
+          <span class="pets-info-icon" aria-hidden="true">🐱</span>
+          <div>
+            <strong>Cats</strong>
+            <span id="petsCats">All sizes welcome</span>
+          </div>
+        </div>
+        <div class="pets-info-item">
+          <span class="pets-info-icon" aria-hidden="true">🐕</span>
+          <div>
+            <strong>Dogs</strong>
+            <span id="petsDogs">Small breeds · pug-sized &amp; similar</span>
+          </div>
+        </div>
+      </div>
     </header>
 
     <nav class="site-nav owner-only" id="ownerNav" hidden>
@@ -1445,22 +1451,6 @@
       </div>
 
       <aside class="sidebar">
-        <div class="info-ribbon pets-info-sidebar" id="petsInfo">
-          <div class="pets-info-item">
-            <span class="pets-info-icon" aria-hidden="true">🐱</span>
-            <div>
-              <strong>Cats</strong>
-              <span id="petsCats">All sizes welcome</span>
-            </div>
-          </div>
-          <div class="pets-info-item">
-            <span class="pets-info-icon" aria-hidden="true">🐕</span>
-            <div>
-              <strong>Dogs</strong>
-              <span id="petsDogs">Small breeds · pug-sized &amp; similar</span>
-            </div>
-          </div>
-        </div>
         <div class="selected-day-panel" id="selectedPanel">
           <h4 id="selectedDateLabel">Select a date</h4>
           <div class="detail owner-only" id="selectedTier"></div>
@@ -1636,7 +1626,7 @@
     </section>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (k)</span><br />
+      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (l)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
