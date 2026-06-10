@@ -637,29 +637,78 @@
       color: var(--text-muted);
     }
 
-    .reviews-illustrations {
-      display: flex;
-      justify-content: center;
-      gap: clamp(1rem, 4vw, 2.5rem);
-      flex-wrap: wrap;
+    .cat-parade {
+      overflow: hidden;
+      width: 100%;
+      max-width: 920px;
       margin: 0 auto 1.5rem;
-      padding: 0 0.5rem;
+      padding: 0.25rem 0;
       pointer-events: none;
       user-select: none;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
     }
 
-    .pet-scene {
-      flex: 0 1 clamp(140px, 28vw, 200px);
-      width: clamp(140px, 28vw, 200px);
-      height: clamp(140px, 28vw, 200px);
+    .cat-parade-track {
+      display: flex;
+      align-items: flex-end;
+      gap: clamp(1.25rem, 4vw, 2.75rem);
+      width: max-content;
+      animation: cat-parade-scroll 55s linear infinite;
+    }
+
+    .cat-parade:hover .cat-parade-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes cat-parade-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .cat-parade-item {
+      flex-shrink: 0;
+      display: block;
+      object-fit: contain;
       filter: drop-shadow(0 10px 22px rgba(44, 36, 25, 0.08));
     }
 
-    .pet-scene object {
-      display: block;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
+    .cat-parade-item--lg {
+      width: clamp(150px, 22vw, 210px);
+      height: clamp(150px, 22vw, 210px);
+    }
+
+    .cat-parade-item--md {
+      width: clamp(130px, 18vw, 175px);
+      height: clamp(130px, 18vw, 175px);
+    }
+
+    .cat-parade-item--sm {
+      width: clamp(110px, 15vw, 150px);
+      height: clamp(110px, 15vw, 150px);
+    }
+
+    .cat-parade-duplicate {
+      display: contents;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cat-parade-track {
+        animation: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: auto;
+        max-width: 100%;
+      }
+
+      .cat-parade {
+        -webkit-mask-image: none;
+        mask-image: none;
+      }
+
+      .cat-parade-duplicate {
+        display: none;
+      }
     }
 
     .reviews-carousel {
@@ -1357,17 +1406,24 @@
     <section class="reviews-section" aria-label="Client reviews">
       <div class="reviews-header">
         <h3>What pet parents say</h3>
-        <p>Trusted by dog &amp; cat parents across London</p>
+        <p>Trusted by cat parents across London</p>
       </div>
-      <div class="reviews-illustrations" aria-hidden="true">
-        <div class="pet-scene">
-          <object type="image/svg+xml" data="assets/illustrations/cat-and-dog-animated.svg?v=3" width="200" height="200" aria-hidden="true"></object>
-        </div>
-        <div class="pet-scene">
-          <object type="image/svg+xml" data="assets/illustrations/cautious-dog-animated.svg?v=3" width="200" height="200" aria-hidden="true"></object>
-        </div>
-        <div class="pet-scene">
-          <object type="image/svg+xml" data="assets/illustrations/pet-care-animated.svg?v=3" width="200" height="200" aria-hidden="true"></object>
+      <div class="cat-parade" aria-hidden="true">
+        <div class="cat-parade-track">
+          <img class="cat-parade-item cat-parade-item--lg" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="210" height="210" loading="lazy" decoding="async" />
+          <img class="cat-parade-item cat-parade-item--md" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="175" height="175" loading="lazy" decoding="async" />
+          <img class="cat-parade-item cat-parade-item--sm" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="150" height="150" loading="lazy" decoding="async" />
+          <img class="cat-parade-item cat-parade-item--md" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="175" height="175" loading="lazy" decoding="async" />
+          <img class="cat-parade-item cat-parade-item--lg" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="210" height="210" loading="lazy" decoding="async" />
+          <img class="cat-parade-item cat-parade-item--sm" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="150" height="150" loading="lazy" decoding="async" />
+          <span class="cat-parade-duplicate" aria-hidden="true">
+            <img class="cat-parade-item cat-parade-item--lg" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="210" height="210" loading="lazy" decoding="async" />
+            <img class="cat-parade-item cat-parade-item--md" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="175" height="175" loading="lazy" decoding="async" />
+            <img class="cat-parade-item cat-parade-item--sm" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="150" height="150" loading="lazy" decoding="async" />
+            <img class="cat-parade-item cat-parade-item--md" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="175" height="175" loading="lazy" decoding="async" />
+            <img class="cat-parade-item cat-parade-item--lg" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="210" height="210" loading="lazy" decoding="async" />
+            <img class="cat-parade-item cat-parade-item--sm" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="150" height="150" loading="lazy" decoding="async" />
+          </span>
         </div>
       </div>
       <div class="reviews-carousel">
