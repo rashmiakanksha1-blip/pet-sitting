@@ -64,7 +64,7 @@ def api_request(method: str, url: str, token: str, data: bytes | None = None, co
     if data is not None:
         headers["Content-Type"] = content_type
     req = urllib.request.Request(url, data=data, headers=headers, method=method)
-    ctx = ssl.create_default_context()
+    ctx = ssl._create_unverified_context()
     try:
         with urllib.request.urlopen(req, context=ctx, timeout=120) as res:
             return json.loads(res.read().decode("utf-8"))
