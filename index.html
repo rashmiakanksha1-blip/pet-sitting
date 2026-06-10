@@ -311,18 +311,12 @@
       align-items: center;
       margin-bottom: 1rem;
       padding: 0.85rem 1.15rem;
-      background: var(--sage-light);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      background: var(--bg-warm);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-sm);
+      box-shadow: none;
       min-height: 3.5rem;
       box-sizing: border-box;
-    }
-
-    .info-ribbon.pet-fact {
-      background: var(--sage-dark);
-      border-color: #3d5f43;
-      box-shadow: 0 4px 18px rgba(44, 36, 25, 0.12);
     }
 
     .pet-fact {
@@ -332,10 +326,10 @@
     .pet-fact-label {
       flex-shrink: 0;
       font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
+      font-weight: 500;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.88);
+      color: var(--text-muted);
     }
 
     .pet-fact-emoji {
@@ -352,9 +346,9 @@
 
     .pet-fact-text {
       margin: 0;
-      font-size: 0.86rem;
+      font-size: 0.84rem;
       line-height: 1.45;
-      color: rgba(255, 255, 255, 0.96);
+      color: var(--text-muted);
       transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
@@ -1632,7 +1626,7 @@
     </section>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (m)</span><br />
+      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (n)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
