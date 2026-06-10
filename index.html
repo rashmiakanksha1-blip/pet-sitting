@@ -302,11 +302,15 @@
 
     .pet-fact {
       display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      padding: 0.85rem 1.5rem;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1rem;
+      padding: 0.9rem 1.25rem;
       background: var(--sage-light);
-      border-bottom: 1px solid var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      min-height: 3.25rem;
     }
 
     .pet-fact-label {
@@ -316,29 +320,41 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--sage-dark);
-      padding-top: 0.2rem;
+    }
+
+    .pet-fact-emoji {
+      flex-shrink: 0;
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .pet-fact-body {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .pet-fact-text {
       margin: 0;
-      font-size: 0.84rem;
+      font-size: 0.86rem;
       line-height: 1.45;
       color: var(--text);
-      transition: opacity 0.4s ease;
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
     .pet-fact-text.is-fading {
       opacity: 0;
+      transform: translateY(8px);
     }
 
     @media (max-width: 600px) {
       .pet-fact {
-        flex-direction: column;
-        gap: 0.3rem;
-        padding: 0.75rem 1.15rem;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        padding: 0.8rem 1rem;
       }
 
-      .pet-fact-label { padding-top: 0; }
+      .pet-fact-body { flex: 1 1 100%; }
     }
 
     .calendar-header {
@@ -1382,12 +1398,16 @@
       Tap a day to update availability · saves automatically<span id="syncStatus"></span>
     </p>
 
+    <div class="pet-fact" id="petFactBar" aria-live="polite">
+      <span class="pet-fact-label">Did you know?</span>
+      <span class="pet-fact-emoji" id="petFactEmoji" aria-hidden="true">🐱</span>
+      <div class="pet-fact-body">
+        <p class="pet-fact-text" id="petFactText">Your cat spends up to 16 hours a day resting, but rarely sleeps deeply - they stay half-alert even with their eyes closed.</p>
+      </div>
+    </div>
+
     <div class="layout">
       <main class="calendar-panel">
-        <div class="pet-fact" aria-live="polite">
-          <span class="pet-fact-label">Did you know?</span>
-          <p class="pet-fact-text" id="petFactText"></p>
-        </div>
         <div class="calendar-header">
           <button class="nav-btn" id="prevMonth" aria-label="Previous month">‹</button>
           <h2 id="monthLabel"></h2>
@@ -1596,7 +1616,7 @@
     </section>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (i)</span><br />
+      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (j)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
@@ -1840,38 +1860,59 @@
     });
 
     (function initPetFacts() {
-      const el = document.getElementById('petFactText');
-      if (!el) return;
+      const textEl = document.getElementById('petFactText');
+      const emojiEl = document.getElementById('petFactEmoji');
+      if (!textEl) return;
 
       const facts = [
-        'Your cat spends up to 16 hours a day resting, but rarely sleeps deeply - they stay half-alert even with their eyes closed.',
-        'Your cat\'s whiskers are roughly as wide as their body, which is how they judge whether they can fit through a gap.',
-        'Adult cats rarely meow at each other - they mostly developed that sound to communicate with people.',
-        'Your cat can jump about six times their own height in a single leap.',
-        'Your dog\'s sense of smell is up to 100,000 times sharper than yours - they read the world nose-first.',
-        'Small dogs often burn more energy per kilo than large breeds, so a short walk can still wear them out.',
-        'Dogs can learn over 150 words, and many pick up on your tone of voice more than the words themselves.',
-        'Your dog\'s nose print is unique, a bit like a human fingerprint.',
-        'Rabbits are social animals - without daily company they can become anxious or withdrawn.',
-        'Guinea pigs can\'t make their own vitamin C, so they need fresh vegetables every day.',
-        'Hamsters are mostly nocturnal, so the evening is often when they\'re busiest.',
-        'Birds need mental stimulation every day - a few toys rotated weekly can stop boredom and feather plucking.',
+        { emoji: '🐱', text: 'Your cat spends up to 16 hours a day resting, but rarely sleeps deeply - they stay half-alert even with their eyes closed.' },
+        { emoji: '🐱', text: 'Your cat\'s whiskers are roughly as wide as their body, which is how they judge whether they can fit through a gap.' },
+        { emoji: '🐱', text: 'Adult cats rarely meow at each other - they mostly developed that sound to communicate with people.' },
+        { emoji: '🐱', text: 'Your cat can jump about six times their own height in a single leap.' },
+        { emoji: '🐱', text: 'Your cat\'s purr vibrates at a frequency that may help heal bones and ease pain, not just show contentment.' },
+        { emoji: '🐕', text: 'Your dog\'s sense of smell is up to 100,000 times sharper than yours - they read the world nose-first.' },
+        { emoji: '🐕', text: 'Small dogs often burn more energy per kilo than large breeds, so a short walk can still wear them out.' },
+        { emoji: '🐕', text: 'Dogs can learn over 150 words, and many pick up on your tone of voice more than the words themselves.' },
+        { emoji: '🐕', text: 'Your dog\'s nose print is unique, a bit like a human fingerprint.' },
+        { emoji: '🐕', text: 'When your dog tilts their head, they\'re often adjusting their ears to pinpoint where a sound is coming from.' },
+        { emoji: '🐇', text: 'Rabbits are social animals - without daily company they can become anxious or withdrawn.' },
+        { emoji: '🐹', text: 'Guinea pigs can\'t make their own vitamin C, so they need fresh vegetables every day.' },
+        { emoji: '🐹', text: 'Hamsters are mostly nocturnal, so the evening is often when they\'re busiest.' },
+        { emoji: '🦜', text: 'Birds need mental stimulation every day - a few toys rotated weekly can stop boredom and feather plucking.' },
+        { emoji: '🐢', text: 'Tortoises can live for decades, and they remember familiar faces and routines over many years.' },
+        { emoji: '🐠', text: 'Fish recognise the person who feeds them and often swim to the front of the tank when you approach.' },
       ];
 
       let index = Math.floor(Math.random() * facts.length);
-      el.textContent = facts[index];
+
+      function showFact(i) {
+        const fact = facts[i];
+        textEl.textContent = fact.text;
+        if (emojiEl) emojiEl.textContent = fact.emoji;
+      }
+
+      function nextIndex() {
+        if (facts.length < 2) return 0;
+        let i;
+        do { i = Math.floor(Math.random() * facts.length); } while (i === index);
+        return i;
+      }
+
+      function cycleFact() {
+        textEl.classList.add('is-fading');
+        setTimeout(() => {
+          index = nextIndex();
+          showFact(index);
+          textEl.classList.remove('is-fading');
+        }, 320);
+      }
+
+      showFact(index);
 
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduceMotion) return;
 
-      setInterval(() => {
-        el.classList.add('is-fading');
-        setTimeout(() => {
-          index = (index + 1) % facts.length;
-          el.textContent = facts[index];
-          el.classList.remove('is-fading');
-        }, 400);
-      }, 14000);
+      setInterval(cycleFact, 6000);
     })();
 
     (function initReviewsCarousel() {
