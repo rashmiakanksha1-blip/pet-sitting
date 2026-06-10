@@ -683,10 +683,11 @@
     }
 
     .reviews-track {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      display: flex;
       gap: 1rem;
       align-items: stretch;
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
     }
 
     .review-card {
@@ -699,19 +700,11 @@
       flex-direction: column;
       gap: 0.65rem;
       min-width: 0;
-    }
-
-    .review-card[hidden] {
-      display: none;
-    }
-
-    @media (max-width: 900px) {
-      .reviews-track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      flex: 0 0 auto;
     }
 
     @media (max-width: 600px) {
       .reviews-arrow { width: 36px; height: 36px; font-size: 1.15rem; }
-      .reviews-track { grid-template-columns: 1fr; }
       .review-card { padding: 1rem 1.1rem; }
     }
 
@@ -801,7 +794,7 @@
       gap: 2.25rem;
       width: max-content;
       padding-left: 2.25rem;
-      animation: about-ribbon-scroll 55s linear infinite;
+      animation: about-ribbon-scroll 80s linear infinite;
     }
 
     .about-ribbon:hover .about-ribbon-track {
@@ -1786,13 +1779,14 @@
     });
 
     (function initReviewsCarousel() {
+      const wrap = document.getElementById('reviewsTrackWrap');
       const track = document.getElementById('reviewsTrack');
       const prev = document.getElementById('reviewsPrev');
       const next = document.getElementById('reviewsNext');
-      if (!track || !prev || !next) return;
+      if (!wrap || !track || !prev || !next) return;
 
       const cards = [...track.querySelectorAll('.review-card')];
-      let page = 0;
+      let index = 0;
 
       function perPage() {
         if (window.matchMedia('(max-width: 600px)').matches) return 1;
@@ -1800,31 +1794,31 @@
         return 3;
       }
 
-      function totalPages() {
-        return Math.max(1, Math.ceil(cards.length / perPage()));
+      function maxIndex() {
+        return Math.max(0, cards.length - perPage());
       }
 
-      function showPage() {
+      function layout() {
         const n = perPage();
-        const start = page * n;
-        cards.forEach((card, i) => {
-          card.hidden = i < start || i >= start + n;
+        const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 16;
+        const cardW = (wrap.clientWidth - gap * (n - 1)) / n;
+        cards.forEach((card) => {
+          card.style.flexBasis = cardW + 'px';
         });
-        prev.disabled = page <= 0;
-        next.disabled = page >= totalPages() - 1;
+        index = Math.min(index, maxIndex());
+        track.style.transform = 'translateX(-' + (index * (cardW + gap)) + 'px)';
+        prev.disabled = index <= 0;
+        next.disabled = index >= maxIndex();
       }
 
       prev.addEventListener('click', () => {
-        if (page > 0) { page -= 1; showPage(); }
+        if (index > 0) { index -= 1; layout(); }
       });
       next.addEventListener('click', () => {
-        if (page < totalPages() - 1) { page += 1; showPage(); }
+        if (index < maxIndex()) { index += 1; layout(); }
       });
-      window.addEventListener('resize', () => {
-        page = Math.min(page, totalPages() - 1);
-        showPage();
-      });
-      showPage();
+      window.addEventListener('resize', layout);
+      layout();
     })();
 
     (function initInteractiveBackground() {
