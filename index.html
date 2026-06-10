@@ -228,24 +228,18 @@
       color: var(--text);
     }
 
-    .pets-info {
+    .calendar-column {
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 1.25rem;
+      flex-direction: column;
+      min-width: 0;
     }
 
     .pets-info-item {
       display: flex;
       align-items: center;
-      gap: 0.65rem;
-      padding: 0.65rem 1rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      box-shadow: var(--shadow);
-      font-size: 0.88rem;
+      gap: 0.55rem;
+      min-width: 0;
+      font-size: 0.82rem;
     }
 
     .pets-info-icon { font-size: 1.35rem; line-height: 1; }
@@ -300,17 +294,21 @@
       min-width: 0;
     }
 
-    .pet-fact {
+    .info-ribbon {
       display: flex;
       align-items: center;
-      gap: 0.65rem;
       margin-bottom: 1rem;
-      padding: 0.9rem 1.25rem;
+      padding: 0.85rem 1.15rem;
       background: var(--sage-light);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      min-height: 3.25rem;
+      min-height: 3.5rem;
+      box-sizing: border-box;
+    }
+
+    .pet-fact {
+      gap: 0.65rem;
     }
 
     .pet-fact-label {
@@ -347,14 +345,31 @@
       transform: translateY(8px);
     }
 
+    .pets-info-sidebar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+    }
+
+    .pets-info-sidebar .pets-info-item {
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+
     @media (max-width: 600px) {
       .pet-fact {
         align-items: flex-start;
         flex-wrap: wrap;
-        padding: 0.8rem 1rem;
       }
 
       .pet-fact-body { flex: 1 1 100%; }
+
+      .pets-info-sidebar {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
     }
 
     .calendar-header {
@@ -630,6 +645,10 @@
       flex-direction: column;
       gap: 0.75rem;
       min-height: 0;
+    }
+
+    .sidebar .pets-info-sidebar {
+      flex-shrink: 0;
     }
 
     .sidebar .selected-day-panel {
@@ -1367,22 +1386,6 @@
         <h1 id="businessName">Paws & Stay</h1>
       </div>
       <p class="tagline" id="tagline">Sit, stay. We'll take it from here</p>
-      <div class="pets-info" id="petsInfo">
-        <div class="pets-info-item">
-          <span class="pets-info-icon" aria-hidden="true">🐱</span>
-          <div>
-            <strong>Cats</strong>
-            <span id="petsCats">All sizes welcome</span>
-          </div>
-        </div>
-        <div class="pets-info-item">
-          <span class="pets-info-icon" aria-hidden="true">🐕</span>
-          <div>
-            <strong>Dogs</strong>
-            <span id="petsDogs">Small breeds · pug-sized &amp; similar</span>
-          </div>
-        </div>
-      </div>
     </header>
 
     <nav class="site-nav owner-only" id="ownerNav" hidden>
@@ -1398,15 +1401,15 @@
       Tap a day to update availability · saves automatically<span id="syncStatus"></span>
     </p>
 
-    <div class="pet-fact" id="petFactBar" aria-live="polite">
-      <span class="pet-fact-label">Did you know?</span>
-      <span class="pet-fact-emoji" id="petFactEmoji" aria-hidden="true">🐱</span>
-      <div class="pet-fact-body">
-        <p class="pet-fact-text" id="petFactText">Your cat spends up to 16 hours a day resting, but rarely sleeps deeply - they stay half-alert even with their eyes closed.</p>
-      </div>
-    </div>
-
     <div class="layout">
+      <div class="calendar-column">
+        <div class="info-ribbon pet-fact" id="petFactBar" aria-live="polite">
+          <span class="pet-fact-label">Did you know?</span>
+          <span class="pet-fact-emoji" id="petFactEmoji" aria-hidden="true">🐱</span>
+          <div class="pet-fact-body">
+            <p class="pet-fact-text" id="petFactText">Your cat spends up to 16 hours a day resting, but rarely sleeps deeply - they stay half-alert even with their eyes closed.</p>
+          </div>
+        </div>
       <main class="calendar-panel">
         <div class="calendar-header">
           <button class="nav-btn" id="prevMonth" aria-label="Previous month">‹</button>
@@ -1439,8 +1442,25 @@
           </div>
         </div>
       </main>
+      </div>
 
       <aside class="sidebar">
+        <div class="info-ribbon pets-info-sidebar" id="petsInfo">
+          <div class="pets-info-item">
+            <span class="pets-info-icon" aria-hidden="true">🐱</span>
+            <div>
+              <strong>Cats</strong>
+              <span id="petsCats">All sizes welcome</span>
+            </div>
+          </div>
+          <div class="pets-info-item">
+            <span class="pets-info-icon" aria-hidden="true">🐕</span>
+            <div>
+              <strong>Dogs</strong>
+              <span id="petsDogs">Small breeds · pug-sized &amp; similar</span>
+            </div>
+          </div>
+        </div>
         <div class="selected-day-panel" id="selectedPanel">
           <h4 id="selectedDateLabel">Select a date</h4>
           <div class="detail owner-only" id="selectedTier"></div>
@@ -1616,7 +1636,7 @@
     </section>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (j)</span><br />
+      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (k)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
@@ -1692,14 +1712,14 @@
     let availability = {};
 
     function syncLayoutHeights() {
-      const cal = document.querySelector('.calendar-panel');
+      const col = document.querySelector('.calendar-column');
       const sidebar = document.querySelector('.sidebar');
-      if (!cal || !sidebar) return;
+      if (!col || !sidebar) return;
       if (window.matchMedia('(max-width: 900px)').matches) {
         sidebar.style.height = '';
         return;
       }
-      sidebar.style.height = cal.offsetHeight + 'px';
+      sidebar.style.height = col.offsetHeight + 'px';
     }
 
     async function boot() {
@@ -1912,7 +1932,7 @@
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduceMotion) return;
 
-      setInterval(cycleFact, 6000);
+      setInterval(cycleFact, 14000);
     })();
 
     (function initReviewsCarousel() {
