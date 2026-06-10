@@ -771,6 +771,8 @@
 
     .about-card {
       width: 100%;
+      overflow: hidden;
+      padding-bottom: 0;
     }
 
     .about-copy p {
@@ -784,41 +786,80 @@
       margin-bottom: 0;
     }
 
-    .about-highlights {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.45rem;
-      margin: 0;
-      padding: 0.85rem 0 0;
-      border-top: 1px solid var(--border);
-      width: 100%;
+    .about-ribbon {
+      margin: 1rem -1.15rem 0;
+      background: linear-gradient(90deg, #3d7a4a 0%, #6b8f71 35%, #8fbc6a 70%, #c9a227 100%);
+      color: #fff;
+      overflow: hidden;
+      padding: 0.7rem 0;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
     }
 
-    .about-highlights li {
-      font-size: 0.8rem;
-      color: var(--text-muted);
+    .about-ribbon-track {
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 2.25rem;
+      width: max-content;
+      padding-left: 2.25rem;
+      animation: about-ribbon-scroll 32s linear infinite;
     }
 
-    .about-highlights li::before {
-      content: '';
-      width: 7px;
-      height: 7px;
+    .about-ribbon:hover .about-ribbon-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes about-ribbon-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .about-ribbon-item {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+    }
+
+    .about-ribbon-dot {
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      background: var(--sage);
+      background: rgba(255, 255, 255, 0.85);
       flex-shrink: 0;
+    }
+
+    .about-ribbon-duplicate {
+      display: contents;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .about-ribbon {
+        overflow: visible;
+        padding: 0.65rem 1rem;
+      }
+
+      .about-ribbon-track {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem 1.25rem;
+        padding: 0;
+        animation: none;
+        transform: none;
+      }
+
+      .about-ribbon-duplicate {
+        display: none;
+      }
     }
 
     .about-contact {
       font-size: 0.8rem;
       color: var(--text-muted);
       border-top: 1px solid var(--border);
-      padding-top: 0.75rem;
-      margin-top: auto;
+      padding: 0.85rem 0 1.15rem;
+      margin-top: 0;
     }
 
     .about-contact a {
@@ -1472,12 +1513,26 @@
                   medication on schedule, and a quick photo update so you know they’re fine while you’re away.
                 </p>
               </div>
-              <ul class="about-highlights">
-                <li>Daily visits · 25–45 minutes</li>
-                <li>Overnight stays at our home</li>
-                <li>Cats · all sizes welcome</li>
-                <li>Dogs · small breeds, pug-sized &amp; similar</li>
-              </ul>
+              <div class="about-ribbon" aria-label="Services we offer">
+                <div class="about-ribbon-track">
+                  <span class="about-ribbon-item">Daily visits · 25–45 minutes</span>
+                  <span class="about-ribbon-dot" aria-hidden="true"></span>
+                  <span class="about-ribbon-item">Overnight stays at our home</span>
+                  <span class="about-ribbon-dot" aria-hidden="true"></span>
+                  <span class="about-ribbon-item">Cats · all sizes welcome</span>
+                  <span class="about-ribbon-dot" aria-hidden="true"></span>
+                  <span class="about-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
+                  <span class="about-ribbon-duplicate" aria-hidden="true">
+                    <span class="about-ribbon-item">Daily visits · 25–45 minutes</span>
+                    <span class="about-ribbon-dot" aria-hidden="true"></span>
+                    <span class="about-ribbon-item">Overnight stays at our home</span>
+                    <span class="about-ribbon-dot" aria-hidden="true"></span>
+                    <span class="about-ribbon-item">Cats · all sizes welcome</span>
+                    <span class="about-ribbon-dot" aria-hidden="true"></span>
+                    <span class="about-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
+                  </span>
+                </div>
+              </div>
               <p class="about-contact">
                 Questions before you book?
                 <a id="aboutEmail" href="mailto:petsittersclublondon@gmail.com">petsittersclublondon@gmail.com</a>
