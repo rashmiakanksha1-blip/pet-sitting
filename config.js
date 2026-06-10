@@ -1,9 +1,9 @@
 // ← Edit these to customise your site
 const SITE_CONFIG = {
-  siteVersion: '10 Jun 2026 (b)',
+  siteVersion: '10 Jun 2026 (c)',
   businessName: 'Pet Sitters Club',
   bookingInquirySubject: 'Pet sitting inquiry — Pet Sitters Club',
-  tagline: 'Sit back — we\'ll stay with your pets',
+  tagline: 'Loving care for your dogs & cats while you\'re away',
   petsInfo: {
     cats: 'All sizes welcome',
     dogs: 'Small breeds · pug-sized & similar',
@@ -30,6 +30,6 @@ const SITE_CONFIG = {
   storeWriteKey: 'psc-live-sync-7k9m2xq',
 
   // Names shown in browser tab
-  customerPageTitle: 'Sniff out availability',
+  customerPageTitle: 'Check availability',
   ownerPageTitle: 'Owner login',
 };
