@@ -637,78 +637,55 @@
       color: var(--text-muted);
     }
 
-    .cat-parade {
-      overflow: hidden;
-      width: 100%;
+    .cat-showcase {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: clamp(0.85rem, 3vw, 1.75rem);
+      flex-wrap: wrap;
+      margin: 0 auto 1.75rem;
+      padding: 1.1rem clamp(0.75rem, 3vw, 1.5rem);
       max-width: 920px;
-      margin: 0 auto 1.5rem;
-      padding: 0.25rem 0;
+      min-height: 240px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.78));
+      border: 1px solid rgba(107, 143, 113, 0.18);
+      border-radius: 20px;
+      box-shadow: 0 14px 34px rgba(44, 36, 25, 0.06);
       pointer-events: none;
       user-select: none;
-      -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-      mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
     }
 
-    .cat-parade-track {
+    .cat-showcase-frame {
+      flex: 0 0 auto;
       display: flex;
-      align-items: flex-end;
-      gap: clamp(1.25rem, 4vw, 2.75rem);
-      width: max-content;
-      animation: cat-parade-scroll 55s linear infinite;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 8px 22px rgba(44, 36, 25, 0.08);
+      overflow: hidden;
     }
 
-    .cat-parade:hover .cat-parade-track {
-      animation-play-state: paused;
-    }
-
-    @keyframes cat-parade-scroll {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    .cat-parade-item {
-      flex-shrink: 0;
+    .cat-showcase-frame img {
       display: block;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 10px 22px rgba(44, 36, 25, 0.08));
     }
 
-    .cat-parade-item--lg {
-      width: clamp(150px, 22vw, 210px);
-      height: clamp(150px, 22vw, 210px);
+    .cat-showcase-frame--lg {
+      width: clamp(170px, 24vw, 230px);
+      height: clamp(170px, 24vw, 230px);
     }
 
-    .cat-parade-item--md {
-      width: clamp(130px, 18vw, 175px);
-      height: clamp(130px, 18vw, 175px);
+    .cat-showcase-frame--md {
+      width: clamp(145px, 20vw, 195px);
+      height: clamp(145px, 20vw, 195px);
     }
 
-    .cat-parade-item--sm {
-      width: clamp(110px, 15vw, 150px);
-      height: clamp(110px, 15vw, 150px);
-    }
-
-    .cat-parade-duplicate {
-      display: contents;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .cat-parade-track {
-        animation: none;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: auto;
-        max-width: 100%;
-      }
-
-      .cat-parade {
-        -webkit-mask-image: none;
-        mask-image: none;
-      }
-
-      .cat-parade-duplicate {
-        display: none;
-      }
+    .cat-showcase-frame--sm {
+      width: clamp(120px, 16vw, 165px);
+      height: clamp(120px, 16vw, 165px);
     }
 
     .reviews-carousel {
@@ -1408,22 +1385,15 @@
         <h3>What pet parents say</h3>
         <p>Trusted by cat parents across London</p>
       </div>
-      <div class="cat-parade" aria-hidden="true">
-        <div class="cat-parade-track">
-          <img class="cat-parade-item cat-parade-item--lg" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="210" height="210" loading="lazy" decoding="async" />
-          <img class="cat-parade-item cat-parade-item--md" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="175" height="175" loading="lazy" decoding="async" />
-          <img class="cat-parade-item cat-parade-item--sm" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="150" height="150" loading="lazy" decoding="async" />
-          <img class="cat-parade-item cat-parade-item--md" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="175" height="175" loading="lazy" decoding="async" />
-          <img class="cat-parade-item cat-parade-item--lg" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="210" height="210" loading="lazy" decoding="async" />
-          <img class="cat-parade-item cat-parade-item--sm" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="150" height="150" loading="lazy" decoding="async" />
-          <span class="cat-parade-duplicate" aria-hidden="true">
-            <img class="cat-parade-item cat-parade-item--lg" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="210" height="210" loading="lazy" decoding="async" />
-            <img class="cat-parade-item cat-parade-item--md" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="175" height="175" loading="lazy" decoding="async" />
-            <img class="cat-parade-item cat-parade-item--sm" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="150" height="150" loading="lazy" decoding="async" />
-            <img class="cat-parade-item cat-parade-item--md" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="175" height="175" loading="lazy" decoding="async" />
-            <img class="cat-parade-item cat-parade-item--lg" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="210" height="210" loading="lazy" decoding="async" />
-            <img class="cat-parade-item cat-parade-item--sm" src="assets/illustrations/gifs/playful-cat.gif?v=1" alt="" width="150" height="150" loading="lazy" decoding="async" />
-          </span>
+      <div class="cat-showcase" aria-label="Animated cat illustrations">
+        <div class="cat-showcase-frame cat-showcase-frame--md">
+          <img src="assets/illustrations/gifs/playful-cat.gif?v=2" alt="Playful cat with yarn" width="195" height="195" loading="eager" decoding="async" />
+        </div>
+        <div class="cat-showcase-frame cat-showcase-frame--lg">
+          <img src="assets/illustrations/gifs/playful-cat.gif?v=2" alt="Playful cat with yarn" width="230" height="230" loading="eager" decoding="async" />
+        </div>
+        <div class="cat-showcase-frame cat-showcase-frame--md">
+          <img src="assets/illustrations/gifs/playful-cat.gif?v=2" alt="Playful cat with yarn" width="195" height="195" loading="eager" decoding="async" />
         </div>
       </div>
       <div class="reviews-carousel">
