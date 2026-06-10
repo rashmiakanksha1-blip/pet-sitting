@@ -677,136 +677,139 @@
       flex: 1;
       min-width: 0;
       position: relative;
-      padding-top: 3.75rem;
+      padding-top: 4.5rem;
     }
 
-    .reviews-pet-playground {
+    .reviews-pet-scene {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      height: 3.5rem;
+      height: 4rem;
       pointer-events: none;
       z-index: 3;
       overflow: visible;
+      mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
     }
 
-    .pet-mover {
-      position: absolute;
-      line-height: 1;
+    .pet-scene-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
     }
 
-    .pet-sprite {
-      display: inline-block;
-      filter: drop-shadow(0 2px 4px rgba(44, 36, 25, 0.1));
+    .pet-scene-svg .scene-breathe {
+      transform-box: fill-box;
+      transform-origin: center bottom;
+      animation: sceneBreathe 4.5s ease-in-out infinite;
     }
 
-    .pet-prop {
-      position: absolute;
-      line-height: 1;
-      pointer-events: none;
-      filter: drop-shadow(0 1px 2px rgba(44, 36, 25, 0.08));
+    .pet-scene-svg .scene-tail {
+      transform-box: fill-box;
+      transform-origin: left center;
+      animation: sceneTailWag 2.8s ease-in-out infinite;
     }
 
-    /* Walkers */
-    .pm-cat-walk { bottom: 0; animation: pmWalkLtr 24s linear infinite; }
-    .pm-cat-walk .pet-sprite { font-size: 1.55rem; animation: pmTrotHop 0.48s ease-in-out infinite; }
-    .pm-dog-trot { bottom: 6px; animation: pmWalkRtl 17s linear infinite; }
-    .pm-dog-trot .pet-sprite { font-size: 1.5rem; animation: pmTrotHopRtl 0.32s ease-in-out infinite; }
-    .pm-cat-prowl { bottom: 18px; animation: pmWalkLtr 13s linear infinite; animation-delay: -4s; }
-    .pm-cat-prowl .pet-sprite { font-size: 1.25rem; animation: pmPounceHop 0.65s ease-in-out infinite; }
-
-    /* Stationary cute behaviours */
-    .pm-cat-groom { left: 18%; bottom: 12px; }
-    .pm-cat-groom .pet-sprite { font-size: 1.35rem; animation: pmGroom 2.4s ease-in-out infinite; }
-    .pm-dog-wag { left: 52%; bottom: 2px; }
-    .pm-dog-wag .pet-sprite { font-size: 1.45rem; animation: pmWag 0.55s ease-in-out infinite; transform-origin: bottom center; }
-    .pm-cat-nap { left: 36%; bottom: 20px; }
-    .pm-cat-nap .pet-sprite { font-size: 1.3rem; animation: pmSnooze 3.2s ease-in-out infinite; }
-    .pm-pup-play { left: 72%; bottom: 8px; }
-    .pm-pup-play .pet-sprite { font-size: 1.3rem; animation: pmPlayBounce 0.5s ease-in-out infinite; }
-    .pm-dog-sniff { left: 8%; bottom: 4px; }
-    .pm-dog-sniff .pet-sprite { font-size: 1.2rem; animation: pmSniff 1.6s ease-in-out infinite; transform-origin: bottom center; }
-
-    /* Little props */
-    .pp-zzz { left: 40%; bottom: 34px; font-size: 0.8rem; animation: pmZzzFloat 2.4s ease-in-out infinite; }
-    .pp-ball { left: 76%; bottom: 2px; font-size: 0.7rem; animation: pmBallBob 0.55s ease-in-out infinite; }
-    .pp-yarn { left: 62%; bottom: 22px; font-size: 0.75rem; animation: pmYarnRoll 5s ease-in-out infinite; }
-
-    @keyframes pmWalkLtr {
-      0% { left: -6%; }
-      100% { left: 102%; }
+    .pet-scene-svg .scene-paw-groom {
+      transform-box: fill-box;
+      transform-origin: right bottom;
+      animation: scenePawGroom 3s ease-in-out infinite;
     }
 
-    @keyframes pmWalkRtl {
-      0% { left: 102%; }
-      100% { left: -6%; }
+    .pet-scene-svg .scene-stretch {
+      transform-box: fill-box;
+      transform-origin: center bottom;
+      animation: sceneStretch 5s ease-in-out infinite;
     }
 
-    @keyframes pmTrotHop {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+    .pet-scene-svg .scene-paw-reach {
+      transform-box: fill-box;
+      transform-origin: left center;
+      animation: scenePawReach 2.2s ease-in-out infinite;
     }
 
-    @keyframes pmTrotHopRtl {
-      0%, 100% { transform: scaleX(-1) translateY(0); }
-      50% { transform: scaleX(-1) translateY(-5px); }
+    .pet-scene-svg .scene-yarn {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: sceneYarnWobble 3.5s ease-in-out infinite;
     }
 
-    @keyframes pmPounceHop {
-      0%, 100% { transform: translateY(0) scale(1); }
-      40% { transform: translateY(-9px) scale(1.06); }
-      60% { transform: translateY(-2px) scale(0.96); }
+    .pet-scene-svg .scene-sniff {
+      transform-box: fill-box;
+      transform-origin: center bottom;
+      animation: sceneSniff 3.2s ease-in-out infinite;
     }
 
-    @keyframes pmGroom {
+    .pet-scene-svg .scene-zzz {
+      animation: sceneZzz 3s ease-in-out infinite;
+    }
+
+    .pet-scene-svg .scene-zzz-2 {
+      animation: sceneZzz 3s ease-in-out infinite 0.8s;
+    }
+
+    .pet-scene-svg .scene-zzz-3 {
+      animation: sceneZzz 3s ease-in-out infinite 1.6s;
+    }
+
+    .pet-scene-svg .scene-ear {
+      transform-box: fill-box;
+      transform-origin: bottom center;
+      animation: sceneEarTwitch 4s ease-in-out infinite;
+    }
+
+    @keyframes sceneBreathe {
+      0%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(1.04); }
+    }
+
+    @keyframes sceneTailWag {
+      0%, 100% { transform: rotate(-6deg); }
+      50% { transform: rotate(14deg); }
+    }
+
+    @keyframes scenePawGroom {
       0%, 100% { transform: rotate(0deg); }
-      30% { transform: rotate(-18deg) translateY(2px); }
-      60% { transform: rotate(6deg); }
+      40% { transform: rotate(-22deg) translateY(1px); }
+      70% { transform: rotate(-8deg); }
     }
 
-    @keyframes pmWag {
-      0%, 100% { transform: rotate(-10deg); }
-      50% { transform: rotate(10deg); }
+    @keyframes sceneStretch {
+      0%, 100% { transform: translateY(0) scaleY(1); }
+      45% { transform: translateY(-2px) scaleY(0.94); }
+      55% { transform: translateY(-1px) scaleY(0.96); }
     }
 
-    @keyframes pmSnooze {
-      0%, 100% { transform: scale(1) rotate(-4deg); }
-      50% { transform: scale(1.05) rotate(2deg); }
+    @keyframes scenePawReach {
+      0%, 100% { transform: rotate(0deg) translateX(0); }
+      50% { transform: rotate(-12deg) translateX(3px); }
     }
 
-    @keyframes pmPlayBounce {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      35% { transform: translateY(-8px) rotate(-8deg); }
-      70% { transform: translateY(-3px) rotate(6deg); }
+    @keyframes sceneYarnWobble {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(8deg); }
     }
 
-    @keyframes pmSniff {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      40% { transform: translateY(4px) rotate(8deg); }
-      70% { transform: translateY(1px) rotate(-5deg); }
-    }
-
-    @keyframes pmZzzFloat {
-      0%, 100% { transform: translateY(0) scale(0.9); opacity: 0.5; }
-      50% { transform: translateY(-6px) scale(1.1); opacity: 1; }
-    }
-
-    @keyframes pmBallBob {
+    @keyframes sceneSniff {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+      50% { transform: translateY(2px); }
     }
 
-    @keyframes pmYarnRoll {
-      0%, 100% { transform: translateX(0) rotate(0deg); }
-      50% { transform: translateX(8px) rotate(25deg); }
+    @keyframes sceneZzz {
+      0%, 100% { opacity: 0.25; transform: translateY(0); }
+      50% { opacity: 0.7; transform: translateY(-3px); }
+    }
+
+    @keyframes sceneEarTwitch {
+      0%, 88%, 100% { transform: rotate(0deg); }
+      92% { transform: rotate(-8deg); }
+      96% { transform: rotate(4deg); }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .pet-mover, .pet-sprite, .pet-prop { animation: none !important; }
-      .pm-cat-walk { left: 8%; }
-      .pm-dog-trot { left: 78%; }
-      .pm-cat-prowl { left: 55%; }
+      .pet-scene-svg [class*="scene-"] { animation: none !important; }
     }
 
     .reviews-track-wrap::after {
@@ -1467,18 +1470,134 @@
       <div class="reviews-carousel">
         <button class="reviews-arrow" id="reviewsPrev" type="button" aria-label="Previous reviews">‹</button>
         <div class="reviews-track-wrap" id="reviewsTrackWrap">
-          <div class="reviews-pet-playground" aria-hidden="true">
-            <span class="pet-mover pm-cat-walk"><span class="pet-sprite">🐈</span></span>
-            <span class="pet-mover pm-dog-trot"><span class="pet-sprite">🐕</span></span>
-            <span class="pet-mover pm-cat-prowl"><span class="pet-sprite">🐈‍⬛</span></span>
-            <span class="pet-mover pm-cat-groom"><span class="pet-sprite">🐱</span></span>
-            <span class="pet-mover pm-dog-wag"><span class="pet-sprite">🐶</span></span>
-            <span class="pet-mover pm-cat-nap"><span class="pet-sprite">😺</span></span>
-            <span class="pet-mover pm-pup-play"><span class="pet-sprite">🐩</span></span>
-            <span class="pet-mover pm-dog-sniff"><span class="pet-sprite">🦮</span></span>
-            <span class="pet-prop pp-zzz">💤</span>
-            <span class="pet-prop pp-ball">🎾</span>
-            <span class="pet-prop pp-yarn">🧶</span>
+          <div class="reviews-pet-scene" aria-hidden="true">
+            <svg class="pet-scene-svg" viewBox="0 0 960 72" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation">
+              <defs>
+                <filter id="petGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#4a6b50" flood-opacity="0.12"/>
+                </filter>
+                <linearGradient id="sageBody" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#7a9d80"/>
+                  <stop offset="100%" stop-color="#5f7d67"/>
+                </linearGradient>
+                <linearGradient id="sageDark" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#6b8f71"/>
+                  <stop offset="100%" stop-color="#4a6352"/>
+                </linearGradient>
+                <linearGradient id="creamFur" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#faf6ef"/>
+                  <stop offset="100%" stop-color="#e8e0d4"/>
+                </linearGradient>
+                <linearGradient id="warmDog" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#c4a882"/>
+                  <stop offset="100%" stop-color="#a68b6a"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Sleeping cat -->
+              <g filter="url(#petGlow)" transform="translate(42, 44)" class="scene-breathe">
+                <ellipse cx="28" cy="10" rx="22" ry="11" fill="url(#sageBody)"/>
+                <circle cx="46" cy="4" r="9" fill="url(#sageBody)"/>
+                <path d="M40 -2 Q42 -8 44 -2" fill="#5f7d67"/>
+                <path d="M48 -2 Q50 -8 52 -2" fill="#5f7d67"/>
+                <path d="M43 5 Q46 6 49 5" stroke="#4a6352" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+                <path d="M8 12 Q2 8 6 2" stroke="#5f7d67" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <text x="54" y="-4" fill="#9aa89e" font-family="Cormorant Garamond, serif" font-size="7" font-style="italic" class="scene-zzz">z</text>
+                <text x="60" y="-10" fill="#9aa89e" font-family="Cormorant Garamond, serif" font-size="9" font-style="italic" class="scene-zzz-2">z</text>
+                <text x="68" y="-16" fill="#9aa89e" font-family="Cormorant Garamond, serif" font-size="11" font-style="italic" class="scene-zzz-3">z</text>
+              </g>
+
+              <!-- Grooming cat -->
+              <g filter="url(#petGlow)" transform="translate(168, 30)">
+                <ellipse cx="18" cy="22" rx="14" ry="10" fill="url(#sageDark)"/>
+                <circle cx="30" cy="12" r="10" fill="url(#sageDark)"/>
+                <path d="M24 5 Q26 -1 28 5" fill="#4a6352"/>
+                <path d="M32 5 Q34 -1 36 5" fill="#4a6352"/>
+                <circle cx="27" cy="13" r="1.3" fill="#faf6ef"/>
+                <circle cx="33" cy="13" r="1.3" fill="#faf6ef"/>
+                <g class="scene-paw-groom">
+                  <ellipse cx="38" cy="8" rx="4" ry="5" fill="#4a6352" transform="rotate(-30 38 8)"/>
+                </g>
+                <path d="M4 24 Q-2 18 2 12" stroke="#4a6352" stroke-width="2.5" stroke-linecap="round"/>
+              </g>
+
+              <!-- Sniffing dog -->
+              <g filter="url(#petGlow)" transform="translate(310, 36)" class="scene-sniff">
+                <ellipse cx="20" cy="14" rx="18" ry="9" fill="url(#warmDog)"/>
+                <ellipse cx="36" cy="8" rx="9" ry="8" fill="url(#warmDog)"/>
+                <ellipse cx="32" cy="5" rx="5" ry="4" fill="#b89a78"/>
+                <ellipse cx="40" cy="12" rx="3" ry="5" fill="#9a7d5c" class="scene-ear"/>
+                <circle cx="33" cy="6" r="1.2" fill="#3d3028"/>
+                <path d="M44 10 L48 14 L44 14 Z" fill="#8a7055"/>
+                <path d="M2 18 L6 22 M10 20 L12 24" stroke="#9a7d5c" stroke-width="2" stroke-linecap="round"/>
+                <g class="scene-tail" transform="translate(2, 12)">
+                  <path d="M0 0 Q-8 4 -6 12 Q-4 8 0 4" fill="#a68b6a"/>
+                </g>
+              </g>
+
+              <!-- Sitting dog -->
+              <g filter="url(#petGlow)" transform="translate(448, 28)">
+                <ellipse cx="22" cy="24" rx="16" ry="12" fill="url(#creamFur)"/>
+                <circle cx="22" cy="10" r="11" fill="url(#creamFur)"/>
+                <ellipse cx="14" cy="6" rx="5" ry="7" fill="#e8e0d4" transform="rotate(-15 14 6)"/>
+                <ellipse cx="30" cy="6" rx="5" ry="7" fill="#e8e0d4" transform="rotate(15 30 6)"/>
+                <circle cx="18" cy="10" r="1.5" fill="#4a6352"/>
+                <circle cx="26" cy="10" r="1.5" fill="#4a6352"/>
+                <ellipse cx="22" cy="14" rx="3" ry="2" fill="#d4846a" opacity="0.5"/>
+                <g class="scene-tail" transform="translate(36, 18)">
+                  <path d="M0 0 Q10 -6 14 2 Q8 4 2 6" fill="#d4c8b8"/>
+                </g>
+              </g>
+
+              <!-- Stretching cat -->
+              <g filter="url(#petGlow)" transform="translate(598, 38)" class="scene-stretch">
+                <path d="M8 8 Q20 -6 36 4 Q48 10 52 6 L54 14 Q40 18 28 14 Q16 12 8 16 Z" fill="url(#sageBody)"/>
+                <circle cx="54" cy="6" r="7" fill="url(#sageBody)"/>
+                <path d="M50 0 Q52 -6 54 0" fill="#5f7d67"/>
+                <path d="M56 0 Q58 -6 60 0" fill="#5f7d67"/>
+                <path d="M52 7 Q55 8 58 7" stroke="#4a6352" stroke-width="1" stroke-linecap="round" fill="none"/>
+                <path d="M4 14 L2 20 M10 14 L8 22 M16 14 L14 21 M22 14 L20 20" stroke="#5f7d67" stroke-width="2" stroke-linecap="round"/>
+                <path d="M56 12 Q62 14 58 20" stroke="#5f7d67" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              </g>
+
+              <!-- Playful kitten & yarn -->
+              <g filter="url(#petGlow)" transform="translate(748, 32)">
+                <g class="scene-yarn" transform="translate(38, 18)">
+                  <circle cx="0" cy="0" r="7" fill="none" stroke="#d4846a" stroke-width="1.5" opacity="0.7"/>
+                  <path d="M-4 -2 Q0 4 4 -2" stroke="#d4846a" stroke-width="1" fill="none" opacity="0.5"/>
+                  <path d="M-3 3 Q2 -3 5 2" stroke="#c9a227" stroke-width="0.8" fill="none" opacity="0.4"/>
+                </g>
+                <ellipse cx="16" cy="20" rx="12" ry="9" fill="url(#sageBody)"/>
+                <circle cx="26" cy="10" r="9" fill="url(#sageBody)"/>
+                <path d="M21 4 Q23 -2 25 4" fill="#6b8f71"/>
+                <path d="M29 4 Q31 -2 33 4" fill="#6b8f71"/>
+                <circle cx="23" cy="11" r="1.5" fill="#faf6ef"/>
+                <circle cx="29" cy="11" r="1.5" fill="#faf6ef"/>
+                <g class="scene-paw-reach" transform="translate(30, 14)">
+                  <ellipse cx="8" cy="-2" rx="3.5" ry="4.5" fill="#5f7d67" transform="rotate(-40 8 -2)"/>
+                </g>
+                <path d="M4 22 Q-2 16 4 10" stroke="#6b8f71" stroke-width="2" stroke-linecap="round"/>
+              </g>
+
+              <!-- Gentle paw-print accents -->
+              <g opacity="0.14" fill="#6b8f71">
+                <g transform="translate(130, 58) scale(0.35)">
+                  <ellipse cx="10" cy="8" rx="3" ry="4.5"/><ellipse cx="18" cy="6" rx="3" ry="4.5"/>
+                  <ellipse cx="26" cy="8" rx="2.5" ry="4"/><ellipse cx="4" cy="12" rx="2.5" ry="4"/>
+                  <path d="M15 12c-4 0-7 3-8 7-0.5 3 2 5 5 5 2 0 3-1 4-1s2 1 4 1c3 0 5.5-2 5-5-1-4-4-7-8-7z"/>
+                </g>
+                <g transform="translate(520, 56) scale(0.3)">
+                  <ellipse cx="10" cy="8" rx="3" ry="4.5"/><ellipse cx="18" cy="6" rx="3" ry="4.5"/>
+                  <ellipse cx="26" cy="8" rx="2.5" ry="4"/><ellipse cx="4" cy="12" rx="2.5" ry="4"/>
+                  <path d="M15 12c-4 0-7 3-8 7-0.5 3 2 5 5 5 2 0 3-1 4-1s2 1 4 1c3 0 5.5-2 5-5-1-4-4-7-8-7z"/>
+                </g>
+                <g transform="translate(860, 58) scale(0.32)">
+                  <ellipse cx="10" cy="8" rx="3" ry="4.5"/><ellipse cx="18" cy="6" rx="3" ry="4.5"/>
+                  <ellipse cx="26" cy="8" rx="2.5" ry="4"/><ellipse cx="4" cy="12" rx="2.5" ry="4"/>
+                  <path d="M15 12c-4 0-7 3-8 7-0.5 3 2 5 5 5 2 0 3-1 4-1s2 1 4 1c3 0 5.5-2 5-5-1-4-4-7-8-7z"/>
+                </g>
+              </g>
+            </svg>
           </div>
           <div class="reviews-track" id="reviewsTrack">
             <article class="review-card">
