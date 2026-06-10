@@ -752,6 +752,86 @@
       font-weight: 500;
     }
 
+    .about-section {
+      margin-top: 2.75rem;
+      padding: 0 0.25rem;
+    }
+
+    .about-header {
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-header h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .about-card {
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.65rem;
+      box-shadow: var(--shadow);
+    }
+
+    .about-card p {
+      font-size: 0.94rem;
+      line-height: 1.65;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .about-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-highlights {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.65rem;
+      margin: 0 0 1.15rem;
+      padding: 0;
+    }
+
+    .about-highlights li {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      padding: 0.55rem 0.75rem;
+      background: var(--bg-warm);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .about-highlights li::before {
+      content: '✓ ';
+      color: var(--sage-dark);
+      font-weight: 600;
+    }
+
+    .about-contact {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      margin-top: 0.25rem;
+    }
+
+    .about-contact a {
+      color: var(--sage-dark);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .about-contact a:hover {
+      text-decoration: underline;
+    }
+
     .bottom-book-wrap {
       margin-top: 1.5rem;
       padding: 0 0.25rem;
@@ -1374,6 +1454,32 @@
       </div>
     </section>
 
+    <section class="about-section" aria-label="About us">
+      <div class="about-header">
+        <h3>About us</h3>
+      </div>
+      <div class="about-card">
+        <p>
+          <span id="aboutBusinessName">Pet Sitters Club</span> is a small, dedicated pet sitting service in London.
+          We offer calm, reliable care for cats and small dogs — daily visits in your home, or overnight stays at ours.
+        </p>
+        <p>
+          Every booking gets the same attention we’d give our own pets: feeding routines kept, litter trays tidy,
+          medication on schedule, and a quick photo update so you know they’re fine while you’re away.
+        </p>
+        <ul class="about-highlights">
+          <li>Daily visits · 25–45 minutes</li>
+          <li>Overnight stays at our home</li>
+          <li>Cats · all sizes welcome</li>
+          <li>Dogs · small breeds, pug-sized &amp; similar</li>
+        </ul>
+        <p class="about-contact">
+          Questions before you book?
+          <a id="aboutEmail" href="mailto:petsittersclublondon@gmail.com">petsittersclublondon@gmail.com</a>
+        </p>
+      </div>
+    </section>
+
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
@@ -1389,6 +1495,13 @@
     if (SITE_CONFIG.petsInfo) {
       document.getElementById('petsCats').textContent = SITE_CONFIG.petsInfo.cats;
       document.getElementById('petsDogs').textContent = SITE_CONFIG.petsInfo.dogs;
+    }
+    const aboutName = document.getElementById('aboutBusinessName');
+    const aboutEmail = document.getElementById('aboutEmail');
+    if (aboutName) aboutName.textContent = SITE_CONFIG.businessName;
+    if (aboutEmail && SITE_CONFIG.contactEmail) {
+      aboutEmail.textContent = SITE_CONFIG.contactEmail;
+      aboutEmail.href = `mailto:${SITE_CONFIG.contactEmail}`;
     }
 
     const bookBtn = document.getElementById('bookBtn');
