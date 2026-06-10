@@ -753,13 +753,13 @@
     }
 
     .about-section {
-      margin-top: 2.75rem;
+      margin-top: 2.5rem;
       padding: 0 0.25rem;
     }
 
     .about-header {
       text-align: center;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
 
     .about-header h3 {
@@ -770,33 +770,48 @@
     }
 
     .about-card {
-      max-width: 680px;
-      margin: 0 auto;
+      width: 100%;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.5rem 1.65rem;
-      box-shadow: var(--shadow);
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--shadow-lg);
     }
 
-    .about-card p {
+    .about-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-bottom: 1.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .about-body { grid-template-columns: 1fr; gap: 1rem; }
+    }
+
+    .about-copy p {
       font-size: 0.94rem;
       line-height: 1.65;
       color: var(--text);
       margin-bottom: 1rem;
     }
 
-    .about-card p:last-child {
+    .about-copy p:last-child {
       margin-bottom: 0;
     }
 
     .about-highlights {
       list-style: none;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: 1fr 1fr;
       gap: 0.65rem;
-      margin: 0 0 1.15rem;
+      margin: 0;
       padding: 0;
+    }
+
+    @media (max-width: 480px) {
+      .about-highlights { grid-template-columns: 1fr; }
     }
 
     .about-highlights li {
@@ -1459,20 +1474,24 @@
         <h3>About us</h3>
       </div>
       <div class="about-card">
-        <p>
-          <span id="aboutBusinessName">Pet Sitters Club</span> is a small, dedicated pet sitting service in London.
-          We offer calm, reliable care for cats and small dogs — daily visits in your home, or overnight stays at ours.
-        </p>
-        <p>
-          Every booking gets the same attention we’d give our own pets: feeding routines kept, litter trays tidy,
-          medication on schedule, and a quick photo update so you know they’re fine while you’re away.
-        </p>
-        <ul class="about-highlights">
-          <li>Daily visits · 25–45 minutes</li>
-          <li>Overnight stays at our home</li>
-          <li>Cats · all sizes welcome</li>
-          <li>Dogs · small breeds, pug-sized &amp; similar</li>
-        </ul>
+        <div class="about-body">
+          <div class="about-copy">
+            <p>
+              <span id="aboutBusinessName">Pet Sitters Club</span> is a small, dedicated pet sitting service in London.
+              We offer calm, reliable care for cats and small dogs — daily visits in your home, or overnight stays at ours.
+            </p>
+            <p>
+              Every booking gets the same attention we’d give our own pets: feeding routines kept, litter trays tidy,
+              medication on schedule, and a quick photo update so you know they’re fine while you’re away.
+            </p>
+          </div>
+          <ul class="about-highlights">
+            <li>Daily visits · 25–45 minutes</li>
+            <li>Overnight stays at our home</li>
+            <li>Cats · all sizes welcome</li>
+            <li>Dogs · small breeds, pug-sized &amp; similar</li>
+          </ul>
+        </div>
         <p class="about-contact">
           Questions before you book?
           <a id="aboutEmail" href="mailto:petsittersclublondon@gmail.com">petsittersclublondon@gmail.com</a>
