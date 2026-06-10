@@ -561,34 +561,46 @@
     .sidebar {
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
-      align-self: stretch;
+      gap: 0.75rem;
+      min-height: 0;
     }
 
-    /* Sidebar fills the calendar height: rate cards grow, book button stays attached
-       directly beneath them, so the column bottom lines up with the calendar. */
+    .sidebar .selected-day-panel {
+      flex-shrink: 0;
+    }
+
+    /* Sidebar height is synced to the calendar via JS; rates flex to fill,
+       and the book button is pinned to the column bottom. */
     .sidebar .rates-section {
-      flex: 1 1 auto;
+      flex: 1 1 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .sidebar .rates-grid {
+      flex: 1 1 0;
+      min-height: 0;
       display: flex;
       flex-direction: column;
     }
-    .sidebar .rates-grid {
-      flex: 1 1 auto;
-      grid-auto-rows: 1fr;
-    }
     .sidebar .rate-service-card {
+      flex: 1 1 0;
+      min-height: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 0.85rem 1.25rem;
+      padding: 0.75rem 1.15rem;
     }
-    .sidebar .rates-card-header { padding: 0.85rem 1.25rem 0.5rem; }
-    .sidebar .service-card-title { font-size: 1.15rem; margin-bottom: 0.1rem; }
-    .sidebar .service-card-sub { font-size: 0.72rem; margin-bottom: 0.5rem; }
-    .sidebar .rate-rows { gap: 0.35rem; }
-    .sidebar .rate-row { padding: 0.4rem 0.6rem; }
+    .sidebar .rates-card-header { padding: 0.75rem 1.15rem 0.4rem; flex-shrink: 0; }
+    .sidebar .rates-card-header h3 { font-size: 1.35rem; }
+    .sidebar .service-card-title { font-size: 1.05rem; margin-bottom: 0.05rem; }
+    .sidebar .service-card-sub { font-size: 0.68rem; margin-bottom: 0.35rem; }
+    .sidebar .rate-rows { gap: 0.25rem; }
+    .sidebar .rate-row { padding: 0.32rem 0.55rem; }
     .sidebar .bottom-book-wrap {
-      margin-top: 0;
+      flex-shrink: 0;
+      margin-top: auto;
       padding: 0;
     }
 
@@ -665,6 +677,49 @@
       flex: 1;
       min-width: 0;
       position: relative;
+      padding-top: 2.35rem;
+    }
+
+    .reviews-cat-lane {
+      position: absolute;
+      top: 0;
+      left: 0.15rem;
+      right: 0.5rem;
+      height: 2.1rem;
+      pointer-events: none;
+      z-index: 3;
+      overflow: visible;
+    }
+
+    .reviews-cat-lane::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(95, 125, 103, 0.22) 12%, rgba(95, 125, 103, 0.22) 88%, transparent);
+      border-radius: 2px;
+    }
+
+    .walking-cat {
+      position: absolute;
+      bottom: 3px;
+      width: 38px;
+      height: 26px;
+      animation: catWalkAcross 18s ease-in-out infinite;
+      filter: drop-shadow(0 2px 3px rgba(44, 36, 25, 0.12));
+    }
+
+    @keyframes catWalkAcross {
+      0% { left: 0; transform: scaleX(1); }
+      47% { left: calc(100% - 38px); transform: scaleX(1); }
+      53% { left: calc(100% - 38px); transform: scaleX(-1); }
+      100% { left: 0; transform: scaleX(-1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .walking-cat { animation: none; left: 18%; }
     }
 
     .reviews-track-wrap::after {
@@ -1283,7 +1338,7 @@
 
         <div class="rate-service-card overnight">
           <div class="service-card-title">Overnight stay</div>
-          <div class="service-card-sub">In your home · per night</div>
+          <div class="service-card-sub">Stay at my home · per night</div>
           <div class="rate-rows">
             <div class="rate-row">
               <div class="rate-type">
@@ -1325,6 +1380,21 @@
       <div class="reviews-carousel">
         <button class="reviews-arrow" id="reviewsPrev" type="button" aria-label="Previous reviews">‹</button>
         <div class="reviews-track-wrap" id="reviewsTrackWrap">
+          <div class="reviews-cat-lane" aria-hidden="true">
+            <svg class="walking-cat" viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="14" cy="22" rx="10" ry="7" fill="#5f7d67"/>
+              <circle cx="30" cy="14" r="7" fill="#5f7d67"/>
+              <path d="M24 10 L26 4 L28 10 Z" fill="#5f7d67"/>
+              <path d="M32 10 L34 4 L36 10 Z" fill="#5f7d67"/>
+              <path d="M6 24 Q2 20 4 16" stroke="#4a6352" stroke-width="2.5" stroke-linecap="round"/>
+              <rect x="10" y="26" width="3" height="5" rx="1.5" fill="#4a6352"/>
+              <rect x="16" y="26" width="3" height="5" rx="1.5" fill="#4a6352"/>
+              <rect x="20" y="26" width="3" height="5" rx="1.5" fill="#4a6352"/>
+              <rect x="26" y="26" width="3" height="5" rx="1.5" fill="#4a6352"/>
+              <circle cx="33" cy="13" r="1.2" fill="#f5f0e8"/>
+              <circle cx="27" cy="13" r="1.2" fill="#f5f0e8"/>
+            </svg>
+          </div>
           <div class="reviews-track" id="reviewsTrack">
             <article class="review-card">
               <div class="review-stars" aria-label="5 out of 5 stars">★★★★★</div>
@@ -1428,11 +1498,23 @@
 
     let availability = {};
 
+    function syncLayoutHeights() {
+      const cal = document.querySelector('.calendar-panel');
+      const sidebar = document.querySelector('.sidebar');
+      if (!cal || !sidebar) return;
+      if (window.matchMedia('(max-width: 900px)').matches) {
+        sidebar.style.height = '';
+        return;
+      }
+      sidebar.style.height = cal.offsetHeight + 'px';
+    }
+
     async function boot() {
       await hydrateFromStore();
       ensureBookings();
       availability = syncAvailabilityFromBookings();
       renderCalendar();
+      requestAnimationFrame(syncLayoutHeights);
     }
 
     function dateKey(y, m, d) {
@@ -1519,6 +1601,7 @@
 
         grid.appendChild(cell);
       }
+      requestAnimationFrame(syncLayoutHeights);
     }
 
     function selectDay(date) {
@@ -1568,7 +1651,10 @@
         });
       }
       updateBookLink();
+      requestAnimationFrame(syncLayoutHeights);
     }
+
+    window.addEventListener('resize', syncLayoutHeights);
 
     document.getElementById('prevMonth').addEventListener('click', () => {
       currentDate.setMonth(currentDate.getMonth() - 1);
