@@ -637,6 +637,26 @@
       color: var(--text-muted);
     }
 
+    .reviews-illustrations {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      max-width: 420px;
+      padding: 0 0.75rem;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .reviews-illustrations img {
+      display: block;
+      width: 100%;
+      max-width: 380px;
+      height: auto;
+      aspect-ratio: 1;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 28px rgba(44, 36, 25, 0.08));
+    }
+
     .reviews-carousel {
       position: relative;
       display: flex;
@@ -1334,6 +1354,9 @@
         <h3>What pet parents say</h3>
         <p>Trusted by dog &amp; cat parents across London</p>
       </div>
+      <div class="reviews-illustrations" aria-hidden="true">
+        <img src="assets/illustrations/cat-and-dog.svg" alt="" width="500" height="500" decoding="async" />
+      </div>
       <div class="reviews-carousel">
         <button class="reviews-arrow" id="reviewsPrev" type="button" aria-label="Previous reviews">‹</button>
         <div class="reviews-track-wrap" id="reviewsTrackWrap">
@@ -1375,7 +1398,8 @@
     </section>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
+      <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a><br />
+      <span style="font-size:0.68rem;opacity:0.85;margin-top:0.4rem;display:inline-block;">Illustrations by <a href="https://storyset.com/pet" style="color:var(--text-muted);">Storyset</a></span>
     </footer>
   </div>
 
