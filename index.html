@@ -638,23 +638,73 @@
     }
 
     .reviews-illustrations {
-      display: flex;
-      justify-content: center;
-      margin: 0 auto 1.5rem;
-      max-width: 420px;
-      padding: 0 0.75rem;
+      position: relative;
+      overflow: hidden;
+      margin: 0 -0.25rem 1.5rem;
+      height: clamp(150px, 22vw, 190px);
       pointer-events: none;
       user-select: none;
+      mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
     }
 
-    .reviews-illustrations img {
+    .pet-parade-inner {
+      display: flex;
+      align-items: flex-end;
+      gap: clamp(2rem, 6vw, 4rem);
+      width: max-content;
+      height: 100%;
+      padding: 0 1.5rem;
+      will-change: transform;
+      animation: petParadeScroll 52s linear infinite;
+    }
+
+    .pet-scene {
+      flex: 0 0 clamp(130px, 18vw, 170px);
+      height: clamp(130px, 18vw, 170px);
+      filter: drop-shadow(0 10px 22px rgba(44, 36, 25, 0.07));
+    }
+
+    .pet-scene object,
+    .pet-scene img {
       display: block;
       width: 100%;
-      max-width: 380px;
-      height: auto;
-      aspect-ratio: 1;
+      height: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 12px 28px rgba(44, 36, 25, 0.08));
+      pointer-events: none;
+    }
+
+    .pet-scene--bob {
+      animation: petSceneBob 3.4s ease-in-out infinite;
+    }
+
+    .pet-scene--bob-delay {
+      animation: petSceneBob 3.8s ease-in-out infinite;
+      animation-delay: -1.2s;
+    }
+
+    .pet-scene--bob-slow {
+      animation: petSceneBob 4.2s ease-in-out infinite;
+      animation-delay: -2.1s;
+    }
+
+    @keyframes petParadeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes petSceneBob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pet-parade-inner,
+      .pet-scene--bob,
+      .pet-scene--bob-delay,
+      .pet-scene--bob-slow {
+        animation: none;
+      }
     }
 
     .reviews-carousel {
@@ -1355,7 +1405,26 @@
         <p>Trusted by dog &amp; cat parents across London</p>
       </div>
       <div class="reviews-illustrations" aria-hidden="true">
-        <img src="assets/illustrations/cat-and-dog.svg" alt="" width="500" height="500" decoding="async" />
+        <div class="pet-parade-inner">
+          <div class="pet-scene pet-scene--bob">
+            <object type="image/svg+xml" data="assets/illustrations/cat-and-dog-animated.svg" width="170" height="170" aria-hidden="true"></object>
+          </div>
+          <div class="pet-scene pet-scene--bob-delay">
+            <object type="image/svg+xml" data="assets/illustrations/cautious-dog.svg" width="170" height="170" aria-hidden="true"></object>
+          </div>
+          <div class="pet-scene pet-scene--bob-slow">
+            <object type="image/svg+xml" data="assets/illustrations/pet-care.svg" width="170" height="170" aria-hidden="true"></object>
+          </div>
+          <div class="pet-scene pet-scene--bob">
+            <object type="image/svg+xml" data="assets/illustrations/cat-and-dog-animated.svg" width="170" height="170" aria-hidden="true"></object>
+          </div>
+          <div class="pet-scene pet-scene--bob-delay">
+            <object type="image/svg+xml" data="assets/illustrations/cautious-dog.svg" width="170" height="170" aria-hidden="true"></object>
+          </div>
+          <div class="pet-scene pet-scene--bob-slow">
+            <object type="image/svg+xml" data="assets/illustrations/pet-care.svg" width="170" height="170" aria-hidden="true"></object>
+          </div>
+        </div>
       </div>
       <div class="reviews-carousel">
         <button class="reviews-arrow" id="reviewsPrev" type="button" aria-label="Previous reviews">‹</button>
