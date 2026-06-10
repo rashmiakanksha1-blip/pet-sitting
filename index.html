@@ -262,7 +262,7 @@
 
     .layout {
       display: grid;
-      grid-template-columns: 1fr 300px;
+      grid-template-columns: 1fr 340px;
       gap: 1.75rem;
       align-items: start;
     }
@@ -270,6 +270,15 @@
     @media (max-width: 900px) {
       .layout { grid-template-columns: 1fr; }
     }
+
+    /* Rates live in the sidebar — stack vertically to fill the column */
+    .sidebar .rates-section { margin-top: 0; }
+    .sidebar .rates-grid { grid-template-columns: 1fr; }
+    .sidebar .rate-service-card {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar .rate-service-card:last-child { border-bottom: none; }
 
     /* Calendar panel */
     .calendar-panel {
@@ -1155,10 +1164,6 @@
       </main>
 
       <aside class="sidebar">
-        <p class="rates-scroll-hint" id="ratesScrollHint">
-          <a href="#ratesSection">↓ Scroll down to see full rates</a>
-        </p>
-
         <div class="selected-day-panel" id="selectedPanel">
           <h4 id="selectedDateLabel">Select a date</h4>
           <div class="detail owner-only" id="selectedTier"></div>
@@ -1182,10 +1187,7 @@
             <div class="legend-item"><span class="legend-dot tier-super" aria-hidden="true"></span> Super peak</div>
           </div>
         </div>
-      </aside>
-    </div>
-
-    <section class="rates-section" id="ratesSection">
+        <section class="rates-section" id="ratesSection">
       <div class="rates-card-header">
         <h3>Rates</h3>
         <p>Pricing varies by season & demand</p>
@@ -1247,7 +1249,9 @@
           </div>
         </div>
       </div>
-    </section>
+        </section>
+      </aside>
+    </div>
 
     <div class="bottom-book-wrap">
       <a class="bottom-book-btn" id="bookBtnBottom" href="#">Book my pet sitting</a>
@@ -1348,7 +1352,6 @@
       document.querySelectorAll('.owner-only').forEach(el => el.hidden = true);
       if (!SITE_CONFIG.showRatesToPublic) {
         document.getElementById('ratesSection').hidden = true;
-        document.getElementById('ratesScrollHint').hidden = true;
       }
       document.getElementById('calendarHint').hidden = true;
     }
