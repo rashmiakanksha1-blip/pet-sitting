@@ -458,6 +458,25 @@
       box-shadow: var(--shadow);
     }
 
+    /* Legends sit as a bar at the bottom of the calendar panel */
+    .calendar-legend {
+      border: none;
+      border-top: 1px solid var(--border);
+      border-radius: 0;
+      box-shadow: none;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 1.75rem;
+      padding: 0.9rem 1.5rem 1.1rem;
+    }
+
+    .calendar-legend .legend-section + .legend-section {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+
     .legend-section {
       display: flex;
       flex-wrap: wrap;
@@ -1161,19 +1180,7 @@
           <div class="weekday">Sun</div>
         </div>
         <div class="days-grid" id="daysGrid"></div>
-      </main>
-
-      <aside class="sidebar">
-        <div class="selected-day-panel" id="selectedPanel">
-          <h4 id="selectedDateLabel">Select a date</h4>
-          <div class="detail owner-only" id="selectedTier"></div>
-          <div class="detail owner-only" id="selectedRates"></div>
-          <div class="detail" id="selectedStatus"></div>
-          <div class="detail owner-only" id="selectedBooking"></div>
-          <div class="status-picker" id="statusPicker"></div>
-        </div>
-
-        <div class="legend-card">
+        <div class="legend-card calendar-legend">
           <div class="legend-section">
             <div class="legend-title">Availability</div>
             <div class="legend-item"><span class="legend-dot dot-available" aria-hidden="true"></span> Available</div>
@@ -1187,6 +1194,18 @@
             <div class="legend-item"><span class="legend-dot tier-super" aria-hidden="true"></span> Super peak</div>
           </div>
         </div>
+      </main>
+
+      <aside class="sidebar">
+        <div class="selected-day-panel" id="selectedPanel">
+          <h4 id="selectedDateLabel">Select a date</h4>
+          <div class="detail owner-only" id="selectedTier"></div>
+          <div class="detail owner-only" id="selectedRates"></div>
+          <div class="detail" id="selectedStatus"></div>
+          <div class="detail owner-only" id="selectedBooking"></div>
+          <div class="status-picker" id="statusPicker"></div>
+        </div>
+
         <section class="rates-section" id="ratesSection">
       <div class="rates-card-header">
         <h3>Rates</h3>
