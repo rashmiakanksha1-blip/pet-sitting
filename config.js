@@ -1,9 +1,9 @@
 // ← Edit these to customise your site
 const SITE_CONFIG = {
-  siteVersion: '10 Jun 2026 (c)',
+  siteVersion: '10 Jun 2026 (d)',
   businessName: 'Pet Sitters Club',
   bookingInquirySubject: 'Pet sitting inquiry — Pet Sitters Club',
-  tagline: 'Loving care for your dogs & cats while you\'re away',
+  tagline: 'Sit, stay — we\'ll take it from here',
   petsInfo: {
     cats: 'All sizes welcome',
     dogs: 'Small breeds · pug-sized & similar',
