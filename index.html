@@ -552,9 +552,24 @@
       align-self: stretch;
     }
 
-    /* Book button sits at the bottom of the sidebar, aligning with the calendar */
+    /* Sidebar fills the calendar height: rate cards grow, book button stays attached
+       directly beneath them, so the column bottom lines up with the calendar. */
+    .sidebar .rates-section {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar .rates-grid {
+      flex: 1 1 auto;
+      grid-auto-rows: 1fr;
+    }
+    .sidebar .rate-service-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     .sidebar .bottom-book-wrap {
-      margin-top: auto;
+      margin-top: 0;
       padding: 0;
     }
 
