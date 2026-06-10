@@ -356,19 +356,19 @@
     .days-grid {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 6px;
-      padding: 0.25rem 1rem 1.25rem;
+      gap: 5px;
+      padding: 0.25rem 1rem 0.85rem;
       min-width: 0;
     }
 
     .day {
-      aspect-ratio: 1;
+      aspect-ratio: 1.25;
       min-height: 0;
       min-width: 0;
       width: 100%;
       border-radius: var(--radius-sm);
       border: 1.5px solid var(--border);
-      padding: 0.4rem;
+      padding: 0.3rem 0.4rem;
       cursor: pointer;
       transition: all 0.2s;
       display: flex;
@@ -444,6 +444,19 @@
     .day.booked .status-label { color: #c04040; }
     .day.unavailable .status-dot { background: #9e9e9e; }
     .day.unavailable .status-label { color: #757575; }
+
+    /* Booked & unavailable days are greyed out (overrides tier colours) */
+    .day.booked,
+    .day.unavailable {
+      background: #eceef0;
+      border-color: #dfe3e6;
+    }
+    .day.booked .day-num,
+    .day.unavailable .day-num,
+    .day.booked .day-tier-label,
+    .day.unavailable .day-tier-label {
+      color: #9aa1a8;
+    }
 
     /* Tier legend */
     .tier-off { background: #ffffff; border: 1px solid var(--border); }
@@ -567,7 +580,13 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      padding: 0.85rem 1.25rem;
     }
+    .sidebar .rates-card-header { padding: 0.85rem 1.25rem 0.5rem; }
+    .sidebar .service-card-title { font-size: 1.15rem; margin-bottom: 0.1rem; }
+    .sidebar .service-card-sub { font-size: 0.72rem; margin-bottom: 0.5rem; }
+    .sidebar .rate-rows { gap: 0.35rem; }
+    .sidebar .rate-row { padding: 0.4rem 0.6rem; }
     .sidebar .bottom-book-wrap {
       margin-top: 0;
       padding: 0;
