@@ -637,57 +637,6 @@
       color: var(--text-muted);
     }
 
-    .cat-showcase {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      gap: clamp(0.85rem, 3vw, 1.75rem);
-      flex-wrap: wrap;
-      margin: 0 auto 1.75rem;
-      padding: 1.1rem clamp(0.75rem, 3vw, 1.5rem);
-      max-width: 920px;
-      min-height: 240px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.78));
-      border: 1px solid rgba(107, 143, 113, 0.18);
-      border-radius: 20px;
-      box-shadow: 0 14px 34px rgba(44, 36, 25, 0.06);
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .cat-showcase-frame {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #ffffff;
-      border-radius: 18px;
-      box-shadow: 0 8px 22px rgba(44, 36, 25, 0.08);
-      overflow: hidden;
-    }
-
-    .cat-showcase-frame img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .cat-showcase-frame--lg {
-      width: clamp(170px, 24vw, 230px);
-      height: clamp(170px, 24vw, 230px);
-    }
-
-    .cat-showcase-frame--md {
-      width: clamp(145px, 20vw, 195px);
-      height: clamp(145px, 20vw, 195px);
-    }
-
-    .cat-showcase-frame--sm {
-      width: clamp(120px, 16vw, 165px);
-      height: clamp(120px, 16vw, 165px);
-    }
-
     .reviews-carousel {
       position: relative;
       display: flex;
@@ -1383,18 +1332,7 @@
     <section class="reviews-section" aria-label="Client reviews">
       <div class="reviews-header">
         <h3>What pet parents say</h3>
-        <p>Trusted by cat parents across London</p>
-      </div>
-      <div class="cat-showcase" aria-label="Animated cat illustrations">
-        <div class="cat-showcase-frame cat-showcase-frame--md">
-          <img src="assets/illustrations/gifs/playful-cat.gif?v=2" alt="Playful cat with yarn" width="195" height="195" loading="eager" decoding="async" />
-        </div>
-        <div class="cat-showcase-frame cat-showcase-frame--lg">
-          <img src="assets/illustrations/gifs/playful-cat.gif?v=2" alt="Playful cat with yarn" width="230" height="230" loading="eager" decoding="async" />
-        </div>
-        <div class="cat-showcase-frame cat-showcase-frame--md">
-          <img src="assets/illustrations/gifs/playful-cat.gif?v=2" alt="Playful cat with yarn" width="195" height="195" loading="eager" decoding="async" />
-        </div>
+        <p>Trusted by pet parents across London</p>
       </div>
       <div class="reviews-carousel">
         <button class="reviews-arrow" id="reviewsPrev" type="button" aria-label="Previous reviews">‹</button>
