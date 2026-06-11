@@ -35,6 +35,7 @@
       --accent: #c4785c;
       --accent-dark: #9a5c44;
       --accent-tint: #2e3a32;
+      --sage-hue: #5a8a6e;
       --tier-off-bg: var(--surface);
       --tier-peak-bg: #3a453c;
       --tier-peak-border: #5a6e60;
@@ -73,7 +74,7 @@
       content: '';
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23c4bdb4' fill-opacity='0.35'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3Cg transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23c4785c' fill-opacity='0.13'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3Cg fill='%235a8a6e' fill-opacity='0.13' transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
       background-size: 220px 220px;
       pointer-events: none;
       z-index: 0;
@@ -137,7 +138,9 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23c4785c'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
     }
 
-    .paw-trail.alt::before { filter: hue-rotate(8deg); }
+    .paw-trail.alt::before {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%235a8a6e'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
+    }
 
     @keyframes pawFloat {
       14% { opacity: 0.55; transform: translateY(0) scale(1); }
@@ -156,6 +159,10 @@
       background-size: contain;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23c4785c'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
       animation: ambientRise linear forwards;
+    }
+
+    .ambient-paw.sage {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%235a8a6e'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
     }
 
     @keyframes ambientRise {
@@ -178,11 +185,7 @@
       color: var(--page-text);
     }
 
-    .rates-block,
-    .review-card,
-    .about-card,
-    .pets-info-item,
-    .rate-service-card {
+    .review-card {
       color: var(--text);
     }
 
@@ -266,12 +269,13 @@
       align-items: center;
       gap: 0.65rem;
       padding: 0.65rem 1rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--page-bg-warm);
+      border: 1px solid #e8e2da;
       border-top: 3px solid var(--accent);
       border-radius: var(--radius-sm);
-      box-shadow: var(--shadow);
+      box-shadow: 0 4px 16px rgba(44, 40, 36, 0.06);
       font-size: 0.88rem;
+      color: var(--page-text);
     }
 
     .pets-info-icon { font-size: 1.35rem; line-height: 1; }
@@ -279,12 +283,12 @@
     .pets-info-item strong {
       display: block;
       font-weight: 500;
-      color: var(--text);
+      color: var(--page-text);
       line-height: 1.2;
     }
 
     .pets-info-item span {
-      color: var(--text-muted);
+      color: var(--page-text-muted);
       font-size: 0.82rem;
     }
 
@@ -518,13 +522,16 @@
 
     .info-ribbon {
       margin-bottom: 1rem;
-      background: var(--page-bg-warm);
-      border-color: #ddd6cc;
+      background: var(--surface);
+      border-color: var(--border);
     }
 
-    .info-ribbon .pet-fact-label,
+    .info-ribbon .pet-fact-label {
+      color: var(--text);
+    }
+
     .info-ribbon .pet-fact-text {
-      color: var(--page-text-muted);
+      color: var(--text-muted);
     }
 
     .pet-fact {
@@ -972,18 +979,19 @@
     }
 
     .about-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: #ffffff;
+      border: 1px solid #e8e2da;
       border-radius: var(--radius);
       padding: 1.25rem 1.35rem 0;
-      box-shadow: var(--shadow);
+      box-shadow: 0 8px 36px rgba(44, 40, 36, 0.08);
       overflow: hidden;
+      color: var(--page-text);
     }
 
     .about-copy p {
       font-size: 0.92rem;
       line-height: 1.55;
-      color: var(--text);
+      color: var(--page-text);
       margin-bottom: 0.75rem;
     }
 
@@ -993,12 +1001,18 @@
 
     .about-card .content-ribbon.about-ribbon {
       margin: 1.25rem -1.35rem 0;
+      background: var(--page-bg-warm);
       border-left: none;
       border-right: none;
       border-radius: 0;
+      border-color: #e8e2da;
       overflow: hidden;
       padding: 0.85rem 0;
       display: block;
+    }
+
+    .about-card .content-ribbon-item {
+      color: var(--page-text-muted);
     }
 
     .about-ribbon-track {
@@ -1049,8 +1063,8 @@
 
     .about-contact {
       font-size: 0.8rem;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border);
+      color: var(--page-text-muted);
+      border-top: 1px solid #e8e2da;
       padding: 0.85rem 0 1.15rem;
       margin-top: 1rem;
     }
@@ -1104,11 +1118,12 @@
     .rates-scroll-hint a:hover { text-decoration: underline; }
 
     .rates-block {
-      background: var(--surface);
+      background: #ffffff;
       border-radius: var(--radius);
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--border);
+      box-shadow: 0 8px 36px rgba(44, 40, 36, 0.08);
+      border: 1px solid #e8e2da;
       padding: 1rem 1.25rem;
+      color: var(--page-text);
     }
 
     .rates-block .rates-grid {
@@ -1119,17 +1134,14 @@
 
     .rate-service-card {
       padding: 1rem 1.15rem;
-      border: 1px solid var(--border);
+      border: 1px solid #e8e2da;
       border-radius: var(--radius-sm);
-      background: var(--bg-warm);
-    }
-
-    .rate-service-card {
-      background: var(--surface-raised);
+      background: var(--page-bg-warm);
+      color: var(--page-text);
     }
 
     .service-card-title {
-      color: var(--text);
+      color: var(--page-text);
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.45rem;
       font-weight: 600;
@@ -1138,7 +1150,7 @@
 
     .service-card-sub {
       font-size: 0.78rem;
-      color: var(--text-muted);
+      color: var(--page-text-muted);
       margin-bottom: 0.85rem;
     }
 
@@ -1151,6 +1163,12 @@
       border-radius: 20px;
     }
 
+    .rates-block .tier-badge.off {
+      background: var(--page-bg);
+      color: var(--page-text-muted);
+      border: 1px solid #ddd6cc;
+    }
+
     .tier-badge.off { background: var(--surface-raised); color: var(--text-muted); border: 1px solid var(--border); }
     .tier-badge.peak { background: var(--accent); color: white; }
     .tier-badge.super { background: var(--accent-dark); color: white; }
@@ -1158,6 +1176,11 @@
     .tier-when {
       font-size: 0.75rem;
       color: var(--text-muted);
+    }
+
+    .rates-block .tier-when,
+    .rates-block .rate-type .tier-when {
+      color: var(--page-text-muted);
     }
 
     .rate-rows {
@@ -1175,6 +1198,11 @@
       border-radius: 8px;
     }
 
+    .rates-block .rate-row {
+      background: #fff;
+      border: 1px solid #ebe5dd;
+    }
+
     .rate-type {
       font-size: 0.85rem;
       color: var(--text);
@@ -1182,6 +1210,15 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 0.3rem;
+    }
+
+    .rates-block .rate-type,
+    .rates-block .rate-price {
+      color: var(--page-text);
+    }
+
+    .rates-block .rate-price small {
+      color: var(--page-text-muted);
     }
 
     .rate-type .tier-when {
@@ -1729,7 +1766,7 @@
     </section>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (ae)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (af)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
@@ -2070,14 +2107,12 @@
 
       // Ambient paws drift up gently on every device
       (function ambientPaws() {
-        const tints = ['', 'hue-rotate(15deg) saturate(0.8)', 'hue-rotate(-12deg)'];
         function spawn() {
           const paw = document.createElement('div');
-          paw.className = 'ambient-paw';
+          paw.className = 'ambient-paw' + (Math.random() > 0.5 ? ' sage' : '');
           const size = 22 + Math.random() * 22;
           paw.style.width = paw.style.height = size + 'px';
           paw.style.left = (Math.random() * 96) + 'vw';
-          paw.style.filter = tints[Math.floor(Math.random() * tints.length)];
           paw.style.setProperty('--amb-rot', (Math.random() * 60 - 30) + 'deg');
           const dur = 14 + Math.random() * 12;
           paw.style.animationDuration = dur + 's';
