@@ -262,27 +262,28 @@
       top: 0;
       right: 0;
       padding: 0.8rem 1.35rem;
-      background: #fff;
-      color: var(--sage-dark);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      background: linear-gradient(135deg, var(--sage-hue), var(--sage-dark));
+      color: #fff;
+      border: none;
       border-radius: var(--radius-sm);
       font-family: 'Outfit', sans-serif;
       font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
       text-decoration: none;
       text-align: center;
       white-space: nowrap;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.28);
       z-index: 2;
+      appearance: none;
     }
 
     .header-book-btn:hover {
-      transform: translateY(-1px);
-      background: var(--sage-light);
-      box-shadow: var(--shadow-lg);
-      color: var(--sage-dark);
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32);
+      color: #fff;
     }
 
     .hero-terracotta .logo h1 {
@@ -310,10 +311,10 @@
     .hero-ribbon-full {
       width: 100%;
       margin: 1rem 0 0;
-      background: var(--panel-bg);
-      border-top: 1px solid rgba(255, 255, 255, 0.35);
+      background: linear-gradient(135deg, var(--sage-hue), var(--sage-dark));
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
       border-bottom: none;
-      box-shadow: none;
+      box-shadow: var(--ribbon-shadow);
       overflow: hidden;
       padding: 0.7rem 0;
       display: block;
@@ -321,14 +322,14 @@
 
     .hero-ribbon-full .about-ribbon-track .content-ribbon-item {
       font-size: 0.92rem;
-      color: var(--reviewer-name-color);
+      color: #fff;
       font-family: 'Outfit', sans-serif;
       font-weight: 500;
     }
 
     .hero-ribbon-full .content-ribbon-dot {
-      background: var(--accent);
-      opacity: 0.7;
+      background: rgba(255, 255, 255, 0.8);
+      opacity: 1;
     }
 
     .logo {
