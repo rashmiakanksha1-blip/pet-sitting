@@ -11,26 +11,32 @@ const SITE_CONFIG = {
     dogs: 'Small breeds · pug-sized & similar',
   },
 
-  // ONE link for word-of-mouth — share this everywhere; it never changes.
-  // Branded Netlify /book URL works once credits allow a fresh deploy of v2.
+  // Your own domain — no personal GitHub username in the link.
+  // Run: bash scripts/setup-custom-domain.sh www.petsittersclub.co.uk
+  customDomain: '',
+
+  // ONE link for word-of-mouth — filled automatically when customDomain is set.
   publicBookingUrl: 'https://rashmiakanksha1-blip.github.io/pet-sitting/book/',
 
   contactEmail: 'petsittersclublondon@gmail.com',
   bookingEmail: 'petsittersclublondon@gmail.com',
-  // Email fallback for agent notifications (Telegram preferred — see scripts/.env)
   ownerNotifyEmail: 'petsittersclublondon@gmail.com',
 
-  // Show the £ rates table to clients on the public calendar
   showRatesToPublic: true,
 
-  // Live calendar — owner updates on the site sync here automatically (no Netlify dashboard).
   liveStoreUrl: '/.netlify/functions/store',
-  // Used when the site is served off-Netlify (e.g. the GitHub Pages mirror) so the
-  // calendar still reads/writes the same live data via the Netlify function (CORS-enabled).
   liveStoreUrlAbsolute: 'https://petsittersclublondon.netlify.app/.netlify/functions/store',
   storeWriteKey: 'psc-live-sync-7k9m2xq',
 
-  // Names shown in browser tab
   customerPageTitle: 'Check availability',
   ownerPageTitle: 'Owner login',
 };
+
+(function applyCustomDomain() {
+  if (!SITE_CONFIG.customDomain) return;
+  const host = SITE_CONFIG.customDomain.replace(/^https?:\/\//, '').replace(/\/+$/, '');
+  SITE_CONFIG.publicBookingUrl = `https://${host}/book/`;
+  if (typeof location !== 'undefined' && /\.github\.io$/i.test(location.hostname)) {
+    location.replace(SITE_CONFIG.publicBookingUrl + location.search + location.hash);
+  }
+})();

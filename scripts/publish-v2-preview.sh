@@ -31,18 +31,34 @@ for file in index.html config.js auth.js shared.js; do
   git show "v2:${file}" > "book/${file}"
 done
 
-python3 - <<'PY'
+CUSTOM_DOMAIN="${CUSTOM_DOMAIN:-}"
+if [[ -f CNAME ]]; then
+  CUSTOM_DOMAIN="$(tr -d '[:space:]' < CNAME)"
+fi
+
+python3 - <<PY
 from pathlib import Path
 
-root_base = '  <base href="/pet-sitting/" />\n'
-book_base = '  <base href="/pet-sitting/book/" />\n'
+custom = "${CUSTOM_DOMAIN}".strip()
 viewport = '  <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n'
+
+if custom:
+    root_base = '  <base href="/" />\n'
+    book_base = '  <base href="/book/" />\n'
+    Path("CNAME").write_text(custom + "\\n")
+else:
+    root_base = '  <base href="/pet-sitting/" />\n'
+    book_base = '  <base href="/pet-sitting/book/" />\n'
+    Path("CNAME").unlink(missing_ok=True)
 
 def add_base(path: Path, base_tag: str) -> None:
     html = path.read_text()
     if "<base " in html:
-        return
-    path.write_text(html.replace(viewport, viewport + base_tag, 1))
+        import re
+        html = re.sub(r'  <base href="[^"]*" />\n', base_tag, html, count=1)
+    else:
+        html = html.replace(viewport, viewport + base_tag, 1)
+    path.write_text(html)
 
 add_base(Path("index.html"), root_base)
 add_base(Path("book/index.html"), book_base)
@@ -66,10 +82,20 @@ Path("v2/index.html").parent.mkdir(parents=True, exist_ok=True)
 Path("v2/index.html").write_text(redirect)
 PY
 
-git -c user.email="petsittersclublondon@gmail.com" -c user.name="Pet Sitters Club" add \
-  index.html config.js auth.js shared.js book availability.html book.html v2
-git -c user.email="petsittersclublondon@gmail.com" -c user.name="Pet Sitters Club" commit -m "Publish v2 as live site" || echo "Nothing to commit"
+git add index.html config.js auth.js shared.js book availability.html book.html v2
+[[ -f CNAME ]] && git add CNAME
+git -c user.email="petsittersclublondon@gmail.com" -c user.name="Pet Sitters Club" \
+  commit -m "Publish v2 as live site" || echo "Nothing to commit"
 git push "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${REPO}.git" main
 
 git checkout "${RETURN_BRANCH}"
-echo "Live v2 site: https://${GITHUB_USER}.github.io/${REPO}/book/"
+
+if [[ -n "${CUSTOM_DOMAIN}" ]]; then
+  echo "Share this link: https://${CUSTOM_DOMAIN}/book/"
+else
+  echo "Live v2 (GitHub — has your username until you add a domain):"
+  echo "  https://${GITHUB_USER}.github.io/${REPO}/book/"
+  echo ""
+  echo "To remove your name from the link:"
+  echo "  bash scripts/setup-custom-domain.sh www.petsittersclub.co.uk"
+fi
