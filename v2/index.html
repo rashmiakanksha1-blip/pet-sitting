@@ -1142,10 +1142,20 @@
     .day.past { opacity: 0.45; cursor: not-allowed; }
 
     .day-num {
-      font-size: 0.6rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.68rem;
       font-weight: 600;
       line-height: 1;
-      margin-top: -1px;
+      color: var(--page-text);
+      letter-spacing: 0;
+      margin-top: -2px;
+    }
+
+    .calendar-panel .day-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--page-text);
     }
 
     .day-tier-label {
@@ -2161,7 +2171,8 @@
         max-width: 26px;
       }
 
-      .day-num { font-size: 0.54rem; }
+      .day-num { font-size: 0.62rem; }
+      .calendar-panel .day-num { font-size: 0.62rem; }
       .status-dot { width: 3px; height: 3px; }
 
       .main-stack { gap: 1rem; }
