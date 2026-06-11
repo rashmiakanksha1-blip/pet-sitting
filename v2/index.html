@@ -1200,14 +1200,15 @@
       width: 42px;
       height: 42px;
       border-radius: 50%;
-      border: 1px solid var(--accent-dark);
-      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      border: 2px solid var(--raised-sage-top);
+      border-bottom: 3px solid var(--raised-sage-bottom);
+      background: linear-gradient(180deg, var(--sage-hue) 0%, var(--sage-dark) 100%);
       color: #fff;
       font-size: 1.35rem;
       line-height: 1;
       cursor: pointer;
-      box-shadow: var(--shadow);
-      transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+      box-shadow: var(--raised-sage-shadow);
+      transition: filter 0.2s, box-shadow 0.2s, opacity 0.2s;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1215,8 +1216,8 @@
     }
 
     .reviews-arrow:hover:not(:disabled) {
-      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-      border-color: var(--accent-dark);
+      filter: brightness(1.07);
+      box-shadow: 0 8px 22px rgba(42, 96, 104, 0.42), 0 3px 8px rgba(0, 0, 0, 0.14);
       color: #fff;
     }
 
