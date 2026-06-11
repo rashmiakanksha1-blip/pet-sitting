@@ -274,7 +274,8 @@
 
     .calendar-panel .calendar-header .paw-twinkle-pulse,
     .rates-block .rate-card-head .paw-twinkle-pulse,
-    .about-band .about-section-head .paw-twinkle-pulse {
+    .about-band .about-section-head .paw-twinkle-pulse,
+    .hero-ribbon-full .paw-twinkle-pulse {
       -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='76' viewBox='0 0 100 76'%3E%3Cg fill='%23ffffff' transform='translate(6 8) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%23ffffff' transform='translate(48 32) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
       mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='76' viewBox='0 0 100 76'%3E%3Cg fill='%23ffffff' transform='translate(6 8) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%23ffffff' transform='translate(48 32) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
       -webkit-mask-size: 84px 58px;
@@ -288,6 +289,10 @@
     .rates-block .rate-card-head .paw-twinkle-pulse,
     .about-band .about-section-head .paw-twinkle-pulse {
       background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    }
+
+    .hero-ribbon-full .paw-twinkle-pulse {
+      background: linear-gradient(180deg, var(--sage-hue) 0%, var(--sage-dark) 100%);
     }
 
     @keyframes pawFadeToRibbon {
@@ -406,9 +411,26 @@
       box-shadow: var(--raised-sage-shadow);
       overflow: hidden;
       padding: 0.8rem 0;
-      min-height: 0;
+      min-height: 3.1rem;
       display: block;
       flex-wrap: nowrap;
+    }
+
+    .hero-ribbon-full::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='76' viewBox='0 0 100 76'%3E%3Cg fill='%23ffffff' fill-opacity='0.18' transform='translate(6 8) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%23ffffff' fill-opacity='0.12' transform='translate(48 32) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 84px 58px;
+      -webkit-mask-image: var(--paw-ribbon-side-mask);
+      mask-image: var(--paw-ribbon-side-mask);
+    }
+
+    .hero-ribbon-full .about-ribbon-track {
+      position: relative;
+      z-index: 1;
     }
 
     .hero-ribbon-full .about-ribbon-track .content-ribbon-item {
@@ -2287,6 +2309,15 @@
         line-height: 1.45;
       }
 
+      .hero-ribbon-full {
+        min-height: 2.85rem;
+      }
+
+      .hero-ribbon-full::before {
+        -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 4%, rgba(0, 0, 0, 0.65) 11%, transparent 24%, transparent 76%, rgba(0, 0, 0, 0.65) 89%, #000 96%, #000 100%);
+        mask-image: linear-gradient(90deg, #000 0%, #000 4%, rgba(0, 0, 0, 0.65) 11%, transparent 24%, transparent 76%, rgba(0, 0, 0, 0.65) 89%, #000 96%, #000 100%);
+      }
+
       .hero-ribbon-full .about-ribbon-track .content-ribbon-item {
         font-size: 0.9rem;
       }
@@ -3339,6 +3370,7 @@
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       const PAW_TWINKLE_TILES = [
+        { selector: '.hero-ribbon-full', tileW: 84, tileH: 58, maxActive: 4, sideBand: 0.2, minHeight: 36 },
         { selector: '.calendar-panel .calendar-header', tileW: 84, tileH: 58, maxActive: 4, sideBand: 0.28 },
         { selector: '.rates-block .rate-card-head', tileW: 84, tileH: 58, maxActive: 3, sideBand: 0.26 },
         { selector: '.about-band .about-section-head', tileW: 84, tileH: 58, maxActive: 3, sideBand: 0.26 },
@@ -3367,7 +3399,8 @@
 
         const rect = host.getBoundingClientRect();
         const { tileW, tileH } = config;
-        if (rect.width < tileW + 8 || rect.height < 44) {
+        const minH = config.minHeight || 44;
+        if (rect.width < tileW + 8 || rect.height < minH) {
           setTimeout(() => spawnPulse(host, config), 800);
           return;
         }
