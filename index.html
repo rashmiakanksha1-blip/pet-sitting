@@ -963,7 +963,7 @@
 
     .title-play {
       font-style: italic;
-      color: var(--accent);
+      color: var(--sage-dark);
     }
 
     .reviews-carousel {
@@ -1686,7 +1686,7 @@
   <div class="bg-glow-core" id="bgGlowCore" aria-hidden="true"></div>
   <div class="page">
     <header>
-      <a class="header-book-btn" id="bookBtn" href="#">Book pet sitting</a>
+      <a class="header-book-btn" id="bookBtn" href="#">Book my slot</a>
       <div class="logo">
         <div class="logo-icon">🐾</div>
         <h1 id="businessName">Paws & Stay</h1>
@@ -1860,7 +1860,7 @@
       </section>
 
       <div class="bottom-book-wrap">
-        <a class="bottom-book-btn" id="bookBtnBottom" href="#">Book my pet sitting</a>
+        <a class="bottom-book-btn" id="bookBtnBottom" href="#">Book my slot</a>
       </div>
     </div>
 
@@ -1955,7 +1955,7 @@
     <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (bz)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (ca)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
@@ -1983,6 +1983,9 @@
 
     const bookBtn = document.getElementById('bookBtn');
     const bookBtnBottom = document.getElementById('bookBtnBottom');
+    const bookLabel = SITE_CONFIG.bookButtonLabel || 'Book my slot';
+    if (bookBtn) bookBtn.textContent = bookLabel;
+    if (bookBtnBottom) bookBtnBottom.textContent = bookLabel;
     let selectedDateKey = null;
 
     function updateBookLink() {
