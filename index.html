@@ -868,8 +868,60 @@
       margin-bottom: 0;
     }
 
-    .about-card .content-ribbon {
-      margin-top: 1.25rem;
+    .about-card .content-ribbon.about-ribbon {
+      margin: 1.25rem -1.35rem 0;
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
+      overflow: hidden;
+      padding: 0.85rem 0;
+      display: block;
+    }
+
+    .about-ribbon-track {
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+      width: max-content;
+      padding-left: 2.25rem;
+      animation: about-ribbon-scroll 80s linear infinite;
+    }
+
+    .about-ribbon:hover .about-ribbon-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes about-ribbon-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .about-ribbon-duplicate {
+      display: contents;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .about-card .content-ribbon.about-ribbon {
+        overflow: visible;
+        padding: 0.85rem 1.15rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .about-ribbon-track {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem 1.25rem;
+        padding: 0;
+        animation: none;
+        transform: none;
+      }
+
+      .about-ribbon-duplicate {
+        display: none;
+      }
     }
 
     .about-contact {
@@ -1527,14 +1579,25 @@
             medication on schedule, and a quick photo update so you know they’re fine while you’re away.
           </p>
         </div>
-        <div class="content-ribbon" aria-label="Services we offer">
-          <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Overnight stays at our home</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Cats · all sizes welcome</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
+        <div class="content-ribbon about-ribbon" aria-label="Services we offer">
+          <div class="about-ribbon-track">
+            <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
+            <span class="content-ribbon-dot" aria-hidden="true"></span>
+            <span class="content-ribbon-item">Overnight stays at our home</span>
+            <span class="content-ribbon-dot" aria-hidden="true"></span>
+            <span class="content-ribbon-item">Cats · all sizes welcome</span>
+            <span class="content-ribbon-dot" aria-hidden="true"></span>
+            <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
+            <span class="about-ribbon-duplicate" aria-hidden="true">
+              <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
+              <span class="content-ribbon-dot" aria-hidden="true"></span>
+              <span class="content-ribbon-item">Overnight stays at our home</span>
+              <span class="content-ribbon-dot" aria-hidden="true"></span>
+              <span class="content-ribbon-item">Cats · all sizes welcome</span>
+              <span class="content-ribbon-dot" aria-hidden="true"></span>
+              <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
+            </span>
+          </div>
         </div>
         <p class="about-contact">
           Questions before you book?
@@ -1544,7 +1607,7 @@
     </section>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (w)</span><br />
+      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (x)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
