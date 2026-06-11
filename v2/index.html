@@ -655,28 +655,35 @@
     }
 
     .calendar-panel .day:not(.empty) {
-      background: linear-gradient(180deg, #ffffff 0%, #f3ece6 100%);
-      border: 1.5px solid rgba(255, 255, 255, 0.62);
-      border-bottom: 2.5px solid rgba(196, 120, 92, 0.2);
+      background: linear-gradient(180deg, #f2d8ca 0%, #ddb39c 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.5);
+      border-bottom: 2.5px solid rgba(154, 92, 68, 0.42);
       box-shadow:
-        0 2px 5px rgba(154, 92, 68, 0.16),
-        0 1px 2px rgba(0, 0, 0, 0.05),
-        inset 0 1px 0 rgba(255, 255, 255, 0.75);
-      color: var(--page-text);
+        0 2px 6px rgba(154, 92, 68, 0.24),
+        0 1px 2px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
+      color: #4a3028;
     }
 
     .calendar-panel .day.tier-off-day {
-      background: linear-gradient(180deg, #ffffff 0%, #f3ece6 100%);
+      background: linear-gradient(180deg, #f2d8ca 0%, #ddb39c 100%);
+      border-bottom-color: rgba(154, 92, 68, 0.38);
     }
 
     .calendar-panel .day.tier-peak-day {
-      background: linear-gradient(180deg, #faf4f0 0%, #edd9cc 100%);
-      border-bottom-color: rgba(196, 120, 92, 0.32);
+      background: linear-gradient(180deg, #e8bda8 0%, #cf9276 100%);
+      border-bottom-color: rgba(124, 72, 52, 0.48);
     }
 
     .calendar-panel .day.tier-super-day {
-      background: linear-gradient(180deg, #f5e8de 0%, #e5cbb8 100%);
-      border-bottom-color: rgba(154, 92, 68, 0.38);
+      background: linear-gradient(180deg, #dfa88c 0%, #c4785c 100%);
+      border-bottom-color: rgba(106, 58, 42, 0.55);
+      color: #fff8f4;
+    }
+
+    .calendar-panel .day.tier-super-day .day-num {
+      color: #fff8f4;
+      text-shadow: 0 1px 1px rgba(74, 50, 40, 0.25);
     }
 
     .calendar-panel .day:hover:not(.empty):not(.past) {
@@ -709,19 +716,19 @@
 
     .calendar-panel .day.booked,
     .calendar-panel .day.unavailable {
-      background: linear-gradient(180deg, #f0eeea 0%, #e2ded8 100%) !important;
-      border-color: rgba(255, 255, 255, 0.45) !important;
-      border-bottom-color: rgba(140, 135, 128, 0.28) !important;
+      background: linear-gradient(180deg, #d8d2c8 0%, #b8b0a4 100%) !important;
+      border-color: rgba(255, 255, 255, 0.35) !important;
+      border-bottom-color: rgba(100, 94, 86, 0.42) !important;
       box-shadow:
-        0 2px 4px rgba(120, 115, 108, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+        0 2px 5px rgba(100, 94, 86, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
     }
 
     .calendar-panel .day.booked .day-num,
     .calendar-panel .day.unavailable .day-num,
     .calendar-panel .day.booked .day-tier-label,
     .calendar-panel .day.unavailable .day-tier-label {
-      color: #a8a39a;
+      color: #6e6860;
     }
 
     .calendar-panel .calendar-legend {
