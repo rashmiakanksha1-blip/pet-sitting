@@ -103,6 +103,7 @@
       color: var(--page-text);
       min-height: 100vh;
       line-height: 1.5;
+      overflow-x: hidden;
     }
 
     body::before {
@@ -221,8 +222,9 @@
     }
 
     .hero-terracotta {
-      margin: 0 -1.5rem 3mm;
-      padding: 2rem 1.5rem 1.85rem;
+      width: 100%;
+      margin: 0 0 3mm;
+      padding: 2rem 0 1.85rem;
       background: linear-gradient(160deg, var(--accent-dark) 0%, var(--accent) 55%, #cf8468 100%);
       position: relative;
       overflow: hidden;
@@ -242,6 +244,7 @@
       z-index: 1;
       max-width: 1200px;
       margin: 0 auto;
+      padding: 0 1.5rem;
     }
 
     header {
@@ -1756,36 +1759,36 @@
 <body>
   <div class="bg-glow" id="bgGlow" aria-hidden="true"></div>
   <div class="bg-glow-core" id="bgGlowCore" aria-hidden="true"></div>
-  <div class="page">
-    <div class="hero-terracotta">
-      <div class="hero-terracotta-inner">
-        <header>
-          <a class="header-book-btn" id="bookBtn" href="#">Book my slot</a>
-          <div class="logo">
-            <div class="logo-icon">🐾</div>
-            <h1 id="businessName">Paws & Stay</h1>
-          </div>
-          <p class="tagline" id="tagline">Sit, stay. We'll take it from here</p>
-          <div class="pets-info" id="petsInfo">
-            <div class="pets-info-item">
-              <span class="pets-info-icon" aria-hidden="true">🐱</span>
-              <div>
-                <strong>Cats</strong>
-                <span id="petsCats">All sizes welcome</span>
-              </div>
-            </div>
-            <div class="pets-info-item">
-              <span class="pets-info-icon" aria-hidden="true">🐕</span>
-              <div>
-                <strong>Dogs</strong>
-                <span id="petsDogs">Small breeds · pug-sized &amp; similar</span>
-              </div>
+  <div class="hero-terracotta">
+    <div class="hero-terracotta-inner">
+      <header>
+        <a class="header-book-btn" id="bookBtn" href="#">Book my slot</a>
+        <div class="logo">
+          <div class="logo-icon">🐾</div>
+          <h1 id="businessName">Paws & Stay</h1>
+        </div>
+        <p class="tagline" id="tagline">Sit, stay. We'll take it from here</p>
+        <div class="pets-info" id="petsInfo">
+          <div class="pets-info-item">
+            <span class="pets-info-icon" aria-hidden="true">🐱</span>
+            <div>
+              <strong>Cats</strong>
+              <span id="petsCats">All sizes welcome</span>
             </div>
           </div>
-        </header>
-      </div>
+          <div class="pets-info-item">
+            <span class="pets-info-icon" aria-hidden="true">🐕</span>
+            <div>
+              <strong>Dogs</strong>
+              <span id="petsDogs">Small breeds · pug-sized &amp; similar</span>
+            </div>
+          </div>
+        </div>
+      </header>
     </div>
+  </div>
 
+  <div class="page">
     <nav class="site-nav owner-only" id="ownerNav" hidden>
       <a href="index.html" class="active">Calendar</a>
       <a href="inbox.html">Inbox</a>
