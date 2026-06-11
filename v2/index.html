@@ -2275,7 +2275,7 @@
       <section class="rates-section" id="ratesSection">
         <div class="section-header">
           <h3>Our rate card</h3>
-          <p>Pricing varies by season &amp; demand</p>
+          <p>Pricing varies by season &amp; demand · Rates subject to change</p>
         </div>
         <div class="rates-block">
           <div class="rates-grid">
@@ -2433,7 +2433,7 @@
       </div>
       <div class="about-band-foot">
         <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-        <footer>© 2026 Paws & Stay · Rates subject to change<span class="owner-only" id="siteMeta" hidden> · <span id="siteVersion">Version 2</span></span></footer>
+        <footer>© 2026 Paws & Stay<span class="owner-only" id="siteMeta" hidden> · <span id="siteVersion">Version 2</span></span></footer>
       </div>
     </div>
   </section>
@@ -2582,8 +2582,9 @@
         cell.innerHTML = `
           <span class="day-num">${d}</span>
           ${tierLabel ? `<span class="day-tier-label">${tierLabel}</span>` : ''}
-          <span class="day-status" aria-label="${STATUS_LABELS[status]}">
-            <span class="status-dot" aria-hidden="true"></span>
+          <span class="day-status">
+            <span class="status-dot"></span>
+            <span class="status-label">${STATUS_SHORT[status]}</span>
           </span>
           ${owner && booking ? `<span class="day-client">${!isConfirmedBooking(booking) ? 'Quote: ' : ''}${booking.petName}</span>` : ''}
         `;
