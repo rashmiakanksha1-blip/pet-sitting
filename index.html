@@ -44,6 +44,11 @@
       /* 3 — Terracotta (single accent) */
       --accent: #c4785c;
       --accent-dark: #9a5c44;
+      --accent-light-soft: #f5ebe6;
+      --accent-light-mid: #ecd9cf;
+      --accent-light-border: #e0c4b4;
+      --accent-light-text: #4a3228;
+      --accent-light-text-muted: #7a5c4e;
       --accent-tint: #3f6654;
       --tier-off-bg: var(--surface);
       --tier-peak-bg: #3a5c4a;
@@ -224,7 +229,7 @@
       top: 0;
       right: 0;
       padding: 0.65rem 1.1rem;
-      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      background: var(--surface);
       color: white;
       border: none;
       border-radius: var(--radius-sm);
@@ -406,8 +411,8 @@
     }
 
     .calendar-panel .calendar-header {
-      background: var(--sage-light);
-      border-bottom-color: var(--sage-light-border);
+      background: var(--accent-light-soft);
+      border-bottom-color: var(--accent-light-border);
       padding: 0.7rem 1rem;
     }
 
@@ -498,18 +503,18 @@
     }
 
     .calendar-panel .calendar-legend {
-      border-top: 1px solid var(--sage-hue);
-      background: linear-gradient(135deg, var(--sage-hue), var(--sage-dark));
-      box-shadow: var(--ribbon-shadow);
+      border-top: 1px solid var(--accent-light-border);
+      background: linear-gradient(135deg, var(--accent-light-mid), var(--accent-light-soft));
+      box-shadow: none;
     }
 
     .calendar-panel .calendar-legend .legend-section + .legend-section {
-      border-left-color: rgba(255, 255, 255, 0.25);
+      border-left-color: rgba(74, 50, 40, 0.15);
     }
 
     .calendar-panel .calendar-legend .legend-title,
     .calendar-panel .calendar-legend .legend-item {
-      color: var(--text);
+      color: var(--accent-light-text);
     }
 
     .calendar-panel .calendar-legend .legend-dot.dot-available,
@@ -592,18 +597,18 @@
 
     .info-ribbon {
       margin-bottom: 1rem;
-      background: var(--surface);
-      border-color: var(--border);
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      border: none;
     }
 
     .info-ribbon .pet-fact-label {
-      color: var(--accent);
+      color: #fff;
       font-size: 0.8rem;
       font-weight: 600;
     }
 
     .info-ribbon .pet-fact-text {
-      color: var(--text-muted);
+      color: rgba(255, 255, 255, 0.92);
     }
 
     .pet-fact {
@@ -1063,8 +1068,7 @@
       padding-top: 0.75rem;
     }
 
-    .review-meta strong,
-    .about-card .content-ribbon.about-ribbon .about-ribbon-track .content-ribbon-item {
+    .review-meta strong {
       color: var(--reviewer-name-color);
       font-family: 'Outfit', sans-serif;
       font-weight: 500;
@@ -1098,19 +1102,19 @@
     }
 
     .about-card {
-      background: var(--sage-light);
-      border: 1px solid var(--sage-light-border);
+      background: var(--accent-light-soft);
+      border: 1px solid var(--accent-light-border);
       border-radius: var(--radius);
       padding: 1.25rem 1.35rem 0;
       box-shadow: var(--card-shadow);
       overflow: hidden;
-      color: var(--sage-light-text);
+      color: var(--accent-light-text);
     }
 
     .about-copy p {
       font-size: 0.92rem;
       line-height: 1.55;
-      color: var(--sage-light-text);
+      color: var(--accent-light-text);
       margin-bottom: 0.75rem;
     }
 
@@ -1120,11 +1124,11 @@
 
     .about-card .content-ribbon.about-ribbon {
       margin: 1.25rem -1.35rem 0;
-      background: var(--surface);
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
       border-left: none;
       border-right: none;
       border-radius: 0;
-      border-top: 1px solid var(--border);
+      border-top: none;
       border-bottom: none;
       box-shadow: none;
       overflow: hidden;
@@ -1134,6 +1138,9 @@
 
     .about-card .content-ribbon.about-ribbon .about-ribbon-track .content-ribbon-item {
       font-size: 1rem;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
     }
 
     .about-card .content-ribbon-dot {
@@ -1189,8 +1196,8 @@
 
     .about-contact {
       font-size: 0.8rem;
-      color: var(--sage-light-text-muted);
-      border-top: 1px solid var(--sage-light-border);
+      color: var(--accent-light-text-muted);
+      border-top: 1px solid var(--accent-light-border);
       padding: 0.85rem 0 1.15rem;
       margin-top: 1rem;
     }
@@ -1216,7 +1223,7 @@
       max-width: 420px;
       margin: 0 auto;
       padding: 0.9rem 1.25rem;
-      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      background: var(--surface);
       color: white;
       border: none;
       border-radius: var(--radius-sm);
@@ -1962,12 +1969,12 @@
     <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (ce)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (cf)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
 
-  <script src="config.js?v=20260610ce"></script>
+  <script src="config.js?v=20260610cf"></script>
   <script src="auth.js"></script>
   <script src="shared.js"></script>
   <script>
