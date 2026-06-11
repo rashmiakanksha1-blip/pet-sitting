@@ -767,44 +767,51 @@
     }
 
     .cal-day-tooltip-date {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.95rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
       font-weight: 600;
       color: var(--page-text);
-      line-height: 1.2;
-      margin-bottom: 0.25rem;
+      line-height: 1.25;
+      margin-bottom: 0.3rem;
     }
 
     .cal-day-tooltip-line {
       display: block;
       font-family: 'Outfit', sans-serif;
       font-size: 0.68rem;
-      font-weight: 600;
-      color: var(--page-text-muted);
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
-    .cal-day-tooltip-status.is-available {
+    .cal-day-tooltip-label {
+      color: var(--page-text);
+      font-weight: 500;
+    }
+
+    .cal-day-tooltip-value {
+      font-weight: 600;
+    }
+
+    .cal-day-tooltip-value.is-available {
       color: var(--cal-status-available);
     }
 
-    .cal-day-tooltip-status.is-booked {
+    .cal-day-tooltip-value.is-booked {
       color: var(--cal-status-booked);
     }
 
-    .cal-day-tooltip-status.is-unavailable {
+    .cal-day-tooltip-value.is-unavailable {
       color: #8a8480;
     }
 
-    .cal-day-tooltip-period.is-off-peak {
+    .cal-day-tooltip-value.is-off-peak {
       color: var(--cal-status-available);
     }
 
-    .cal-day-tooltip-period.is-peak {
+    .cal-day-tooltip-value.is-peak {
       color: var(--accent);
     }
 
-    .cal-day-tooltip-period.is-super-peak {
+    .cal-day-tooltip-value.is-super-peak {
       color: var(--cal-status-booked);
     }
 
@@ -2701,8 +2708,14 @@
       const tierKey = tier === 'super-peak' ? 'super-peak' : tier === 'peak' ? 'peak' : 'off-peak';
       tip.innerHTML = `
         <div class="cal-day-tooltip-date">${formatTooltipDate(date)}</div>
-        <span class="cal-day-tooltip-line cal-day-tooltip-status is-${status}">Status: ${STATUS_LABELS[status]}</span>
-        <span class="cal-day-tooltip-line cal-day-tooltip-period is-${tierKey}">Period: ${tierPeriodLabel(tier)}</span>
+        <span class="cal-day-tooltip-line">
+          <span class="cal-day-tooltip-label">Status: </span>
+          <span class="cal-day-tooltip-value is-${status}">${STATUS_LABELS[status]}</span>
+        </span>
+        <span class="cal-day-tooltip-line">
+          <span class="cal-day-tooltip-label">Period: </span>
+          <span class="cal-day-tooltip-value is-${tierKey}">${tierPeriodLabel(tier)}</span>
+        </span>
       `;
       const rect = cell.getBoundingClientRect();
       tip.style.left = (rect.left + rect.width / 2) + 'px';
