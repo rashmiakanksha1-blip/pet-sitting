@@ -64,6 +64,12 @@
       --card-shadow-lift: 0 14px 48px rgba(42, 56, 48, 0.15), 0 4px 14px rgba(42, 56, 48, 0.09);
       --panel-bg: #ffffff;
       --panel-border: #e8e2da;
+      --cal-day-off-bg: #ffffff;
+      --cal-day-off-border: #ebe5dd;
+      --cal-day-peak-bg: #f7f0eb;
+      --cal-day-peak-border: rgba(196, 120, 92, 0.35);
+      --cal-day-super-bg: #f0e3d9;
+      --cal-day-super-border: rgba(196, 120, 92, 0.5);
       --ribbon-shadow: inset 0 5px 14px -6px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.1);
       --radius: 16px;
       --radius-sm: 10px;
@@ -438,8 +444,18 @@
     }
 
     .calendar-panel .day.tier-off-day {
-      background: #fff;
-      border-color: #ebe5dd;
+      background: var(--cal-day-off-bg);
+      border-color: var(--cal-day-off-border);
+    }
+
+    .calendar-panel .day.tier-peak-day {
+      background: var(--cal-day-peak-bg);
+      border-color: var(--cal-day-peak-border);
+    }
+
+    .calendar-panel .day.tier-super-day {
+      background: var(--cal-day-super-bg);
+      border-color: var(--cal-day-super-border);
     }
 
     .calendar-panel .day.available .status-dot {
@@ -517,16 +533,22 @@
       min-width: 16px;
       min-height: 12px;
       border-radius: 3px;
-      background: #ffffff;
-      border: 1px solid #ebe5dd;
+      border: 1px solid;
+    }
+
+    .calendar-panel .calendar-legend .legend-dot.tier-off {
+      background: var(--cal-day-off-bg);
+      border-color: var(--cal-day-off-border);
     }
 
     .calendar-panel .calendar-legend .legend-dot.tier-peak {
-      border-color: rgba(196, 120, 92, 0.45);
+      background: var(--cal-day-peak-bg);
+      border-color: var(--cal-day-peak-border);
     }
 
     .calendar-panel .calendar-legend .legend-dot.tier-super {
-      border-color: rgba(154, 92, 68, 0.55);
+      background: var(--cal-day-super-bg);
+      border-color: var(--cal-day-super-border);
     }
 
     .content-ribbon {
@@ -708,11 +730,19 @@
       position: relative;
     }
 
-    .day.tier-off-day,
-    .day.tier-peak-day,
+    .day.tier-off-day {
+      background: var(--cal-day-off-bg);
+      border-color: var(--cal-day-off-border);
+    }
+
+    .day.tier-peak-day {
+      background: var(--cal-day-peak-bg);
+      border-color: var(--cal-day-peak-border);
+    }
+
     .day.tier-super-day {
-      background: #ffffff;
-      border-color: #ebe5dd;
+      background: var(--cal-day-super-bg);
+      border-color: var(--cal-day-super-border);
     }
 
     .day:hover:not(.empty):not(.past) {
@@ -739,7 +769,7 @@
 
     .calendar-panel .day.tier-peak-day .day-tier-label,
     .calendar-panel .day.tier-super-day .day-tier-label {
-      color: var(--page-text-muted);
+      color: var(--accent-dark);
     }
 
     .day-status {
@@ -886,11 +916,19 @@
       border-radius: 4px;
     }
 
-    .legend-dot.tier-off,
-    .legend-dot.tier-peak,
+    .legend-dot.tier-off {
+      background: var(--cal-day-off-bg);
+      border: 1px solid var(--cal-day-off-border);
+    }
+
+    .legend-dot.tier-peak {
+      background: var(--cal-day-peak-bg);
+      border: 1px solid var(--cal-day-peak-border);
+    }
+
     .legend-dot.tier-super {
-      background: #ffffff;
-      border: 1px solid #ebe5dd;
+      background: var(--cal-day-super-bg);
+      border: 1px solid var(--cal-day-super-border);
     }
 
     .rates-scroll-hint {
@@ -1898,7 +1936,7 @@
     <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (bf)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (bg)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
