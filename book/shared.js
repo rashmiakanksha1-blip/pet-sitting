@@ -15,8 +15,9 @@ const STORAGE_KEYS = {
   inquiriesQuoted: 'paws-stay-inquiries-quoted',
 };
 
-const INQUIRIES_URL = 'data/inquiries.json';
-const STORE_URL = 'data/store.json';
+// Absolute paths — /book/ uses <base href="/book/"> so relative data/ would 404
+const INQUIRIES_URL = '/data/inquiries.json';
+const STORE_URL = '/data/store.json';
 
 let storeEnquiries = [];
 
