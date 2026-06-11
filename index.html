@@ -439,18 +439,6 @@
       border-color: #ebe5dd;
     }
 
-    .calendar-panel .day.tier-peak-day,
-    .calendar-panel .day.tier-super-day {
-      background: #fff;
-      border-color: #ebe5dd;
-    }
-
-    .calendar-panel .day.tier-peak-day .day-tier-label,
-    .calendar-panel .day.tier-super-day .day-tier-label {
-      color: var(--page-text-muted);
-      font-weight: 600;
-    }
-
     .calendar-panel .day.available .status-label {
       color: var(--accent-dark);
     }
@@ -678,19 +666,11 @@
       position: relative;
     }
 
-    .day.tier-off-day {
-      background: var(--tier-off-bg);
-      border-color: var(--border);
-    }
-
-    .day.tier-peak-day {
-      background: var(--tier-peak-bg);
-      border-color: var(--tier-peak-border);
-    }
-
+    .day.tier-off-day,
+    .day.tier-peak-day,
     .day.tier-super-day {
-      background: var(--tier-super-bg);
-      border-color: var(--tier-super-border);
+      background: #ffffff;
+      border-color: #ebe5dd;
     }
 
     .day:hover:not(.empty):not(.past) {
@@ -715,8 +695,9 @@
       line-height: 1.1;
     }
 
-    .day.tier-peak-day .day-tier-label { color: var(--tier-peak-label); }
-    .day.tier-super-day .day-tier-label { color: var(--tier-super-label); }
+    .day-tier-label {
+      display: none;
+    }
 
     .day-status {
       display: flex;
@@ -862,9 +843,12 @@
       border-radius: 4px;
     }
 
-    .legend-dot.tier-off { background: var(--tier-off-bg); border: 1px solid var(--border); }
-    .legend-dot.tier-peak { background: var(--tier-peak-bg); border: 1px solid var(--tier-peak-border); }
-    .legend-dot.tier-super { background: var(--tier-super-bg); border: 1px solid var(--tier-super-border); }
+    .legend-dot.tier-off,
+    .legend-dot.tier-peak,
+    .legend-dot.tier-super {
+      background: #ffffff;
+      border: 1px solid #ebe5dd;
+    }
 
     .rates-scroll-hint {
       text-align: center;
@@ -1213,22 +1197,12 @@
       border-radius: 20px;
     }
 
-    .rates-block .tier-badge.off {
+    .rates-block .tier-badge.off,
+    .rates-block .tier-badge.peak,
+    .rates-block .tier-badge.super {
       background: rgba(255, 255, 255, 0.2);
       color: var(--text);
       border: 1px solid rgba(255, 255, 255, 0.35);
-    }
-
-    .rates-block .tier-badge.peak {
-      background: var(--accent);
-      color: white;
-      border: 1px solid var(--accent);
-    }
-
-    .rates-block .tier-badge.super {
-      background: var(--accent-dark);
-      color: white;
-      border: 1px solid var(--accent-dark);
     }
 
     .tier-badge.off { background: var(--surface-raised); color: var(--text-muted); border: 1px solid var(--border); }
@@ -1846,7 +1820,7 @@
     <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (av)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (aw)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
