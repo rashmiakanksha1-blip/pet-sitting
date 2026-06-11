@@ -1821,7 +1821,7 @@
     .rates-block .rate-card-head {
       min-height: var(--ribbon-service-min-h);
       display: flex;
-      align-items: stretch;
+      align-items: center;
     }
 
     .rates-block .rate-card-head::before,
@@ -1831,7 +1831,7 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='76' viewBox='0 0 100 76'%3E%3Cg fill='%23ffffff' fill-opacity='0.14' transform='translate(6 8) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%233dadb8' fill-opacity='0.34' transform='translate(48 32) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='76' viewBox='0 0 100 76'%3E%3Cg fill='%23ffffff' fill-opacity='0.2' transform='translate(6 8) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%23ffffff' fill-opacity='0.12' transform='translate(48 32) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
       background-size: 84px 58px;
       -webkit-mask-image: var(--paw-ribbon-side-mask);
       mask-image: var(--paw-ribbon-side-mask);
@@ -1840,12 +1840,10 @@
     .rates-block .rate-card-head-text {
       position: relative;
       z-index: 1;
-      display: flex;
+      display: inline-flex;
       flex-direction: column;
       justify-content: center;
-      flex: 1;
-      width: 100%;
-      max-width: 100%;
+      max-width: 78%;
       padding: var(--ribbon-bar-pad-y) var(--ribbon-bar-pad-x);
       box-sizing: border-box;
       background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
@@ -2359,6 +2357,11 @@
       .hero-ribbon-full .about-ribbon-track .content-ribbon-item,
       .about-ribbon-full .about-ribbon-track .content-ribbon-item {
         font-size: var(--ribbon-bar-text);
+      }
+
+      .rates-block .rate-card-head::before {
+        -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 4%, rgba(0, 0, 0, 0.65) 11%, transparent 24%, transparent 76%, rgba(0, 0, 0, 0.65) 89%, #000 96%, #000 100%);
+        mask-image: linear-gradient(90deg, #000 0%, #000 4%, rgba(0, 0, 0, 0.65) 11%, transparent 24%, transparent 76%, rgba(0, 0, 0, 0.65) 89%, #000 96%, #000 100%);
       }
     }
   </style>
