@@ -2911,44 +2911,71 @@
       if (!layer) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      const pawMax = window.innerWidth < 600 ? 10 : 16;
+      const pawMax = window.innerWidth < 600 ? 12 : 18;
 
-      function avoidSquare(layerRect) {
+      function textAvoidRect(layerRect) {
         if (!freeZone) return null;
         const r = freeZone.getBoundingClientRect();
-        const pad = 22;
-        const w = r.width + pad * 2;
-        const h = r.height + pad * 2;
-        const side = Math.max(w, h);
-        const cx = (r.left - layerRect.left) + r.width / 2;
-        const cy = (r.top - layerRect.top) + r.height / 2;
+        const pad = 14;
         return {
-          left: cx - side / 2,
-          right: cx + side / 2,
-          top: cy - side / 2,
-          bottom: cy + side / 2,
+          left: r.left - layerRect.left - pad,
+          right: r.right - layerRect.left + pad,
+          top: r.top - layerRect.top - pad,
+          bottom: r.bottom - layerRect.top + pad,
         };
       }
 
-      function hitsAvoid(x, y, size, zone) {
-        if (!zone) return false;
-        return x < zone.right && x + size > zone.left && y < zone.bottom && y + size > zone.top;
+      function spawnRegions(layerRect, avoid) {
+        const min = 36;
+        const regions = [];
+        if (!avoid) {
+          regions.push({ x0: 0, y0: 0, x1: layerRect.width, y1: layerRect.height });
+          return regions;
+        }
+        if (avoid.left >= min) {
+          regions.push({ x0: 0, y0: 0, x1: avoid.left, y1: layerRect.height });
+        }
+        if (layerRect.width - avoid.right >= min) {
+          regions.push({ x0: avoid.right, y0: 0, x1: layerRect.width, y1: layerRect.height });
+        }
+        if (avoid.top >= min) {
+          regions.push({ x0: 0, y0: 0, x1: layerRect.width, y1: avoid.top });
+        }
+        if (layerRect.height - avoid.bottom >= min) {
+          regions.push({ x0: 0, y0: avoid.bottom, x1: layerRect.width, y1: layerRect.height });
+        }
+        return regions;
       }
 
-      function randomSpot(size, layerRect, zone) {
-        for (let i = 0; i < 24; i++) {
-          const x = Math.random() * Math.max(0, layerRect.width - size);
-          const y = Math.random() * Math.max(0, layerRect.height - size);
-          if (!hitsAvoid(x, y, size, zone)) return { x, y };
+      function randomSpot(size, layerRect, avoid) {
+        const regions = spawnRegions(layerRect, avoid);
+        const slots = regions.map((region) => {
+          const w = Math.max(0, region.x1 - region.x0 - size);
+          const h = Math.max(0, region.y1 - region.y0 - size);
+          return { region, area: w * h };
+        }).filter((slot) => slot.area > 0);
+        if (!slots.length) return null;
+
+        const total = slots.reduce((sum, slot) => sum + slot.area, 0);
+        let pick = Math.random() * total;
+        let chosen = slots[0];
+        for (const slot of slots) {
+          pick -= slot.area;
+          if (pick <= 0) { chosen = slot; break; }
         }
-        return null;
+
+        const { region } = chosen;
+        return {
+          x: region.x0 + Math.random() * Math.max(0, region.x1 - region.x0 - size),
+          y: region.y0 + Math.random() * Math.max(0, region.y1 - region.y0 - size),
+        };
       }
 
       function spawnPaw() {
         const layerRect = layer.getBoundingClientRect();
-        const zone = avoidSquare(layerRect);
+        const avoid = textAvoidRect(layerRect);
         const size = 52 + Math.random() * 36;
-        const spot = randomSpot(size, layerRect, zone);
+        const spot = randomSpot(size, layerRect, avoid);
         if (!spot) {
           setTimeout(spawnPaw, 900 + Math.random() * 1200);
           return;
