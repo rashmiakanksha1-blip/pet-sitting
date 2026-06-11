@@ -1,7 +1,7 @@
 // ← Edit these to customise your site
 const SITE_CONFIG = {
-  siteVersion: 'Version 1',
-  designVersion: 1,
+  siteVersion: 'Version 2',
+  designVersion: 2,
   businessName: 'Pet Sitters Club',
   bookButtonLabel: 'Book my slot',
   bookingInquirySubject: 'Pet sitting inquiry - Pet Sitters Club',
