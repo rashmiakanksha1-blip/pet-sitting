@@ -1129,7 +1129,7 @@
     }
 
     .day:not(.empty) {
-      --cal-bubble-size: 30px;
+      --cal-bubble-size: 34px;
       width: var(--cal-bubble-size);
       height: var(--cal-bubble-size);
       min-width: var(--cal-bubble-size);
@@ -1147,8 +1147,8 @@
     }
 
     .day.empty {
-      width: 30px;
-      height: 30px;
+      width: var(--cal-bubble-size, 34px);
+      height: var(--cal-bubble-size, 34px);
       cursor: default;
       background: transparent;
       border: none;
@@ -1179,17 +1179,17 @@
 
     .day-num {
       font-family: 'Outfit', sans-serif;
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       font-weight: 600;
       line-height: 1;
       color: var(--page-text);
       letter-spacing: 0;
-      margin-top: -2px;
+      margin-top: -1px;
     }
 
     .calendar-panel .day-num {
       font-family: 'Outfit', sans-serif;
-      font-size: 0.7rem;
+      font-size: 0.76rem;
       font-weight: 600;
       color: var(--page-text);
     }
@@ -1220,8 +1220,8 @@
     }
 
     .status-dot {
-      width: 4px;
-      height: 4px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       flex-shrink: 0;
       box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45);
@@ -2200,16 +2200,16 @@
 
       .day:not(.empty),
       .day.empty {
-        --cal-bubble-size: 26px;
-        width: 26px;
-        height: 26px;
-        min-width: 26px;
-        max-width: 26px;
+        --cal-bubble-size: 29px;
+        width: 29px;
+        height: 29px;
+        min-width: 29px;
+        max-width: 29px;
       }
 
-      .day-num { font-size: 0.62rem; }
-      .calendar-panel .day-num { font-size: 0.62rem; }
-      .status-dot { width: 3px; height: 3px; }
+      .day-num { font-size: 0.66rem; }
+      .calendar-panel .day-num { font-size: 0.68rem; }
+      .status-dot { width: 4px; height: 4px; }
 
       .main-stack { gap: 1rem; }
       .rates-scroll-hint { font-size: 0.78rem; margin-top: 0.5rem; }
