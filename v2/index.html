@@ -564,20 +564,15 @@
     }
 
     .calendar-month .days-grid {
-      padding: 0.1rem 0 0.35rem;
-      gap: 2px;
+      padding: 0.15rem 0 0.4rem;
+      gap: 5px 2px;
     }
 
-    .calendar-month .day {
-      aspect-ratio: 0.78;
-      padding: 0.14rem 0.16rem;
+    .calendar-panel .status-label,
+    .calendar-panel .day-tier-label,
+    .calendar-panel .day-client {
+      display: none;
     }
-
-    .calendar-month .day-num { font-size: 0.68rem; }
-    .calendar-month .day-tier-label { font-size: 0.38rem; margin-top: 1px; }
-    .calendar-month .status-dot { width: 5px; height: 5px; }
-    .calendar-month .day-status { gap: 0; margin-top: auto; }
-    .calendar-panel .status-label { display: none; }
 
     @media (max-width: 900px) {
       .calendar-months { grid-template-columns: 1fr; }
@@ -659,25 +654,37 @@
       color: var(--page-text-muted);
     }
 
-    .calendar-panel .day {
-      background: #fff;
-      border-color: #ebe5dd;
+    .calendar-panel .day:not(.empty) {
+      background: linear-gradient(180deg, #ffffff 0%, #f3ece6 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.62);
+      border-bottom: 2.5px solid rgba(196, 120, 92, 0.2);
+      box-shadow:
+        0 2px 5px rgba(154, 92, 68, 0.16),
+        0 1px 2px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.75);
       color: var(--page-text);
     }
 
     .calendar-panel .day.tier-off-day {
-      background: var(--cal-day-off-bg);
-      border-color: var(--cal-day-off-border);
+      background: linear-gradient(180deg, #ffffff 0%, #f3ece6 100%);
     }
 
     .calendar-panel .day.tier-peak-day {
-      background: var(--cal-day-peak-bg);
-      border-color: var(--cal-day-peak-border);
+      background: linear-gradient(180deg, #faf4f0 0%, #edd9cc 100%);
+      border-bottom-color: rgba(196, 120, 92, 0.32);
     }
 
     .calendar-panel .day.tier-super-day {
-      background: var(--cal-day-super-bg);
-      border-color: var(--cal-day-super-border);
+      background: linear-gradient(180deg, #f5e8de 0%, #e5cbb8 100%);
+      border-bottom-color: rgba(154, 92, 68, 0.38);
+    }
+
+    .calendar-panel .day:hover:not(.empty):not(.past) {
+      transform: translateY(-1px) scale(1.06);
+      box-shadow:
+        0 4px 10px rgba(154, 92, 68, 0.22),
+        0 2px 4px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
     }
 
     .calendar-panel .day.available .status-dot {
@@ -702,8 +709,12 @@
 
     .calendar-panel .day.booked,
     .calendar-panel .day.unavailable {
-      background: #f3f1ed !important;
-      border-color: #ddd8d0 !important;
+      background: linear-gradient(180deg, #f0eeea 0%, #e2ded8 100%) !important;
+      border-color: rgba(255, 255, 255, 0.45) !important;
+      border-bottom-color: rgba(140, 135, 128, 0.28) !important;
+      box-shadow:
+        0 2px 4px rgba(120, 115, 108, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
     }
 
     .calendar-panel .day.booked .day-num,
@@ -1015,26 +1026,38 @@
 
     .days-grid {
       display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 5px;
-      padding: 0.25rem 1rem 0.85rem;
+      grid-template-columns: repeat(7, 1fr);
+      justify-items: center;
+      gap: 6px 2px;
+      padding: 0.2rem 0.5rem 0.65rem;
       min-width: 0;
     }
 
-    .day {
-      aspect-ratio: 0.88;
-      min-height: 0;
-      min-width: 0;
-      width: 100%;
-      border-radius: var(--radius-sm);
+    .day:not(.empty) {
+      --cal-bubble-size: 30px;
+      width: var(--cal-bubble-size);
+      height: var(--cal-bubble-size);
+      min-width: var(--cal-bubble-size);
+      max-width: var(--cal-bubble-size);
+      border-radius: 50%;
       border: 1.5px solid var(--border);
-      padding: 0.16rem 0.22rem;
+      padding: 0;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
+      justify-content: center;
       position: relative;
+    }
+
+    .day.empty {
+      width: 30px;
+      height: 30px;
+      cursor: default;
+      background: transparent;
+      border: none;
+      box-shadow: none;
     }
 
     .day.tier-off-day {
@@ -1053,17 +1076,17 @@
     }
 
     .day:hover:not(.empty):not(.past) {
-      transform: translateY(-2px);
+      transform: translateY(-1px) scale(1.06);
       box-shadow: var(--shadow);
     }
 
-    .day.empty { cursor: default; background: transparent; }
     .day.past { opacity: 0.45; cursor: not-allowed; }
 
     .day-num {
-      font-size: 0.72rem;
-      font-weight: 500;
+      font-size: 0.6rem;
+      font-weight: 600;
       line-height: 1;
+      margin-top: -1px;
     }
 
     .day-tier-label {
@@ -1080,18 +1103,23 @@
     }
 
     .day-status {
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       align-items: center;
-      gap: 4px;
-      margin-top: auto;
-      align-self: flex-start;
+      justify-content: center;
+      gap: 0;
+      margin-top: 0;
     }
 
     .status-dot {
-      width: 5px;
-      height: 5px;
+      width: 4px;
+      height: 4px;
       border-radius: 50%;
       flex-shrink: 0;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45);
     }
 
     .status-label {
@@ -2061,25 +2089,21 @@
       }
 
       .days-grid {
-        gap: 3px;
-        padding: 0.15rem 0.35rem 0.65rem;
+        gap: 4px 1px;
+        padding: 0.12rem 0.25rem 0.55rem;
       }
 
-      .day {
-        aspect-ratio: 0.72;
-        padding: 0.1rem;
-        border-radius: 5px;
-        border-width: 1px;
+      .day:not(.empty),
+      .day.empty {
+        --cal-bubble-size: 26px;
+        width: 26px;
+        height: 26px;
+        min-width: 26px;
+        max-width: 26px;
       }
 
-      .day-num { font-size: 0.58rem; }
-      .day-tier-label {
-        font-size: 0.34rem;
-        margin-top: 0;
-        line-height: 1;
-      }
-      .status-dot { width: 4px; height: 4px; }
-      .day-client { font-size: 0.42rem; }
+      .day-num { font-size: 0.54rem; }
+      .status-dot { width: 3px; height: 3px; }
 
       .main-stack { gap: 1rem; }
       .rates-scroll-hint { font-size: 0.78rem; margin-top: 0.5rem; }
@@ -2570,15 +2594,18 @@
         cell.className = `day ${status} ${tierDayClass}${past ? ' past' : ''}`.trim();
         cell.dataset.date = key;
 
-        const tierLabel = tier === 'peak' ? 'Peak' : tier === 'super-peak' ? 'Super peak' : '';
+        const tierName = tier === 'peak' ? 'Peak' : tier === 'super-peak' ? 'Super peak' : 'Off-peak';
+        let dayTip = `${d} — ${STATUS_LABELS[status]} · ${tierName}`;
+        if (owner && booking) {
+          dayTip += ` · ${!isConfirmedBooking(booking) ? 'Quote: ' : ''}${booking.petName}`;
+        }
+        cell.title = dayTip;
 
         cell.innerHTML = `
           <span class="day-num">${d}</span>
-          ${tierLabel ? `<span class="day-tier-label">${tierLabel}</span>` : ''}
           <span class="day-status" aria-label="${STATUS_LABELS[status]}">
             <span class="status-dot" aria-hidden="true"></span>
           </span>
-          ${owner && booking ? `<span class="day-client">${!isConfirmedBooking(booking) ? 'Quote: ' : ''}${booking.petName}</span>` : ''}
         `;
 
         if (!past) {
