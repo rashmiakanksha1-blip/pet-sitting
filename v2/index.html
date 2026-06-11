@@ -655,43 +655,45 @@
     }
 
     .calendar-panel .day:not(.empty) {
-      background: linear-gradient(180deg, #f2d8ca 0%, #ddb39c 100%);
-      border: 1.5px solid rgba(255, 255, 255, 0.5);
-      border-bottom: 2.5px solid rgba(154, 92, 68, 0.42);
+      color: var(--page-text);
+      border: 1.5px solid var(--cal-day-off-border);
+      border-bottom-width: 2.5px;
       box-shadow:
-        0 2px 6px rgba(154, 92, 68, 0.24),
-        0 1px 2px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.45);
-      color: #4a3028;
+        0 1px 3px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
     }
 
     .calendar-panel .day.tier-off-day {
-      background: linear-gradient(180deg, #f2d8ca 0%, #ddb39c 100%);
-      border-bottom-color: rgba(154, 92, 68, 0.38);
+      background: linear-gradient(180deg, var(--cal-day-off-bg) 0%, #f3ebe4 100%);
+      border-color: var(--cal-day-off-border);
+      border-bottom-color: #d9d0c6;
     }
 
     .calendar-panel .day.tier-peak-day {
-      background: linear-gradient(180deg, #e8bda8 0%, #cf9276 100%);
-      border-bottom-color: rgba(124, 72, 52, 0.48);
+      background: linear-gradient(180deg, var(--cal-day-peak-bg) 0%, #edd9cc 100%);
+      border-color: var(--cal-day-peak-border);
+      border-bottom-color: rgba(196, 120, 92, 0.45);
     }
 
     .calendar-panel .day.tier-super-day {
-      background: linear-gradient(180deg, #dfa88c 0%, #c4785c 100%);
-      border-bottom-color: rgba(106, 58, 42, 0.55);
-      color: #fff8f4;
+      background: linear-gradient(180deg, var(--cal-day-super-bg) 0%, #e5cbb8 100%);
+      border-color: var(--cal-day-super-border);
+      border-bottom-color: rgba(196, 120, 92, 0.58);
     }
 
-    .calendar-panel .day.tier-super-day .day-num {
-      color: #fff8f4;
-      text-shadow: 0 1px 1px rgba(74, 50, 40, 0.25);
-    }
-
-    .calendar-panel .day:hover:not(.empty):not(.past) {
-      transform: translateY(-1px) scale(1.06);
+    .calendar-panel .day.available:not(.empty) {
       box-shadow:
-        0 4px 10px rgba(154, 92, 68, 0.22),
-        0 2px 4px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        0 3px 9px rgba(154, 92, 68, 0.26),
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.88);
+    }
+
+    .calendar-panel .day.available:hover:not(.empty):not(.past) {
+      transform: translateY(-2px) scale(1.08);
+      box-shadow:
+        0 5px 14px rgba(154, 92, 68, 0.32),
+        0 3px 6px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
     }
 
     .calendar-panel .day.available .status-dot {
@@ -714,21 +716,32 @@
       background: #8a8480;
     }
 
-    .calendar-panel .day.booked,
-    .calendar-panel .day.unavailable {
-      background: linear-gradient(180deg, #d8d2c8 0%, #b8b0a4 100%) !important;
-      border-color: rgba(255, 255, 255, 0.35) !important;
-      border-bottom-color: rgba(100, 94, 86, 0.42) !important;
-      box-shadow:
-        0 2px 5px rgba(100, 94, 86, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+    .calendar-panel .day.booked:not(.empty),
+    .calendar-panel .day.unavailable:not(.empty) {
+      opacity: 0.46;
+      filter: grayscale(0.55) saturate(0.45);
+      border-color: #ddd8d0 !important;
+      border-bottom-color: #c8c2b8 !important;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+      transform: none;
+    }
+
+    .calendar-panel .day.booked:hover:not(.empty),
+    .calendar-panel .day.unavailable:hover:not(.empty) {
+      transform: none;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
     }
 
     .calendar-panel .day.booked .day-num,
     .calendar-panel .day.unavailable .day-num,
     .calendar-panel .day.booked .day-tier-label,
     .calendar-panel .day.unavailable .day-tier-label {
-      color: #6e6860;
+      color: #9a948c;
+    }
+
+    .calendar-panel .day.booked .status-dot,
+    .calendar-panel .day.unavailable .status-dot {
+      opacity: 0.7;
     }
 
     .calendar-panel .calendar-legend {
