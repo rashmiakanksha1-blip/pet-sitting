@@ -1128,8 +1128,31 @@
     }
 
     .about-section {
+      width: 100%;
       margin-top: 2.5rem;
-      padding: 0 0.25rem;
+      padding: 0;
+    }
+
+    .about-section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .about-band {
+      width: 100%;
+      margin-top: 1.25rem;
+      background: var(--accent-light-soft);
+      border-top: 1px solid var(--accent-light-border);
+      border-bottom: 1px solid var(--accent-light-border);
+      overflow: hidden;
+    }
+
+    .about-band-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.25rem 1.5rem 0;
+      color: var(--accent-light-text);
     }
 
     .section-dots {
@@ -1154,16 +1177,6 @@
       opacity: 0.75;
     }
 
-    .about-card {
-      background: var(--accent-light-soft);
-      border: 1px solid var(--accent-light-border);
-      border-radius: var(--radius);
-      padding: 1.25rem 1.35rem 0;
-      box-shadow: var(--card-shadow);
-      overflow: hidden;
-      color: var(--accent-light-text);
-    }
-
     .about-copy {
       display: flex;
       flex-direction: column;
@@ -1177,8 +1190,8 @@
       margin: 0;
     }
 
-    .about-card .content-ribbon.about-ribbon {
-      margin: 1.25rem -1.35rem 0;
+    .about-band .content-ribbon.about-ribbon {
+      margin: 1.25rem -1.5rem 0;
       background: var(--panel-bg);
       border-left: none;
       border-right: none;
@@ -1191,14 +1204,14 @@
       display: block;
     }
 
-    .about-card .content-ribbon.about-ribbon .about-ribbon-track .content-ribbon-item {
+    .about-band .content-ribbon.about-ribbon .about-ribbon-track .content-ribbon-item {
       font-size: 1rem;
       color: var(--reviewer-name-color);
       font-family: 'Outfit', sans-serif;
       font-weight: 500;
     }
 
-    .about-card .content-ribbon-dot {
+    .about-band .content-ribbon-dot {
       background: var(--accent);
       opacity: 0.7;
     }
@@ -1226,12 +1239,14 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .about-card .content-ribbon.about-ribbon {
+      .about-band .content-ribbon.about-ribbon {
         overflow: visible;
         padding: 0.85rem 1.15rem;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        margin-left: 0;
+        margin-right: 0;
       }
 
       .about-ribbon-track {
@@ -1756,7 +1771,7 @@
         max-width: 280px;
       }
 
-      .about-card .content-ribbon.about-ribbon .about-ribbon-track .content-ribbon-item {
+      .about-band .content-ribbon.about-ribbon .about-ribbon-track .content-ribbon-item {
         font-size: 0.92rem;
       }
     }
@@ -1993,13 +2008,17 @@
         <button class="reviews-arrow" id="reviewsNext" type="button" aria-label="Next reviews">›</button>
       </div>
     </section>
+  </div>
 
-    <section class="about-section" aria-label="Who we are">
+  <section class="about-section" aria-label="Who we are">
+    <div class="about-section-inner">
       <div class="section-header">
         <h3>Who we are</h3>
         <p>Small-team pet sitting in London</p>
       </div>
-      <article class="about-card">
+    </div>
+    <div class="about-band">
+      <div class="about-band-inner">
         <div class="about-copy">
           <p>
             <span id="aboutBusinessName">Pet Sitters Club</span> is a small, dedicated pet sitting service in London.
@@ -2042,9 +2061,11 @@
           Questions before you book?
           <a id="aboutEmail" href="mailto:petsittersclublondon@gmail.com">petsittersclublondon@gmail.com</a>
         </p>
-      </article>
-    </section>
+      </div>
+    </div>
+  </section>
 
+  <div class="page">
     <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
