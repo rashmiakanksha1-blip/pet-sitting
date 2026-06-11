@@ -13,10 +13,10 @@ const SITE_CONFIG = {
 
   // Your own domain — no personal GitHub username in the link.
   // Run: bash scripts/setup-custom-domain.sh www.petsittersclub.co.uk
-  customDomain: '',
+  customDomain: 'www.petsittersclub-london.com',
 
   // ONE link for word-of-mouth — filled automatically when customDomain is set.
-  publicBookingUrl: 'https://rashmiakanksha1-blip.github.io/pet-sitting/book/',
+  publicBookingUrl: 'https://www.petsittersclub-london.com/book/',
 
   contactEmail: 'petsittersclublondon@gmail.com',
   bookingEmail: 'petsittersclublondon@gmail.com',
