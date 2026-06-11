@@ -988,6 +988,28 @@
       padding: 0 0.25rem;
     }
 
+    .section-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.55rem;
+      margin: 2.25rem auto 0;
+      padding: 0 0.25rem;
+    }
+
+    .section-dots span {
+      width: 5px;
+      height: 5px;
+      background: var(--sage-hue);
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+
+    .section-dots span:nth-child(2) {
+      background: var(--accent);
+      opacity: 0.75;
+    }
+
     .about-card {
       background: var(--sage-light);
       border: 1px solid var(--sage-light-border);
@@ -1776,8 +1798,10 @@
       </article>
     </section>
 
+    <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (al)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (am)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
