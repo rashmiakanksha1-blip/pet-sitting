@@ -1043,18 +1043,24 @@
 
     .about-card .content-ribbon.about-ribbon {
       margin: 1.25rem -1.35rem 0;
-      background: var(--sage-light-soft);
+      background: linear-gradient(135deg, var(--sage-hue), var(--sage-dark));
       border-left: none;
       border-right: none;
       border-radius: 0;
-      border-color: var(--sage-light-border);
+      border-top: 1px solid var(--sage-hue);
+      border-bottom: none;
       overflow: hidden;
       padding: 0.85rem 0;
       display: block;
     }
 
     .about-card .content-ribbon-item {
-      color: var(--sage-light-text-muted);
+      color: var(--text);
+    }
+
+    .about-card .content-ribbon-dot {
+      background: rgba(255, 255, 255, 0.75);
+      opacity: 1;
     }
 
     .about-ribbon-track {
@@ -1811,7 +1817,7 @@
     <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (ao)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (ap)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
