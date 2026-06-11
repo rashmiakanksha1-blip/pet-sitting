@@ -223,53 +223,26 @@
 
     .hero-paw {
       position: absolute;
-      width: 104px;
-      height: 66px;
-      transform: rotate(var(--paw-rot, 0deg));
-    }
-
-    .hero-paw::before,
-    .hero-paw::after {
-      content: '';
-      position: absolute;
-      inset: 0;
       background-repeat: no-repeat;
-      background-size: 100% 100%;
+      background-size: contain;
       background-position: center;
-      -webkit-mask-repeat: no-repeat;
-      -webkit-mask-size: 100% 100%;
-      -webkit-mask-position: center;
-      mask-repeat: no-repeat;
-      mask-size: 100% 100%;
-      mask-position: center;
-      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='4 52 70 42'%3E%3Cpath fill='%23ffffff' d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/svg%3E");
-      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='4 52 70 42'%3E%3Cpath fill='%23ffffff' d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/svg%3E");
-    }
-
-    .hero-paw::before {
-      background-color: #fff;
-      opacity: 0.11;
-    }
-
-    .hero-paw.soft::before {
-      opacity: 0.07;
-    }
-
-    .hero-paw::after {
-      background: linear-gradient(160deg, var(--accent-dark) 0%, var(--accent) 55%, #cf8468 100%);
-      opacity: 0;
-      animation: heroPawCover var(--paw-dur, 9s) ease-in-out infinite;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23ffffff'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
+      opacity: var(--paw-peak, 0.18);
+      transform: rotate(var(--paw-rot, 0deg));
+      animation: heroPawDissolve var(--paw-dur, 9s) ease-in-out infinite;
       animation-delay: var(--paw-delay, 0s);
     }
 
-    @keyframes heroPawCover {
-      0%, 68%, 100% { opacity: 0; }
-      34% { opacity: 0.98; }
-      50% { opacity: 0.98; }
+    @keyframes heroPawDissolve {
+      0%, 100% { opacity: var(--paw-peak, 0.18); }
+      28% { opacity: calc(var(--paw-peak, 0.18) * 0.55); }
+      42% { opacity: 0; }
+      58% { opacity: 0; }
+      72% { opacity: calc(var(--paw-peak, 0.18) * 0.5); }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .hero-paw::after { animation: none; }
+      .hero-paw { animation: none; }
     }
 
     .paw-twinkle-host {
@@ -2925,17 +2898,14 @@
         return zones;
       }
 
-      function overlaps(x, y, pawW, pawH, zones, maxW, maxH) {
+      function overlaps(x, y, size, zones, maxW, maxH) {
         const edge = 10;
-        if (x < edge || y < edge || x + pawW > maxW - edge || y + pawH > maxH - edge) return true;
+        if (x < edge || y < edge || x + size > maxW - edge || y + size > maxH - edge) return true;
         for (const z of zones) {
-          if (x < z.right && x + pawW > z.left && y < z.bottom && y + pawH > z.top) return true;
+          if (x < z.right && x + size > z.left && y < z.bottom && y + size > z.top) return true;
         }
         return false;
       }
-
-      const HERO_PAW_W = 104;
-      const HERO_PAW_H = 66;
 
       function layoutPaws() {
         layer.innerHTML = '';
@@ -2943,24 +2913,28 @@
         const layerRect = layer.getBoundingClientRect();
         const maxW = layerRect.width;
         const maxH = layerRect.height;
-        if (maxW < HERO_PAW_W + 40 || maxH < HERO_PAW_H + 40) return;
+        if (maxW < 80 || maxH < 80) return;
 
         const zones = exclusionZones(hostRect);
-        const count = Math.min(20, Math.max(8, Math.floor((maxW * maxH) / 11000)));
+        const count = Math.min(36, Math.max(14, Math.floor((maxW * maxH) / 4200)));
         let placed = 0;
         let attempts = 0;
 
         while (placed < count && attempts < count * 40) {
           attempts += 1;
-          const x = Math.random() * Math.max(0, maxW - HERO_PAW_W);
-          const y = Math.random() * Math.max(0, maxH - HERO_PAW_H);
-          if (overlaps(x, y, HERO_PAW_W, HERO_PAW_H, zones, maxW, maxH)) continue;
+          const size = 26 + Math.random() * 28;
+          const x = Math.random() * Math.max(0, maxW - size);
+          const y = Math.random() * Math.max(0, maxH - size);
+          if (overlaps(x, y, size, zones, maxW, maxH)) continue;
 
           const paw = document.createElement('div');
-          paw.className = 'hero-paw' + (Math.random() < 0.38 ? ' soft' : '');
+          paw.className = 'hero-paw';
           paw.setAttribute('aria-hidden', 'true');
+          paw.style.width = size + 'px';
+          paw.style.height = size + 'px';
           paw.style.left = x + 'px';
           paw.style.top = y + 'px';
+          paw.style.setProperty('--paw-peak', (0.14 + Math.random() * 0.12).toFixed(3));
           paw.style.setProperty('--paw-rot', (Math.random() * 50 - 25) + 'deg');
           if (!reducedMotion) {
             paw.style.setProperty('--paw-dur', (5 + Math.random() * 9) + 's');
