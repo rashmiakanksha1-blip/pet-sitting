@@ -64,10 +64,6 @@
       --card-shadow-lift: 0 14px 48px rgba(42, 56, 48, 0.15), 0 4px 14px rgba(42, 56, 48, 0.09);
       --panel-bg: #ffffff;
       --panel-border: #e8e2da;
-      --cal-tier-peak-bg: #fae8df;
-      --cal-tier-peak-border: rgba(196, 120, 92, 0.55);
-      --cal-tier-super-bg: #f0d4c4;
-      --cal-tier-super-border: rgba(154, 92, 68, 0.72);
       --ribbon-shadow: inset 0 5px 14px -6px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.1);
       --radius: 16px;
       --radius-sm: 10px;
@@ -443,20 +439,16 @@
       border-color: #ebe5dd;
     }
 
-    .calendar-panel .day.tier-peak-day {
-      background: var(--cal-tier-peak-bg);
-      border-color: var(--cal-tier-peak-border);
-    }
-
+    .calendar-panel .day.tier-peak-day,
     .calendar-panel .day.tier-super-day {
-      background: var(--cal-tier-super-bg);
-      border-color: var(--cal-tier-super-border);
+      background: #fff;
+      border-color: #ebe5dd;
     }
 
     .calendar-panel .day.tier-peak-day .day-tier-label,
     .calendar-panel .day.tier-super-day .day-tier-label {
-      color: var(--accent-dark);
-      font-weight: 700;
+      color: var(--page-text-muted);
+      font-weight: 600;
     }
 
     .calendar-panel .day.available .status-label {
@@ -495,19 +487,11 @@
       background: rgba(255, 255, 255, 0.9);
     }
 
-    .calendar-panel .legend-dot.tier-off {
+    .calendar-panel .legend-dot.tier-off,
+    .calendar-panel .legend-dot.tier-peak,
+    .calendar-panel .legend-dot.tier-super {
       background: #ffffff;
       border-color: #ebe5dd;
-    }
-
-    .calendar-panel .legend-dot.tier-peak {
-      background: var(--cal-tier-peak-bg);
-      border-color: var(--cal-tier-peak-border);
-    }
-
-    .calendar-panel .legend-dot.tier-super {
-      background: var(--cal-tier-super-bg);
-      border-color: var(--cal-tier-super-border);
     }
 
     .calendar-panel .legend-dot.dot-booked,
@@ -1862,7 +1846,7 @@
     <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (au)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (av)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
