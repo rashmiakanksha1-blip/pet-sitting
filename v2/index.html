@@ -257,40 +257,30 @@
       position: absolute;
       z-index: 0;
       pointer-events: none;
-      background-repeat: repeat;
+      background-repeat: no-repeat;
       opacity: 0;
-      -webkit-mask-image: radial-gradient(circle, #000 0%, #000 40%, transparent 74%);
-      mask-image: radial-gradient(circle, #000 0%, #000 40%, transparent 74%);
       animation: pawSpotTwinkle ease-in-out forwards;
     }
 
+    .hero-terracotta .paw-twinkle-pulse {
+      mix-blend-mode: screen;
+    }
+
     .calendar-panel .calendar-header .paw-twinkle-pulse {
-      -webkit-mask-image:
-        radial-gradient(circle, #000 0%, #000 40%, transparent 74%),
-        linear-gradient(90deg, #000 0%, #000 14%, transparent 24%, transparent 76%, #000 86%, #000 100%);
-      -webkit-mask-composite: source-in, source-over;
-      mask-image:
-        radial-gradient(circle, #000 0%, #000 40%, transparent 74%),
-        linear-gradient(90deg, #000 0%, #000 14%, transparent 24%, transparent 76%, #000 86%, #000 100%);
-      mask-composite: intersect, add;
+      -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 14%, transparent 24%, transparent 76%, #000 86%, #000 100%);
+      mask-image: linear-gradient(90deg, #000 0%, #000 14%, transparent 24%, transparent 76%, #000 86%, #000 100%);
     }
 
     .rates-block .rate-card-head .paw-twinkle-pulse {
-      -webkit-mask-image:
-        radial-gradient(circle, #000 0%, #000 40%, transparent 74%),
-        linear-gradient(90deg, #000 0%, #000 10%, transparent 20%, transparent 72%, #000 82%, #000 100%);
-      -webkit-mask-composite: source-in, source-over;
-      mask-image:
-        radial-gradient(circle, #000 0%, #000 40%, transparent 74%),
-        linear-gradient(90deg, #000 0%, #000 10%, transparent 20%, transparent 72%, #000 82%, #000 100%);
-      mask-composite: intersect, add;
+      -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 10%, transparent 20%, transparent 72%, #000 82%, #000 100%);
+      mask-image: linear-gradient(90deg, #000 0%, #000 10%, transparent 20%, transparent 72%, #000 82%, #000 100%);
     }
 
     @keyframes pawSpotTwinkle {
-      0% { opacity: 0; filter: brightness(1); }
-      20% { opacity: 0.92; filter: brightness(1.4); }
-      55% { opacity: 0.78; filter: brightness(1.28); }
-      100% { opacity: 0; filter: brightness(1); }
+      0% { opacity: 0; transform: scale(0.94); }
+      14% { opacity: 1; transform: scale(1); }
+      52% { opacity: 0.82; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.96); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -2923,55 +2913,84 @@
     function initExistingPawTwinkle() {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      const hosts = document.querySelectorAll(
-        '.hero-terracotta, .calendar-panel .calendar-header, .rates-block .rate-card-head'
-      );
-      if (!hosts.length) return;
+      const PAW_TWINKLE_TILES = [
+        {
+          selector: '.hero-terracotta',
+          tileW: 220,
+          tileH: 220,
+          maxActive: 9,
+          brightBg: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23ffffff' fill-opacity='0.5'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3Cg fill='%23ffffff' fill-opacity='0.34' transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E\")",
+        },
+        {
+          selector: '.calendar-panel .calendar-header',
+          tileW: 92,
+          tileH: 68,
+          maxActive: 6,
+          brightBg: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='68' viewBox='0 0 92 68'%3E%3Cg fill='%23c4785c' fill-opacity='0.62' transform='translate(4 6) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%233dadb8' fill-opacity='0.58' transform='translate(50 30) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E\")",
+        },
+        {
+          selector: '.rates-block .rate-card-head',
+          tileW: 92,
+          tileH: 68,
+          maxActive: 5,
+          brightBg: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='68' viewBox='0 0 92 68'%3E%3Cg fill='%23ffffff' fill-opacity='0.52' transform='translate(4 6) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%233dadb8' fill-opacity='0.72' transform='translate(50 30) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E\")",
+        },
+      ];
 
-      function spawnPulse(host, bgImage, bgSize, maxActive) {
-        if (host.querySelectorAll('.paw-twinkle-pulse').length >= maxActive) {
-          setTimeout(() => spawnPulse(host, bgImage, bgSize, maxActive), 300 + Math.random() * 700);
+      function spawnPulse(host, config) {
+        if (host.querySelectorAll('.paw-twinkle-pulse').length >= config.maxActive) {
+          setTimeout(() => spawnPulse(host, config), 250 + Math.random() * 600);
           return;
         }
+
+        const rect = host.getBoundingClientRect();
+        if (rect.width < config.tileW || rect.height < config.tileH) {
+          setTimeout(() => spawnPulse(host, config), 800);
+          return;
+        }
+
+        const cols = Math.max(1, Math.floor(rect.width / config.tileW));
+        const rows = Math.max(1, Math.floor(rect.height / config.tileH));
+        const col = Math.floor(Math.random() * cols);
+        const row = Math.floor(Math.random() * rows);
+        const x = col * config.tileW;
+        const y = row * config.tileH;
 
         const pulse = document.createElement('div');
         pulse.className = 'paw-twinkle-pulse';
         pulse.setAttribute('aria-hidden', 'true');
-
-        const size = 48 + Math.random() * 28;
-        const rect = host.getBoundingClientRect();
-        const x = Math.random() * Math.max(0, rect.width - size);
-        const y = Math.random() * Math.max(0, rect.height - size);
-
-        pulse.style.width = size + 'px';
-        pulse.style.height = size + 'px';
+        pulse.style.width = config.tileW + 'px';
+        pulse.style.height = config.tileH + 'px';
         pulse.style.left = x + 'px';
         pulse.style.top = y + 'px';
-        pulse.style.backgroundImage = bgImage;
-        pulse.style.backgroundSize = bgSize;
-        pulse.style.backgroundPosition = '-' + x + 'px -' + y + 'px';
-        pulse.style.animationDuration = (1.6 + Math.random() * 2.4) + 's';
-        pulse.style.animationDelay = (Math.random() * 0.5) + 's';
+        pulse.style.backgroundImage = config.brightBg;
+        pulse.style.backgroundSize = config.tileW + 'px ' + config.tileH + 'px';
+        pulse.style.backgroundPosition = '0 0';
+        pulse.style.animationDuration = (1.8 + Math.random() * 2.6) + 's';
+        pulse.style.animationDelay = (Math.random() * 0.35) + 's';
 
         pulse.addEventListener('animationend', () => pulse.remove());
         host.appendChild(pulse);
 
-        setTimeout(() => spawnPulse(host, bgImage, bgSize, maxActive), 280 + Math.random() * 1600);
+        setTimeout(() => spawnPulse(host, config), 220 + Math.random() * 1200);
       }
 
-      hosts.forEach((host) => {
-        const beforeStyle = getComputedStyle(host, '::before');
-        const bgImage = beforeStyle.backgroundImage;
-        const bgSize = beforeStyle.backgroundSize;
-        if (!bgImage || bgImage === 'none') return;
+      function bootTwinkle() {
+        PAW_TWINKLE_TILES.forEach((config) => {
+          document.querySelectorAll(config.selector).forEach((host) => {
+            host.classList.add('paw-twinkle-host');
+            for (let i = 0; i < 4; i++) {
+              setTimeout(() => spawnPulse(host, config), i * (350 + Math.random() * 700));
+            }
+          });
+        });
+      }
 
-        host.classList.add('paw-twinkle-host');
-        const maxActive = host.classList.contains('hero-terracotta') ? 6 : 4;
-
-        for (let i = 0; i < 3; i++) {
-          setTimeout(() => spawnPulse(host, bgImage, bgSize, maxActive), i * (400 + Math.random() * 900));
-        }
-      });
+      if (document.readyState === 'complete') {
+        bootTwinkle();
+      } else {
+        window.addEventListener('load', bootTwinkle, { once: true });
+      }
     }
 
     initExistingPawTwinkle();
