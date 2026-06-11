@@ -322,13 +322,16 @@
     .hero-ribbon-full {
       width: 100%;
       margin: 1rem 0 0;
-      background: linear-gradient(135deg, #fff 0%, var(--sage-light) 100%);
-      border-top: 1px solid rgba(255, 255, 255, 0.55);
-      border-bottom: none;
+      background: var(--sage-light);
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 0;
       box-shadow: none;
       overflow: hidden;
-      padding: 0.7rem 0;
+      padding: 0.75rem 0;
+      min-height: 0;
       display: block;
+      flex-wrap: nowrap;
     }
 
     .hero-ribbon-full .about-ribbon-track .content-ribbon-item {
@@ -1292,8 +1295,12 @@
       display: flex;
       align-items: center;
       width: max-content;
-      animation: about-ribbon-scroll 80s linear infinite;
+      animation: none;
       will-change: transform;
+    }
+
+    .about-ribbon-track.is-animating {
+      animation: about-ribbon-scroll var(--marquee-duration, 70s) linear infinite;
     }
 
     .about-ribbon-set {
@@ -1304,13 +1311,13 @@
       padding-right: 2.25rem;
     }
 
-    .about-ribbon:hover .about-ribbon-track {
+    .about-ribbon:hover .about-ribbon-track.is-animating {
       animation-play-state: paused;
     }
 
     @keyframes about-ribbon-scroll {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(calc(-1 * var(--marquee-distance, 0px)), 0, 0); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1897,34 +1904,8 @@
       </header>
     </div>
     <div class="content-ribbon about-ribbon hero-ribbon-full" aria-label="Services we offer">
-      <div class="about-ribbon-track">
-        <div class="about-ribbon-set">
-          <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Overnight stays at our home</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Cats · all sizes welcome</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Overnight stays at our home</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Cats · all sizes welcome</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-        </div>
-        <div class="about-ribbon-set" aria-hidden="true">
-          <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Overnight stays at our home</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Cats · all sizes welcome</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
+      <div class="about-ribbon-track" id="heroRibbonTrack">
+        <div class="about-ribbon-set" id="heroRibbonSeed">
           <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
           <span class="content-ribbon-dot" aria-hidden="true"></span>
           <span class="content-ribbon-item">Overnight stays at our home</span>
@@ -2602,6 +2583,52 @@
       });
     })();
 
+    function initHeroRibbonMarquee() {
+      const root = document.querySelector('.hero-ribbon-full');
+      const track = document.getElementById('heroRibbonTrack');
+      const seed = document.getElementById('heroRibbonSeed');
+      if (!root || !track || !seed) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const seedMarkup = seed.innerHTML;
+
+      function buildTrack() {
+        track.classList.remove('is-animating');
+        track.style.removeProperty('--marquee-distance');
+        track.innerHTML = '';
+
+        function appendSet(ariaHidden) {
+          const set = document.createElement('div');
+          set.className = 'about-ribbon-set';
+          if (ariaHidden) set.setAttribute('aria-hidden', 'true');
+          set.innerHTML = seedMarkup;
+          track.appendChild(set);
+          return set;
+        }
+
+        appendSet(false);
+        const viewportW = root.getBoundingClientRect().width;
+        while (track.scrollWidth < viewportW * 1.25) {
+          appendSet(true);
+        }
+
+        const loopWidth = track.scrollWidth;
+        const sets = Array.from(track.querySelectorAll('.about-ribbon-set'));
+        sets.forEach((set) => track.appendChild(set.cloneNode(true)));
+
+        track.style.setProperty('--marquee-distance', loopWidth + 'px');
+        track.classList.add('is-animating');
+      }
+
+      buildTrack();
+      let resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(buildTrack, 150);
+      });
+    }
+
+    initHeroRibbonMarquee();
     boot();
   </script>
 </body>
