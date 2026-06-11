@@ -258,11 +258,8 @@
       pointer-events: none;
       background-repeat: no-repeat;
       opacity: 0;
+      mix-blend-mode: lighten;
       animation: pawSpotTwinkle ease-in-out forwards;
-    }
-
-    .hero-terracotta .paw-twinkle-pulse {
-      mix-blend-mode: screen;
     }
 
     .calendar-panel .calendar-header .paw-twinkle-pulse {
@@ -276,10 +273,10 @@
     }
 
     @keyframes pawSpotTwinkle {
-      0% { opacity: 0; transform: scale(0.9); }
-      10% { opacity: 1; transform: scale(1.02); }
-      45% { opacity: 0.88; transform: scale(1); }
-      100% { opacity: 0; transform: scale(0.94); }
+      0% { opacity: 0; filter: brightness(1); }
+      18% { opacity: 0.72; filter: brightness(1.35); }
+      42% { opacity: 0.95; filter: brightness(1.55); }
+      100% { opacity: 0; filter: brightness(1); }
     }
 
     @media (prefers-reduced-motion: reduce) {
