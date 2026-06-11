@@ -211,6 +211,21 @@
       isolation: isolate;
     }
 
+    .hero-terracotta-top::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 18px;
+      z-index: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23ffffff' fill-opacity='0.11'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3Cg fill='%23ffffff' fill-opacity='0.07' transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 220px 220px;
+      -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 8%, transparent 18%, transparent 82%, #000 92%, #000 100%);
+      mask-image: linear-gradient(90deg, #000 0%, #000 8%, transparent 18%, transparent 82%, #000 92%, #000 100%);
+    }
+
     .hero-paw-layer {
       position: absolute;
       top: 0;
@@ -226,28 +241,31 @@
       position: absolute;
       width: 110px;
       height: 70px;
+      background: linear-gradient(160deg, var(--accent-dark) 0%, var(--accent) 55%, #cf8468 100%);
       background-repeat: no-repeat;
       background-size: 220px 220px;
       background-position: -6px -82px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3Cg fill='%23ffffff' transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
-      opacity: var(--paw-peak, 0.11);
-      animation: heroPawDissolve var(--paw-dur, 9s) ease-in-out infinite;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
+      -webkit-mask-size: 220px 220px;
+      mask-size: 220px 220px;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      opacity: 0;
+      animation: heroPawCover var(--paw-dur, 9s) ease-in-out infinite;
       animation-delay: var(--paw-delay, 0s);
     }
 
     .hero-paw.alt {
       background-position: -140px -204px;
+      -webkit-mask-position: -140px -204px;
+      mask-position: -140px -204px;
     }
 
-    .hero-paw.soft {
-      --paw-peak: 0.07;
-    }
-
-    @keyframes heroPawDissolve {
-      0%, 76%, 100% { opacity: var(--paw-peak, 0.11); }
-      38% { opacity: calc(var(--paw-peak, 0.11) * 0.4); }
-      50% { opacity: 0; }
-      62% { opacity: calc(var(--paw-peak, 0.11) * 0.35); }
+    @keyframes heroPawCover {
+      0%, 72%, 100% { opacity: 0; }
+      38% { opacity: 0.97; }
+      52% { opacity: 0.97; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -332,12 +350,14 @@
 
     .header-book-btn {
       position: absolute;
-      top: 0;
-      right: 0;
+      top: 0.25rem;
+      right: 0.5cm;
+      left: 58%;
       padding: 0.8rem 1.35rem;
       font-size: 0.95rem;
       white-space: nowrap;
       z-index: 2;
+      text-align: center;
     }
 
     .header-book-btn:hover,
@@ -2087,11 +2107,11 @@
 
       .header-book-btn {
         font-size: 0.82rem;
-        padding: 0.65rem 0.9rem;
-        max-width: 44%;
+        padding: 0.65rem 0.75rem;
+        left: 40%;
+        right: 0.5cm;
         white-space: normal;
         line-height: 1.25;
-        text-align: right;
       }
 
       .hero-cta-stack {
@@ -2118,9 +2138,9 @@
   <div class="hero-terracotta">
     <div class="hero-terracotta-top">
     <div class="hero-paw-layer" id="heroPawLayer" aria-hidden="true"></div>
+    <a class="header-book-btn" id="bookBtn" href="#">Book my slot</a>
     <div class="hero-terracotta-inner">
       <header>
-        <a class="header-book-btn" id="bookBtn" href="#">Book my slot</a>
         <div class="hero-brand-block">
           <div class="logo">
             <div class="logo-icon">🐾</div>
@@ -2938,7 +2958,6 @@
 
           const paw = document.createElement('div');
           let pawClass = 'hero-paw';
-          if (Math.random() < 0.4) pawClass += ' soft';
           if (Math.random() < 0.5) pawClass += ' alt';
           paw.className = pawClass;
           paw.setAttribute('aria-hidden', 'true');
