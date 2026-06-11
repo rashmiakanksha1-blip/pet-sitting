@@ -1125,36 +1125,14 @@
       opacity: 0.85;
     }
 
-    .reviews-section .section-header {
-      display: inline-block;
-      width: 100%;
-      max-width: 36rem;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0.75rem 1.25rem 0.65rem;
-      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
-      border-top: 2px solid var(--raised-accent-top);
-      border-bottom: 3px solid var(--raised-accent-bottom);
-      border-radius: var(--radius-sm);
-      box-shadow: var(--raised-accent-shadow);
-    }
-
-    .reviews-section .section-header h3 {
-      color: #fff;
-      text-shadow: 0 1px 1px rgba(74, 50, 40, 0.2);
-    }
-
-    .reviews-section .section-header p {
-      color: rgba(255, 255, 255, 0.88);
+    .reviews-section .section-header h3,
+    .about-section .section-header h3 {
+      color: var(--accent-dark);
     }
 
     .title-play {
       font-style: italic;
-      color: inherit;
-    }
-
-    .reviews-section .title-play {
-      color: #fff;
+      color: var(--accent-dark);
     }
 
     .reviews-carousel {
@@ -1260,38 +1238,21 @@
       padding: 0;
     }
 
+    .about-section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
     .about-band {
       width: 100%;
-      margin-top: 0;
+      margin-top: 1.25rem;
       background: linear-gradient(180deg, var(--accent-light-mid) 0%, var(--accent-light-soft) 100%);
       border: none;
       border-top: 2px solid var(--raised-accent-light-top);
       border-bottom: 3px solid var(--raised-accent-light-bottom);
       box-shadow: var(--raised-accent-light-shadow);
       overflow: hidden;
-    }
-
-    .about-band .section-header {
-      display: block;
-      width: 100%;
-      max-width: none;
-      margin: 0;
-      padding: 0.8rem 1.5rem 0.7rem;
-      text-align: center;
-      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
-      border: none;
-      border-bottom: 2px solid rgba(255, 255, 255, 0.22);
-      border-radius: 0;
-      box-shadow: none;
-    }
-
-    .about-band .section-header h3 {
-      color: #fff;
-      text-shadow: 0 1px 1px rgba(74, 50, 40, 0.2);
-    }
-
-    .about-band .section-header p {
-      color: rgba(255, 255, 255, 0.88);
     }
 
     .about-band-inner {
@@ -2209,11 +2170,13 @@
   </div>
 
   <section class="about-section" aria-label="Who we are">
-    <div class="about-band">
+    <div class="about-section-inner">
       <div class="section-header">
         <h3>Who we are</h3>
         <p>Small-team pet sitting in London</p>
       </div>
+    </div>
+    <div class="about-band">
       <div class="about-band-inner">
         <div class="about-copy">
           <p>
