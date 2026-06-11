@@ -256,33 +256,45 @@
       padding-top: 0.25rem;
     }
 
+    .header-book-btn,
+    .bottom-book-btn {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(180deg, var(--sage-hue) 0%, var(--sage-dark) 100%);
+      border: 2px solid rgba(255, 255, 255, 0.28);
+      border-bottom: 3px solid rgba(26, 74, 80, 0.55);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 4px 14px rgba(42, 96, 104, 0.35), 0 2px 4px rgba(0, 0, 0, 0.12);
+      transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+      appearance: none;
+    }
+
     .header-book-btn {
       position: absolute;
       top: 0;
       right: 0;
       padding: 0.8rem 1.35rem;
-      background: #fff;
-      color: var(--accent-dark);
-      border: 2px solid #fff;
-      border-radius: var(--radius-sm);
-      font-family: 'Outfit', sans-serif;
       font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-      text-decoration: none;
-      text-align: center;
       white-space: nowrap;
-      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.22);
       z-index: 2;
-      appearance: none;
     }
 
-    .header-book-btn:hover {
+    .header-book-btn:hover,
+    .bottom-book-btn:hover {
       transform: translateY(-2px);
-      background: var(--accent-light-soft);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
-      color: var(--accent-dark);
+      filter: brightness(1.07);
+      box-shadow: 0 8px 22px rgba(42, 96, 104, 0.42), 0 3px 8px rgba(0, 0, 0, 0.14);
+      color: #fff;
+    }
+
+    .header-book-btn:active,
+    .bottom-book-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 8px rgba(42, 96, 104, 0.3);
     }
 
     .hero-terracotta .logo h1 {
@@ -310,8 +322,8 @@
     .hero-ribbon-full {
       width: 100%;
       margin: 1rem 0 0;
-      background: linear-gradient(135deg, var(--accent-light-soft), #fff);
-      border-top: 1px solid rgba(255, 255, 255, 0.45);
+      background: linear-gradient(135deg, #fff 0%, var(--sage-light) 100%);
+      border-top: 1px solid rgba(255, 255, 255, 0.55);
       border-bottom: none;
       box-shadow: none;
       overflow: hidden;
@@ -320,15 +332,16 @@
     }
 
     .hero-ribbon-full .about-ribbon-track .content-ribbon-item {
-      font-size: 0.92rem;
-      color: var(--accent-dark);
+      font-size: 1rem;
+      color: var(--page-text);
       font-family: 'Outfit', sans-serif;
-      font-weight: 500;
+      font-weight: 600;
+      letter-spacing: 0.01em;
     }
 
     .hero-ribbon-full .content-ribbon-dot {
-      background: var(--accent);
-      opacity: 0.75;
+      background: var(--sage-hue);
+      opacity: 0.9;
     }
 
     .logo {
@@ -1372,23 +1385,7 @@
       max-width: 420px;
       margin: 0 auto;
       padding: 0.9rem 1.25rem;
-      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
-      color: white;
-      border: none;
-      border-radius: var(--radius-sm);
-      font-family: 'Outfit', sans-serif;
       font-size: 1rem;
-      font-weight: 500;
-      text-align: center;
-      text-decoration: none;
-      box-shadow: var(--shadow-lg);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .bottom-book-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
-      color: white;
     }
 
     .rates-scroll-hint a {
@@ -1858,7 +1855,7 @@
       }
 
       .hero-ribbon-full .about-ribbon-track .content-ribbon-item {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
       }
 
       .about-ribbon-full .about-ribbon-track .content-ribbon-item {
