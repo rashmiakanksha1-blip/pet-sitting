@@ -1860,8 +1860,8 @@
     .about-band .about-section-head .rate-card-head-text {
       position: relative;
       z-index: 1;
-      display: block;
-      max-width: none;
+      display: inline-block;
+      max-width: 78%;
       background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
     }
 
@@ -2359,7 +2359,8 @@
         font-size: var(--ribbon-bar-text);
       }
 
-      .rates-block .rate-card-head::before {
+      .rates-block .rate-card-head::before,
+      .about-band .about-section-head::before {
         -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 4%, rgba(0, 0, 0, 0.65) 11%, transparent 24%, transparent 76%, rgba(0, 0, 0, 0.65) 89%, #000 96%, #000 100%);
         mask-image: linear-gradient(90deg, #000 0%, #000 4%, rgba(0, 0, 0, 0.65) 11%, transparent 24%, transparent 76%, rgba(0, 0, 0, 0.65) 89%, #000 96%, #000 100%);
       }
