@@ -2266,7 +2266,7 @@
       </div>
       <div class="about-band-foot">
         <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-        <footer>© 2026 Paws & Stay · Rates subject to change · <span id="siteVersion">Version 2</span> · <a href="owner.html" id="ownerLoginLink">Owner login</a></footer>
+        <footer>© 2026 Paws & Stay · Rates subject to change<span class="owner-only" id="siteMeta" hidden> · <span id="siteVersion">Version 2</span></span></footer>
       </div>
     </div>
   </section>
@@ -2333,7 +2333,6 @@
     }
 
     if (owner) {
-      document.getElementById('ownerLoginLink').hidden = true;
       document.querySelectorAll('.owner-only').forEach(el => el.hidden = false);
       const hint = document.getElementById('calendarHint');
       hint.hidden = false;
