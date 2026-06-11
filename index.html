@@ -352,6 +352,13 @@
       color: rgba(255, 255, 255, 0.9);
     }
 
+    .hero-brand-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
     .hero-cta-stack {
       display: flex;
       flex-direction: column;
@@ -2100,25 +2107,27 @@
     <div class="hero-terracotta-inner">
       <header>
         <a class="header-book-btn" id="bookBtn" href="#">Book my slot</a>
-        <div class="logo">
-          <div class="logo-icon">🐾</div>
-          <h1 id="businessName">Paws & Stay</h1>
-        </div>
-        <p class="tagline" id="tagline">Sit, stay. We'll take it from here</p>
-        <div class="hero-cta-stack">
-          <div class="pets-info" id="petsInfo">
-            <div class="pets-info-item">
-              <span class="pets-info-icon" aria-hidden="true">🐱</span>
-              <div>
-                <strong>Cats</strong>
-                <span id="petsCats">All sizes welcome</span>
+        <div class="hero-brand-block" id="heroPawFreeZone">
+          <div class="logo">
+            <div class="logo-icon">🐾</div>
+            <h1 id="businessName">Paws & Stay</h1>
+          </div>
+          <p class="tagline" id="tagline">Sit, stay. We'll take it from here</p>
+          <div class="hero-cta-stack">
+            <div class="pets-info" id="petsInfo">
+              <div class="pets-info-item">
+                <span class="pets-info-icon" aria-hidden="true">🐱</span>
+                <div>
+                  <strong>Cats</strong>
+                  <span id="petsCats">All sizes welcome</span>
+                </div>
               </div>
-            </div>
-            <div class="pets-info-item">
-              <span class="pets-info-icon" aria-hidden="true">🐕</span>
-              <div>
-                <strong>Dogs</strong>
-                <span id="petsDogs">Small breeds · pug-sized &amp; similar</span>
+              <div class="pets-info-item">
+                <span class="pets-info-icon" aria-hidden="true">🐕</span>
+                <div>
+                  <strong>Dogs</strong>
+                  <span id="petsDogs">Small breeds · pug-sized &amp; similar</span>
+                </div>
               </div>
             </div>
           </div>
@@ -2899,22 +2908,52 @@
 
     function initHeroSparkPaws() {
       const layer = document.getElementById('heroPawLayer');
+      const freeZone = document.getElementById('heroPawFreeZone');
       if (!layer) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       const pawMax = window.innerWidth < 600 ? 10 : 16;
 
-      function randomSpot(size, layerRect) {
+      function avoidSquare(layerRect) {
+        if (!freeZone) return null;
+        const r = freeZone.getBoundingClientRect();
+        const pad = 22;
+        const w = r.width + pad * 2;
+        const h = r.height + pad * 2;
+        const side = Math.max(w, h);
+        const cx = (r.left - layerRect.left) + r.width / 2;
+        const cy = (r.top - layerRect.top) + r.height / 2;
         return {
-          x: Math.random() * Math.max(0, layerRect.width - size),
-          y: Math.random() * Math.max(0, layerRect.height - size),
+          left: cx - side / 2,
+          right: cx + side / 2,
+          top: cy - side / 2,
+          bottom: cy + side / 2,
         };
+      }
+
+      function hitsAvoid(x, y, size, zone) {
+        if (!zone) return false;
+        return x < zone.right && x + size > zone.left && y < zone.bottom && y + size > zone.top;
+      }
+
+      function randomSpot(size, layerRect, zone) {
+        for (let i = 0; i < 24; i++) {
+          const x = Math.random() * Math.max(0, layerRect.width - size);
+          const y = Math.random() * Math.max(0, layerRect.height - size);
+          if (!hitsAvoid(x, y, size, zone)) return { x, y };
+        }
+        return null;
       }
 
       function spawnPaw() {
         const layerRect = layer.getBoundingClientRect();
+        const zone = avoidSquare(layerRect);
         const size = 52 + Math.random() * 36;
-        const spot = randomSpot(size, layerRect);
+        const spot = randomSpot(size, layerRect, zone);
+        if (!spot) {
+          setTimeout(spawnPaw, 900 + Math.random() * 1200);
+          return;
+        }
 
         const paw = document.createElement('div');
         paw.className = 'hero-spark-paw' + (Math.random() > 0.5 ? ' alt' : '');
