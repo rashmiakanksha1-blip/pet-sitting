@@ -60,6 +60,8 @@
       --status-unavail-text: #8a8480;
       --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
       --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.45);
+      --card-shadow: 0 10px 40px rgba(42, 56, 48, 0.11), 0 2px 8px rgba(42, 56, 48, 0.06);
+      --ribbon-shadow: inset 0 5px 14px -6px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.1);
       --radius: 16px;
       --radius-sm: 10px;
     }
@@ -381,9 +383,9 @@
       flex-direction: column;
       background: #ffffff;
       border-radius: var(--radius);
-      box-shadow: 0 8px 36px rgba(44, 40, 36, 0.08);
+      box-shadow: var(--card-shadow);
       border: 1px solid #e8e2da;
-      overflow: visible;
+      overflow: hidden;
       min-width: 0;
       color: var(--page-text);
     }
@@ -469,6 +471,7 @@
     .calendar-panel .calendar-legend {
       border-top: 1px solid var(--sage-hue);
       background: linear-gradient(135deg, var(--sage-hue), var(--sage-dark));
+      box-shadow: var(--ribbon-shadow);
     }
 
     .calendar-panel .calendar-legend .legend-section + .legend-section {
@@ -1029,7 +1032,7 @@
       border: 1px solid var(--sage-light-border);
       border-radius: var(--radius);
       padding: 1.25rem 1.35rem 0;
-      box-shadow: 0 8px 36px rgba(42, 56, 48, 0.08);
+      box-shadow: var(--card-shadow);
       overflow: hidden;
       color: var(--sage-light-text);
     }
@@ -1053,6 +1056,7 @@
       border-radius: 0;
       border-top: 1px solid var(--sage-hue);
       border-bottom: none;
+      box-shadow: var(--ribbon-shadow);
       overflow: hidden;
       padding: 0.85rem 0;
       display: block;
@@ -1189,7 +1193,7 @@
       border: 1px solid var(--sage-light-border);
       border-radius: var(--radius-sm);
       background: var(--sage-light);
-      box-shadow: 0 8px 36px rgba(42, 56, 48, 0.08);
+      box-shadow: var(--card-shadow);
       color: var(--sage-light-text);
       overflow: hidden;
     }
@@ -1264,6 +1268,7 @@
       padding: 0.65rem 1.15rem 0.85rem;
       background: linear-gradient(135deg, var(--sage-hue), var(--sage-dark));
       border-top: 1px solid var(--sage-hue);
+      box-shadow: var(--ribbon-shadow);
     }
 
     .rates-block .rate-row {
@@ -1849,7 +1854,7 @@
     <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (ar)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (as)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
