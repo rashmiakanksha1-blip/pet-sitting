@@ -605,7 +605,6 @@
 
     @media (max-width: 900px) {
       .calendar-months { grid-template-columns: 1fr; }
-      .rates-block .rates-grid { grid-template-columns: 1fr; }
     }
 
     /* Calendar — light & clean on cream page */
@@ -1789,8 +1788,14 @@
 
     .rates-block .rates-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 1rem;
+    }
+
+    @media (min-width: 901px) {
+      .rates-block .rates-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     .rate-service-card {
