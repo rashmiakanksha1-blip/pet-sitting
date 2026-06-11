@@ -261,28 +261,28 @@
       top: 0;
       right: 0;
       padding: 0.8rem 1.35rem;
-      background: linear-gradient(135deg, var(--sage-hue), var(--sage-dark));
-      color: #fff;
-      border: none;
+      background: #fff;
+      color: var(--accent-dark);
+      border: 2px solid #fff;
       border-radius: var(--radius-sm);
       font-family: 'Outfit', sans-serif;
       font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
       text-decoration: none;
       text-align: center;
       white-space: nowrap;
-      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.28);
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.22);
       z-index: 2;
       appearance: none;
     }
 
     .header-book-btn:hover {
       transform: translateY(-2px);
-      filter: brightness(1.06);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32);
-      color: #fff;
+      background: var(--accent-light-soft);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+      color: var(--accent-dark);
     }
 
     .hero-terracotta .logo h1 {
@@ -310,10 +310,10 @@
     .hero-ribbon-full {
       width: 100%;
       margin: 1rem 0 0;
-      background: linear-gradient(135deg, var(--sage-hue), var(--sage-dark));
-      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      background: linear-gradient(135deg, var(--accent-light-soft), #fff);
+      border-top: 1px solid rgba(255, 255, 255, 0.45);
       border-bottom: none;
-      box-shadow: var(--ribbon-shadow);
+      box-shadow: none;
       overflow: hidden;
       padding: 0.7rem 0;
       display: block;
@@ -321,14 +321,14 @@
 
     .hero-ribbon-full .about-ribbon-track .content-ribbon-item {
       font-size: 0.92rem;
-      color: #fff;
+      color: var(--accent-dark);
       font-family: 'Outfit', sans-serif;
       font-weight: 500;
     }
 
     .hero-ribbon-full .content-ribbon-dot {
-      background: rgba(255, 255, 255, 0.8);
-      opacity: 1;
+      background: var(--accent);
+      opacity: 0.75;
     }
 
     .logo {
@@ -1364,7 +1364,7 @@
       max-width: 420px;
       margin: 0 auto;
       padding: 0.9rem 1.25rem;
-      background: var(--surface);
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
       color: white;
       border: none;
       border-radius: var(--radius-sm);
