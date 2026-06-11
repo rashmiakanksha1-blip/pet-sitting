@@ -1126,44 +1126,12 @@
 
     .rates-scroll-hint a:hover { text-decoration: underline; }
 
-    .rates-panel {
-      display: flex;
-      flex-direction: column;
-      background: #ffffff;
-      border-radius: var(--radius);
-      box-shadow: 0 8px 36px rgba(44, 40, 36, 0.08);
-      border: 1px solid #e8e2da;
-      overflow: hidden;
-    }
-
-    .rates-header {
-      background: var(--sage-light);
-      border-bottom: 1px solid var(--sage-light-border);
-      padding: 1.1rem 1.5rem;
-      text-align: center;
-    }
-
-    .rates-header h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--sage-light-text-muted);
-      letter-spacing: 0.02em;
-      margin: 0;
-    }
-
-    .rates-header-sub {
-      margin: 0.3rem 0 0;
-      font-size: 0.8rem;
-      color: var(--sage-light-text-muted);
-    }
-
     .rates-block {
-      background: #ffffff;
-      border-radius: 0;
+      background: transparent;
+      border-radius: var(--radius);
       box-shadow: none;
       border: none;
-      padding: 1rem 1.25rem 1.15rem;
+      padding: 0;
       color: var(--sage-light-text);
     }
 
@@ -1649,14 +1617,13 @@
       </div>
 
       <section class="rates-section" id="ratesSection">
-        <div class="rates-panel">
-          <div class="rates-header">
-            <h2>Rates</h2>
-            <p class="rates-header-sub">Pricing varies by season &amp; demand</p>
-          </div>
-          <div class="rates-block">
-            <div class="rates-grid">
-        <div class="rate-service-card visit">
+        <div class="section-header">
+          <h3>Rates</h3>
+          <p>Pricing varies by season &amp; demand</p>
+        </div>
+        <div class="rates-block">
+          <div class="rates-grid">
+            <div class="rate-service-card visit">
           <div class="service-card-title">Visit</div>
           <div class="service-card-sub">25-45 min · max 2 per day</div>
           <div class="rate-rows">
@@ -1681,10 +1648,10 @@
               </div>
               <div class="rate-price">£16 <small>/ visit</small></div>
             </div>
+            </div>
           </div>
-        </div>
 
-        <div class="rate-service-card overnight">
+            <div class="rate-service-card overnight">
           <div class="service-card-title">Overnight stay</div>
           <div class="service-card-sub">Stay at my home · per night</div>
           <div class="rate-rows">
@@ -1709,7 +1676,6 @@
               </div>
               <div class="rate-price">£30 <small>/ night</small></div>
             </div>
-          </div>
             </div>
           </div>
         </div>
@@ -1809,7 +1775,7 @@
     </section>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (aj)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (ak)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
