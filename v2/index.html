@@ -217,7 +217,7 @@
       z-index: 1;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 1.5rem 3rem;
+      padding: 0 1.5rem 1.5rem;
       color: var(--page-text);
     }
 
@@ -1176,8 +1176,24 @@
     .about-band-inner {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 1.25rem 1.5rem 0;
+      padding: 1.15rem 1.5rem 0;
       color: var(--accent-light-text);
+    }
+
+    .about-band-foot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.7rem 1.5rem 0.85rem;
+      text-align: center;
+    }
+
+    .about-section .section-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.45rem;
+      margin: 0.4rem auto;
+      padding: 0;
     }
 
     .section-dots {
@@ -1215,28 +1231,26 @@
       margin: 0;
     }
 
-    .about-band .content-ribbon.about-ribbon {
-      margin: 1.25rem -1.5rem 0;
+    .about-ribbon-full {
+      width: 100%;
+      margin: 1rem 0 0;
       background: var(--panel-bg);
-      border-left: none;
-      border-right: none;
-      border-radius: 0;
       border-top: 1px solid var(--accent-light-border);
-      border-bottom: none;
+      border-bottom: 1px solid var(--accent-light-border);
       box-shadow: none;
       overflow: hidden;
-      padding: 0.85rem 0;
+      padding: 0.75rem 0;
       display: block;
     }
 
-    .about-band .content-ribbon.about-ribbon .about-ribbon-track .content-ribbon-item {
+    .about-ribbon-full .about-ribbon-track .content-ribbon-item {
       font-size: 1rem;
       color: var(--reviewer-name-color);
       font-family: 'Outfit', sans-serif;
       font-weight: 500;
     }
 
-    .about-band .content-ribbon-dot {
+    .about-ribbon-full .content-ribbon-dot {
       background: var(--accent);
       opacity: 0.7;
     }
@@ -1264,14 +1278,12 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .about-band .content-ribbon.about-ribbon {
+      .about-ribbon-full {
         overflow: visible;
-        padding: 0.85rem 1.15rem;
+        padding: 0.75rem 1rem;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        margin-left: 0;
-        margin-right: 0;
       }
 
       .about-ribbon-track {
@@ -1290,11 +1302,24 @@
     }
 
     .about-contact {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--accent-light-text-muted);
-      border-top: 1px solid var(--accent-light-border);
-      padding: 0.85rem 0 1.15rem;
-      margin-top: 1rem;
+      border-top: none;
+      padding: 0;
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .about-section footer {
+      margin-top: 0;
+      padding: 0;
+      font-size: 0.72rem;
+      line-height: 1.45;
+      color: var(--accent-light-text-muted);
+    }
+
+    .about-section footer a {
+      color: var(--accent);
     }
 
     .about-contact a {
@@ -1802,7 +1827,7 @@
         max-width: 240px;
       }
 
-      .about-band .content-ribbon.about-ribbon .about-ribbon-track .content-ribbon-item {
+      .about-ribbon-full .about-ribbon-track .content-ribbon-item {
         font-size: 0.92rem;
       }
     }
@@ -2066,8 +2091,17 @@
             every booking.
           </p>
         </div>
-        <div class="content-ribbon about-ribbon" aria-label="Services we offer">
-          <div class="about-ribbon-track">
+      </div>
+      <div class="content-ribbon about-ribbon about-ribbon-full" aria-label="Services we offer">
+        <div class="about-ribbon-track">
+          <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Overnight stays at our home</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Cats · all sizes welcome</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
+          <span class="about-ribbon-duplicate" aria-hidden="true">
             <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
             <span class="content-ribbon-dot" aria-hidden="true"></span>
             <span class="content-ribbon-item">Overnight stays at our home</span>
@@ -2075,33 +2109,19 @@
             <span class="content-ribbon-item">Cats · all sizes welcome</span>
             <span class="content-ribbon-dot" aria-hidden="true"></span>
             <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
-            <span class="about-ribbon-duplicate" aria-hidden="true">
-              <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
-              <span class="content-ribbon-dot" aria-hidden="true"></span>
-              <span class="content-ribbon-item">Overnight stays at our home</span>
-              <span class="content-ribbon-dot" aria-hidden="true"></span>
-              <span class="content-ribbon-item">Cats · all sizes welcome</span>
-              <span class="content-ribbon-dot" aria-hidden="true"></span>
-              <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
-            </span>
-          </div>
+          </span>
         </div>
+      </div>
+      <div class="about-band-foot">
         <p class="about-contact">
           Questions before you book?
           <a id="aboutEmail" href="mailto:petsittersclublondon@gmail.com">petsittersclublondon@gmail.com</a>
         </p>
+        <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+        <footer>© 2026 Paws & Stay · Rates subject to change · <span id="siteVersion">Version 2</span> · <a href="owner.html" id="ownerLoginLink">Owner login</a></footer>
       </div>
     </div>
   </section>
-
-  <div class="page">
-    <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-
-    <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Version 2</span><br />
-      <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
-    </footer>
-  </div>
 
   <script src="config.js?v=v2"></script>
   <script src="auth.js"></script>
