@@ -224,7 +224,7 @@
     .hero-terracotta {
       width: 100%;
       margin: 0;
-      padding: 2rem 0 1.6rem;
+      padding: 2rem 0 1.4rem;
       background: linear-gradient(160deg, var(--accent-dark) 0%, var(--accent) 55%, #cf8468 100%);
       position: relative;
       overflow: hidden;
@@ -270,18 +270,16 @@
     }
 
     .hero-cta-stack {
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
       width: 100%;
       max-width: 400px;
       margin: 1rem auto 0;
-      padding-bottom: 1.35rem;
     }
 
     .hero-book-btn {
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      transform: translateX(-50%);
       display: inline-block;
       min-width: 240px;
       padding: 1rem 2rem;
@@ -298,11 +296,10 @@
       text-align: center;
       white-space: nowrap;
       box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
-      z-index: 2;
     }
 
     .hero-book-btn:hover {
-      transform: translateX(-50%) translateY(-2px);
+      transform: translateY(-2px);
       box-shadow: var(--shadow-lg);
       color: white;
     }
@@ -347,51 +344,47 @@
     .hero-terracotta .pets-info {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.5rem;
+      gap: 0.4rem;
       width: 100%;
-      max-width: 300px;
+      max-width: 250px;
       margin: 0 auto;
-      padding-bottom: 1.85rem;
     }
 
     .hero-terracotta .pets-info-item {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
-      justify-content: center;
-      gap: 0.2rem;
-      padding: 0.5rem 0.4rem 0.55rem;
-      background: var(--panel-bg);
-      border: 1px solid var(--panel-border);
-      border-top: 2px solid var(--accent);
-      border-radius: var(--radius-sm);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-      font-size: 0.78rem;
+      gap: 0.35rem;
+      padding: 0.35rem 0.45rem;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+      font-size: 0.7rem;
       color: var(--page-text);
       min-height: 0;
-      text-align: center;
+      text-align: left;
     }
 
     .hero-terracotta .pets-info-icon {
-      font-size: 1.05rem;
+      font-size: 0.85rem;
       line-height: 1;
+      flex-shrink: 0;
     }
 
     .hero-terracotta .pets-info-item strong {
       display: block;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--page-text);
-      font-size: 0.76rem;
-      line-height: 1.15;
-      letter-spacing: 0.02em;
+      font-size: 0.64rem;
+      line-height: 1.1;
     }
 
     .hero-terracotta .pets-info-item span {
       display: block;
       color: var(--page-text-muted);
-      font-size: 0.66rem;
-      line-height: 1.25;
-      max-width: 9.5rem;
+      font-size: 0.58rem;
+      line-height: 1.2;
     }
 
     .tagline {
@@ -1811,20 +1804,19 @@
       .legend-dot.tier-super { width: 18px; height: 11px; min-width: 18px; min-height: 11px; }
       .hero-cta-stack {
         max-width: 300px;
+        gap: 0.65rem;
       }
 
       .hero-terracotta .pets-info {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        max-width: 260px;
-        padding-bottom: 1.65rem;
+        max-width: 230px;
       }
 
       .hero-book-btn {
         font-size: 0.98rem;
         padding: 0.9rem 1.5rem;
         min-width: 210px;
-        width: calc(100% - 1rem);
-        max-width: 240px;
+        width: 100%;
+        max-width: 260px;
       }
 
       .about-ribbon-full .about-ribbon-track .content-ribbon-item {
@@ -1845,19 +1837,23 @@
         </div>
         <p class="tagline" id="tagline">Sit, stay. We'll take it from here</p>
         <div class="hero-cta-stack">
+          <a class="hero-book-btn" id="bookBtn" href="#">Book my slot</a>
           <div class="pets-info" id="petsInfo">
             <div class="pets-info-item">
               <span class="pets-info-icon" aria-hidden="true">🐱</span>
-              <strong>Cats</strong>
-              <span id="petsCats">All sizes welcome</span>
+              <div>
+                <strong>Cats</strong>
+                <span id="petsCats">All sizes welcome</span>
+              </div>
             </div>
             <div class="pets-info-item">
               <span class="pets-info-icon" aria-hidden="true">🐕</span>
-              <strong>Dogs</strong>
-              <span id="petsDogs">Small breeds · pug-sized &amp; similar</span>
+              <div>
+                <strong>Dogs</strong>
+                <span id="petsDogs">Small breeds · pug-sized &amp; similar</span>
+              </div>
             </div>
           </div>
-          <a class="hero-book-btn" id="bookBtn" href="#">Book my slot</a>
         </div>
       </header>
     </div>
