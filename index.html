@@ -18,34 +18,42 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #141018;
-      --bg-warm: #1a1520;
-      --surface: #221c28;
-      --surface-raised: #2b2434;
-      --text: #ece9f0;
-      --text-muted: #a39aad;
-      --border: #3a3348;
-      --sage: #c49ab8;
-      --sage-light: #2a2432;
-      --sage-dark: #8a6a96;
+      /* Ink base */
+      --bg: #12161e;
+      --bg-warm: #181d27;
+      --surface: #1e2430;
+      --surface-raised: #262e3d;
+      --text: #e9ebf0;
+      --text-muted: #9399a8;
+      --border: #353d4f;
+      /* Range 1 — sage teal */
+      --sage: #6ba896;
+      --sage-light: #1a2420;
+      --sage-dark: #4a7d6e;
+      /* Range 2 — terracotta */
       --coral: #d4846a;
-      --coral-light: #3a2a24;
+      --coral-light: #2a1f1c;
+      --coral-dark: #a85f48;
+      /* Range 3 — dusty rose */
+      --rose: #c47a94;
+      --rose-light: #281c22;
+      --rose-dark: #8f5568;
+      /* Gold highlights */
       --amber: #d4ad3a;
-      --amber-light: #332a18;
-      --rose: #d47a8c;
-      --rose-light: #352328;
-      --slate: #8a9aab;
-      --slate-light: #2a2e34;
-      --tier-off-bg: #2b2434;
-      --tier-peak-bg: #342c28;
-      --tier-peak-border: #5a4838;
-      --tier-super-bg: #342432;
-      --tier-super-border: #5a3d48;
-      --tier-peak-label: #d4a574;
+      --amber-light: #2a2416;
+      /* Slate neutral */
+      --slate: #7a8a9e;
+      --slate-light: #1e242c;
+      --tier-off-bg: #222830;
+      --tier-peak-bg: #2c2818;
+      --tier-peak-border: #5a4e30;
+      --tier-super-bg: #2c2024;
+      --tier-super-border: #5a4048;
+      --tier-peak-label: #d4b45a;
       --tier-super-label: #d492a8;
-      --day-muted-bg: #252a28;
-      --day-muted-border: #3a403c;
-      --day-muted-text: #7a8480;
+      --day-muted-bg: #1e2228;
+      --day-muted-border: #343a44;
+      --day-muted-text: #7a848e;
       --status-available: #5cb85c;
       --status-available-text: #7dd67d;
       --status-booked: #e05252;
@@ -64,9 +72,9 @@
     body {
       font-family: 'Outfit', sans-serif;
       background:
-        radial-gradient(ellipse 95% 65% at 6% -8%, rgba(138, 106, 150, 0.16), transparent 60%),
-        radial-gradient(ellipse 75% 55% at 96% 4%, rgba(196, 154, 184, 0.1), transparent 58%),
-        radial-gradient(ellipse 85% 60% at 92% 106%, rgba(180, 110, 130, 0.08), transparent 60%),
+        radial-gradient(ellipse 95% 65% at 6% -8%, rgba(107, 168, 150, 0.14), transparent 60%),
+        radial-gradient(ellipse 75% 55% at 96% 4%, rgba(212, 132, 106, 0.12), transparent 58%),
+        radial-gradient(ellipse 85% 60% at 92% 106%, rgba(196, 122, 148, 0.1), transparent 60%),
         linear-gradient(160deg, var(--bg) 0%, var(--bg-warm) 100%);
       background-attachment: fixed;
       color: var(--text);
@@ -196,7 +204,7 @@
       top: 0;
       right: 0;
       padding: 0.65rem 1.1rem;
-      background: linear-gradient(135deg, var(--sage-dark), var(--sage));
+      background: linear-gradient(135deg, var(--coral-dark), var(--coral));
       color: white;
       border: none;
       border-radius: var(--radius-sm);
@@ -269,6 +277,14 @@
       border-radius: var(--radius-sm);
       box-shadow: var(--shadow);
       font-size: 0.88rem;
+    }
+
+    .pets-info-item.cats {
+      border-top: 3px solid var(--sage);
+    }
+
+    .pets-info-item.dogs {
+      border-top: 3px solid var(--coral);
     }
 
     .pets-info-icon { font-size: 1.35rem; line-height: 1; }
@@ -395,8 +411,8 @@
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background: var(--sage);
-      opacity: 0.55;
+      background: var(--rose);
+      opacity: 0.7;
       flex-shrink: 0;
     }
 
@@ -745,7 +761,7 @@
 
     .title-play {
       font-style: italic;
-      color: var(--sage);
+      color: var(--rose);
     }
 
     .reviews-carousel {
@@ -763,7 +779,7 @@
       border-radius: 50%;
       border: 1px solid var(--border);
       background: var(--surface);
-      color: var(--sage);
+      color: var(--coral);
       font-size: 1.35rem;
       line-height: 1;
       cursor: pointer;
@@ -777,7 +793,7 @@
 
     .reviews-arrow:hover:not(:disabled) {
       background: var(--surface-raised);
-      border-color: var(--sage);
+      border-color: var(--coral);
     }
 
     .reviews-arrow:disabled {
@@ -953,7 +969,7 @@
       max-width: 420px;
       margin: 0 auto;
       padding: 0.9rem 1.25rem;
-      background: linear-gradient(135deg, var(--sage-dark), var(--sage));
+      background: linear-gradient(135deg, var(--coral-dark), var(--coral));
       color: white;
       border: none;
       border-radius: var(--radius-sm);
@@ -1003,10 +1019,20 @@
 
     .rate-service-card.visit {
       background: linear-gradient(to bottom, var(--sage-light), transparent);
+      border-color: rgba(107, 168, 150, 0.35);
     }
 
     .rate-service-card.overnight {
-      background: linear-gradient(to bottom, var(--bg-warm), transparent);
+      background: linear-gradient(to bottom, var(--coral-light), transparent);
+      border-color: rgba(212, 132, 106, 0.35);
+    }
+
+    .rate-service-card.visit .service-card-title {
+      color: var(--sage);
+    }
+
+    .rate-service-card.overnight .service-card-title {
+      color: var(--coral);
     }
 
     .service-card-title {
@@ -1031,9 +1057,9 @@
       border-radius: 20px;
     }
 
-    .tier-badge.off { background: var(--sage); color: white; }
-    .tier-badge.peak { background: var(--amber); color: white; }
-    .tier-badge.super { background: var(--coral); color: white; }
+    .tier-badge.off { background: var(--slate); color: white; }
+    .tier-badge.peak { background: var(--amber); color: #1a1510; }
+    .tier-badge.super { background: var(--rose); color: white; }
 
     .tier-when {
       font-size: 0.75rem;
@@ -1084,7 +1110,7 @@
     }
 
     .contact-card {
-      background: linear-gradient(135deg, var(--sage-dark), var(--sage));
+      background: linear-gradient(135deg, var(--sage-dark), var(--rose-dark));
       border-radius: var(--radius);
       padding: 1.5rem;
       color: white;
@@ -1347,14 +1373,14 @@
       </div>
       <p class="tagline" id="tagline">Sit, stay. We'll take it from here</p>
       <div class="pets-info" id="petsInfo">
-        <div class="pets-info-item">
+        <div class="pets-info-item cats">
           <span class="pets-info-icon" aria-hidden="true">🐱</span>
           <div>
             <strong>Cats</strong>
             <span id="petsCats">All sizes welcome</span>
           </div>
         </div>
-        <div class="pets-info-item">
+        <div class="pets-info-item dogs">
           <span class="pets-info-icon" aria-hidden="true">🐕</span>
           <div>
             <strong>Dogs</strong>
@@ -1607,7 +1633,7 @@
     </section>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (x)</span><br />
+      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (y)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
