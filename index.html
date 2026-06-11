@@ -338,15 +338,16 @@
     }
 
     .header-book-btn {
-      position: absolute;
-      top: 0.05rem;
-      right: 0.5cm;
-      left: calc(58% + 6.5cm);
-      padding: 0.8rem 1.35rem;
-      font-size: 0.95rem;
-      white-space: nowrap;
+      position: relative;
       z-index: 2;
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      white-space: nowrap;
       text-align: center;
+      box-sizing: border-box;
     }
 
     .header-book-btn:hover,
@@ -386,10 +387,11 @@
     .hero-cta-stack {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: stretch;
       width: 100%;
-      max-width: 400px;
+      max-width: 250px;
       margin: 1rem auto 0;
+      gap: 0.5rem;
     }
 
     .content-ribbon.about-ribbon.hero-ribbon-full {
@@ -2234,32 +2236,16 @@
       .legend-dot.tier-off,
       .legend-dot.tier-peak,
       .legend-dot.tier-super { width: 18px; height: 11px; min-width: 18px; min-height: 11px; }
-      .hero-terracotta {
-        padding-top: 0;
-      }
+      header { padding-top: 0.25rem; }
 
-      .hero-terracotta-top {
-        padding-top: env(safe-area-inset-top, 0);
+      .hero-cta-stack,
+      .hero-terracotta .pets-info {
+        max-width: min(250px, 100%);
       }
-
-      header { padding-top: 2.15rem; }
 
       .header-book-btn {
-        left: auto;
-        right: max(0.4rem, env(safe-area-inset-right, 0.4rem));
-        top: 0.35rem;
-        font-size: 0.78rem;
-        padding: 0.5rem 0.75rem;
-        white-space: nowrap;
-        max-width: calc(100% - 0.75rem);
-      }
-
-      .hero-cta-stack {
-        max-width: 300px;
-      }
-
-      .hero-terracotta .pets-info {
-        max-width: 230px;
+        font-size: 0.82rem;
+        padding: 0.65rem 0.75rem;
       }
 
       .hero-ribbon-full .about-ribbon-track .content-ribbon-item {
@@ -2278,7 +2264,6 @@
   <div class="hero-terracotta">
     <div class="hero-terracotta-top">
     <div class="hero-paw-layer" id="heroPawLayer" aria-hidden="true"></div>
-    <a class="header-book-btn" id="bookBtn" href="#">Book my slot</a>
     <div class="hero-terracotta-inner">
       <header>
         <div class="hero-brand-block">
@@ -2288,6 +2273,7 @@
           </div>
           <p class="tagline" id="tagline">Sit, stay. We'll take it from here</p>
           <div class="hero-cta-stack">
+            <a class="header-book-btn" id="bookBtn" href="#">Book my slot</a>
             <div class="pets-info" id="petsInfo">
               <div class="pets-info-item">
                 <span class="pets-info-icon" aria-hidden="true">🐱</span>
