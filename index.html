@@ -1278,10 +1278,17 @@
     .about-ribbon-track {
       display: flex;
       align-items: center;
-      gap: 2.25rem;
       width: max-content;
-      padding-left: 2.25rem;
       animation: about-ribbon-scroll 80s linear infinite;
+      will-change: transform;
+    }
+
+    .about-ribbon-set {
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+      flex-shrink: 0;
+      padding-right: 2.25rem;
     }
 
     .about-ribbon:hover .about-ribbon-track {
@@ -1291,10 +1298,6 @@
     @keyframes about-ribbon-scroll {
       from { transform: translateX(0); }
       to { transform: translateX(-50%); }
-    }
-
-    .about-ribbon-duplicate {
-      display: contents;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1311,13 +1314,18 @@
         width: 100%;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 0.5rem 1.25rem;
-        padding: 0;
         animation: none;
         transform: none;
       }
 
-      .about-ribbon-duplicate {
+      .about-ribbon-set {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem 1.25rem;
+        padding-right: 0;
+      }
+
+      .about-ribbon-set[aria-hidden="true"] {
         display: none;
       }
     }
@@ -1893,14 +1901,7 @@
     </div>
     <div class="content-ribbon about-ribbon hero-ribbon-full" aria-label="Services we offer">
       <div class="about-ribbon-track">
-        <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
-        <span class="content-ribbon-dot" aria-hidden="true"></span>
-        <span class="content-ribbon-item">Overnight stays at our home</span>
-        <span class="content-ribbon-dot" aria-hidden="true"></span>
-        <span class="content-ribbon-item">Cats · all sizes welcome</span>
-        <span class="content-ribbon-dot" aria-hidden="true"></span>
-        <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
-        <span class="about-ribbon-duplicate" aria-hidden="true">
+        <div class="about-ribbon-set">
           <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
           <span class="content-ribbon-dot" aria-hidden="true"></span>
           <span class="content-ribbon-item">Overnight stays at our home</span>
@@ -1908,7 +1909,34 @@
           <span class="content-ribbon-item">Cats · all sizes welcome</span>
           <span class="content-ribbon-dot" aria-hidden="true"></span>
           <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
-        </span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Overnight stays at our home</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Cats · all sizes welcome</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+        </div>
+        <div class="about-ribbon-set" aria-hidden="true">
+          <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Overnight stays at our home</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Cats · all sizes welcome</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Overnight stays at our home</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Cats · all sizes welcome</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+        </div>
       </div>
     </div>
   </div>
