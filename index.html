@@ -993,9 +993,9 @@
       width: 42px;
       height: 42px;
       border-radius: 50%;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--accent);
+      border: 1px solid var(--accent-dark);
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      color: #fff;
       font-size: 1.35rem;
       line-height: 1;
       cursor: pointer;
@@ -1008,8 +1008,9 @@
     }
 
     .reviews-arrow:hover:not(:disabled) {
-      background: var(--surface-raised);
-      border-color: var(--accent);
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      border-color: var(--accent-dark);
+      color: #fff;
     }
 
     .reviews-arrow:disabled {
@@ -1971,12 +1972,12 @@
     <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (cg)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (ch)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
 
-  <script src="config.js?v=20260610cg"></script>
+  <script src="config.js?v=20260610ch"></script>
   <script src="auth.js"></script>
   <script src="shared.js"></script>
   <script>
