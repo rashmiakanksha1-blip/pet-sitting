@@ -1125,14 +1125,40 @@
       opacity: 0.85;
     }
 
+    .reviews-section .section-header,
+    .about-section .section-header {
+      display: inline-block;
+      width: 100%;
+      max-width: 36rem;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0.75rem 1.25rem 0.65rem;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+      border-top: 2px solid var(--raised-accent-top);
+      border-bottom: 3px solid var(--raised-accent-bottom);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--raised-accent-shadow);
+    }
+
     .reviews-section .section-header h3,
     .about-section .section-header h3 {
-      color: var(--accent-dark);
+      color: #fff;
+      text-shadow: 0 1px 1px rgba(74, 50, 40, 0.2);
+    }
+
+    .reviews-section .section-header p,
+    .about-section .section-header p {
+      color: rgba(255, 255, 255, 0.88);
     }
 
     .title-play {
       font-style: italic;
-      color: var(--accent-dark);
+      color: inherit;
+    }
+
+    .reviews-section .title-play,
+    .about-section .title-play {
+      color: #fff;
     }
 
     .reviews-carousel {
