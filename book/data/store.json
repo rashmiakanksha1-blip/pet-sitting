@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "enquiries": [],
+  "bookings": [
+    {
+      "id": "ines-zelda-jun2026",
+      "clientName": "Ines",
+      "petType": "Dog",
+      "petName": "Zelda",
+      "startDate": "2026-06-14",
+      "endDate": "2026-06-24",
+      "serviceType": "overnight",
+      "extraPets": 0,
+      "notes": "Overnight pet sitting",
+      "paymentStatus": "pending",
+      "status": "confirmed"
+    },
+    {
+      "id": "sophie-winston-jul2026",
+      "clientName": "Sophie",
+      "petType": "Dog",
+      "petName": "Winston",
+      "startDate": "2026-07-03",
+      "endDate": "2026-07-10",
+      "serviceType": "overnight",
+      "extraPets": 0,
+      "notes": "Confirmed by email",
+      "paymentStatus": "pending",
+      "status": "confirmed"
+    }
+  ],
+  "availability": {
+    "2026-06-13": "unavailable",
+    "2026-06-14": "booked",
+    "2026-06-15": "booked",
+    "2026-06-16": "booked",
+    "2026-06-17": "booked",
+    "2026-06-18": "booked",
+    "2026-06-19": "booked",
+    "2026-06-20": "booked",
+    "2026-06-21": "booked",
+    "2026-06-22": "booked",
+    "2026-06-23": "booked",
+    "2026-06-24": "booked",
+    "2026-06-27": "unavailable",
+    "2026-07-03": "booked",
+    "2026-07-04": "booked",
+    "2026-07-05": "booked",
+    "2026-07-06": "booked",
+    "2026-07-07": "booked",
+    "2026-07-08": "booked",
+    "2026-07-09": "booked",
+    "2026-07-10": "booked"
+  }
+}
