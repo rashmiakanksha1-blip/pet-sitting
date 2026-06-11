@@ -86,7 +86,7 @@
     <div class="access-guide panel">
       <h3>Your two links</h3>
       <p><strong>Send to customers</strong> — availability only:</p>
-      <code id="customerLink">availability.html</code>
+      <code id="customerLink">availability/</code>
       <p><strong>Keep for yourself</strong> — bookings, pricing, receipts:</p>
       <code id="ownerLink">owner.html</code>
       <p style="margin-top:0.75rem;">To share with customers online, upload the <strong>pet-sitting</strong> folder to a free host (e.g. Netlify or GitHub Pages). Edit your business name in <strong>config.js</strong>.</p>
@@ -111,7 +111,8 @@
   <script src="auth.js"></script>
   <script>
     document.title = `${SITE_CONFIG.ownerPageTitle} — ${SITE_CONFIG.businessName}`;
-    document.getElementById('customerLink').textContent = new URL('availability.html', location.href).href;
+    document.getElementById('customerLink').textContent =
+      SITE_CONFIG.publicBookingUrl || new URL('availability/', location.href).href;
     document.getElementById('ownerLink').textContent = new URL('owner.html', location.href).href;
 
     const params = new URLSearchParams(location.search);

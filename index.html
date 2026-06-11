@@ -9,8 +9,12 @@
   <script>
     (function () {
       if (/netlify\.app$/i.test(location.hostname)) {
-        var live = 'https://rashmiakanksha1-blip.github.io/pet-sitting/';
+        var live = 'https://rashmiakanksha1-blip.github.io/pet-sitting/availability/';
         location.replace(live + location.search + location.hash);
+        return;
+      }
+      if (/\/index\.html$/i.test(location.pathname)) {
+        history.replaceState(null, '', location.pathname.replace(/\/index\.html$/i, '/') + location.search + location.hash);
       }
     })();
   </script>
