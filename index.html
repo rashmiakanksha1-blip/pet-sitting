@@ -1997,18 +1997,18 @@
     <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (cp)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Version 1</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
 
-  <script src="config.js?v=20260610cp"></script>
+  <script src="config.js?v=v1"></script>
   <script src="auth.js"></script>
   <script src="shared.js"></script>
   <script>
     document.title = `${SITE_CONFIG.customerPageTitle} - ${SITE_CONFIG.businessName}`;
     const ver = document.getElementById('siteVersion');
-    if (ver && SITE_CONFIG.siteVersion) ver.textContent = `Site updated ${SITE_CONFIG.siteVersion}`;
+    if (ver && SITE_CONFIG.siteVersion) ver.textContent = SITE_CONFIG.siteVersion;
     document.getElementById('businessName').textContent = SITE_CONFIG.businessName;
     document.getElementById('tagline').textContent = SITE_CONFIG.tagline;
     if (SITE_CONFIG.petsInfo) {
