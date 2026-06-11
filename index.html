@@ -643,6 +643,15 @@
         margin-top: 0.25rem;
         padding-top: 0.3rem;
       }
+
+      .rates-block .rate-row {
+        min-height: 3.75rem;
+        align-items: center;
+      }
+
+      .rates-block .rate-price {
+        flex: 0 0 5.4rem;
+      }
     }
 
     /* Calendar — light & clean on cream page */
@@ -2410,6 +2419,43 @@
       .hero-ribbon-full .about-ribbon-track .content-ribbon-item,
       .about-ribbon-full .about-ribbon-track .content-ribbon-item {
         font-size: var(--ribbon-bar-text);
+      }
+
+      .rates-block .rate-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+        min-height: 0;
+        padding: 0.5rem 0;
+      }
+
+      .rates-block .rate-row + .rate-row {
+        margin-top: 0.15rem;
+        padding-top: 0.5rem;
+      }
+
+      .rates-block .rate-type {
+        width: 100%;
+      }
+
+      .rates-block .tier-badge {
+        min-width: 0;
+      }
+
+      .rates-block .tier-when {
+        line-height: 1.35;
+      }
+
+      .rates-block .rate-price {
+        flex: none;
+        width: auto;
+        text-align: left;
+        font-size: 1.1rem;
+        white-space: normal;
+      }
+
+      .rates-block .service-card-title {
+        font-size: 1.15rem;
       }
     }
   </style>
