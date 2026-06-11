@@ -564,18 +564,20 @@
     }
 
     .calendar-month .days-grid {
-      padding: 0.2rem 0 0.5rem;
-      gap: 4px;
+      padding: 0.15rem 0 0.4rem;
+      gap: 3px;
     }
 
     .calendar-month .day {
-      aspect-ratio: 1.1;
-      padding: 0.25rem 0.3rem;
+      aspect-ratio: 0.92;
+      padding: 0.18rem 0.22rem;
     }
 
-    .calendar-month .day-num { font-size: 0.82rem; }
-    .calendar-month .day-tier-label { font-size: 0.46rem; }
-    .calendar-month .status-label { font-size: 0.48rem; }
+    .calendar-month .day-num { font-size: 0.74rem; }
+    .calendar-month .day-tier-label { font-size: 0.42rem; margin-top: 2px; }
+    .calendar-month .status-label { font-size: 0.44rem; }
+    .calendar-month .status-dot { width: 6px; height: 6px; }
+    .calendar-month .day-status { gap: 3px; }
 
     @media (max-width: 900px) {
       .calendar-months { grid-template-columns: 1fr; }
@@ -1020,13 +1022,13 @@
     }
 
     .day {
-      aspect-ratio: 1.25;
+      aspect-ratio: 1.05;
       min-height: 0;
       min-width: 0;
       width: 100%;
       border-radius: var(--radius-sm);
       border: 1.5px solid var(--border);
-      padding: 0.3rem 0.4rem;
+      padding: 0.22rem 0.3rem;
       cursor: pointer;
       transition: all 0.2s;
       display: flex;
@@ -1059,16 +1061,16 @@
     .day.past { opacity: 0.45; cursor: not-allowed; }
 
     .day-num {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: 500;
       line-height: 1;
     }
 
     .day-tier-label {
-      font-size: 0.5rem;
+      font-size: 0.46rem;
       font-weight: 600;
       letter-spacing: 0.02em;
-      margin-top: 3px;
+      margin-top: 2px;
       line-height: 1.1;
     }
 
@@ -1086,14 +1088,14 @@
     }
 
     .status-dot {
-      width: 7px;
-      height: 7px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       flex-shrink: 0;
     }
 
     .status-label {
-      font-size: 0.52rem;
+      font-size: 0.48rem;
       font-weight: 500;
       line-height: 1.2;
     }
@@ -2064,22 +2066,23 @@
       }
 
       .day {
-        padding: 0.15rem;
+        aspect-ratio: 0.88;
+        padding: 0.12rem;
         border-radius: 6px;
         border-width: 1px;
       }
 
-      .day-num { font-size: 0.7rem; }
+      .day-num { font-size: 0.64rem; }
       .day-tier-label {
-        font-size: 0.42rem;
+        font-size: 0.38rem;
         margin-top: 1px;
         line-height: 1;
       }
       .status-label {
         display: inline;
-        font-size: 0.48rem;
+        font-size: 0.42rem;
       }
-      .status-dot { width: 6px; height: 6px; }
+      .status-dot { width: 5px; height: 5px; }
       .day-client { font-size: 0.42rem; }
 
       .main-stack { gap: 1rem; }
