@@ -224,8 +224,8 @@
 
     .hero-paw {
       position: absolute;
-      width: 78px;
-      height: 58px;
+      width: 104px;
+      height: 66px;
       transform: rotate(var(--paw-rot, 0deg));
     }
 
@@ -2935,8 +2935,8 @@
         return false;
       }
 
-      const HERO_PAW_W = 78;
-      const HERO_PAW_H = 58;
+      const HERO_PAW_W = 104;
+      const HERO_PAW_H = 66;
 
       function layoutPaws() {
         layer.innerHTML = '';
@@ -2947,7 +2947,7 @@
         if (maxW < HERO_PAW_W + 40 || maxH < HERO_PAW_H + 40) return;
 
         const zones = exclusionZones(hostRect);
-        const count = Math.min(24, Math.max(10, Math.floor((maxW * maxH) / 8200)));
+        const count = Math.min(20, Math.max(8, Math.floor((maxW * maxH) / 11000)));
         let placed = 0;
         let attempts = 0;
 
