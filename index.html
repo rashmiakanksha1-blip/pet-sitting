@@ -178,12 +178,10 @@
       color: var(--page-text);
     }
 
-    .calendar-panel,
     .rates-block,
     .review-card,
     .about-card,
     .pets-info-item,
-    .selected-day-panel,
     .rate-service-card {
       color: var(--text);
     }
@@ -363,16 +361,129 @@
       .rates-block .rates-grid { grid-template-columns: 1fr; }
     }
 
-    /* Calendar panel */
+    /* Calendar — light & clean on cream page */
     .calendar-panel {
       display: flex;
       flex-direction: column;
-      background: var(--surface);
+      background: #ffffff;
       border-radius: var(--radius);
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--border);
+      box-shadow: 0 8px 36px rgba(44, 40, 36, 0.08);
+      border: 1px solid #e8e2da;
       overflow: visible;
       min-width: 0;
+      color: var(--page-text);
+    }
+
+    .calendar-panel .calendar-header {
+      background: var(--page-bg-warm);
+      border-bottom-color: #e8e2da;
+    }
+
+    .calendar-panel .calendar-header h2 {
+      color: var(--page-text-muted);
+    }
+
+    .calendar-panel .nav-btn {
+      background: #fff;
+      border-color: #e0dbd3;
+      color: var(--page-text);
+    }
+
+    .calendar-panel .nav-btn:hover {
+      background: #fff;
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .calendar-panel .calendar-hint {
+      background: var(--page-bg);
+      color: var(--page-text-muted);
+      border-bottom-color: #e8e2da;
+    }
+
+    .calendar-panel .month-title {
+      color: var(--page-text);
+    }
+
+    .calendar-panel .weekday {
+      color: var(--page-text-muted);
+    }
+
+    .calendar-panel .day {
+      background: #fff;
+      border-color: #ebe5dd;
+      color: var(--page-text);
+    }
+
+    .calendar-panel .day.tier-off-day {
+      background: #fff;
+      border-color: #ebe5dd;
+    }
+
+    .calendar-panel .day.tier-peak-day {
+      background: #fdf8f5;
+      border-color: rgba(196, 120, 92, 0.4);
+    }
+
+    .calendar-panel .day.tier-super-day {
+      background: #faf0eb;
+      border-color: rgba(196, 120, 92, 0.55);
+    }
+
+    .calendar-panel .day.tier-peak-day .day-tier-label,
+    .calendar-panel .day.tier-super-day .day-tier-label {
+      color: var(--accent-dark);
+    }
+
+    .calendar-panel .day.available .status-label {
+      color: var(--accent-dark);
+    }
+
+    .calendar-panel .day.booked,
+    .calendar-panel .day.unavailable {
+      background: #f3f1ed;
+      border-color: #ddd8d0;
+    }
+
+    .calendar-panel .day.booked .day-num,
+    .calendar-panel .day.unavailable .day-num,
+    .calendar-panel .day.booked .day-tier-label,
+    .calendar-panel .day.unavailable .day-tier-label {
+      color: #a8a39a;
+    }
+
+    .calendar-panel .calendar-legend {
+      border-top-color: #e8e2da;
+      background: var(--page-bg-warm);
+    }
+
+    .calendar-panel .calendar-legend .legend-section + .legend-section {
+      border-left-color: #ddd6cc;
+    }
+
+    .calendar-panel .legend-title,
+    .calendar-panel .legend-item {
+      color: var(--page-text-muted);
+    }
+
+    .calendar-panel .legend-dot.tier-off {
+      background: #fff;
+      border-color: #ddd6cc;
+    }
+
+    .calendar-panel .legend-dot.tier-peak {
+      background: #fdf8f5;
+      border-color: rgba(196, 120, 92, 0.4);
+    }
+
+    .calendar-panel .legend-dot.tier-super {
+      background: #faf0eb;
+      border-color: rgba(196, 120, 92, 0.55);
+    }
+
+    .calendar-panel .legend-dot.dot-booked,
+    .calendar-panel .legend-dot.dot-unavailable {
+      background: #b0aaa2;
     }
 
     .content-ribbon {
@@ -1136,12 +1247,13 @@
     }
 
     .selected-day-panel {
-      background: var(--surface);
+      background: #ffffff;
       border-radius: var(--radius);
-      border: 1px solid var(--border);
+      border: 1px solid #e8e2da;
       padding: 1rem 1.25rem;
-      box-shadow: var(--shadow);
+      box-shadow: 0 4px 20px rgba(44, 40, 36, 0.06);
       display: none;
+      color: var(--page-text);
     }
 
     .selected-day-panel.visible { display: block; }
@@ -1150,16 +1262,17 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.2rem;
       margin-bottom: 0.5rem;
+      color: var(--page-text);
     }
 
     .selected-day-panel .detail {
       font-size: 0.85rem;
-      color: var(--text-muted);
+      color: var(--page-text-muted);
       margin-bottom: 0.35rem;
     }
 
     .selected-day-panel .detail strong {
-      color: var(--text);
+      color: var(--page-text);
     }
 
     .status-picker {
@@ -1616,7 +1729,7 @@
     </section>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (ac)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (ad)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
