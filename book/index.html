@@ -2235,15 +2235,19 @@
       .legend-dot.tier-peak,
       .legend-dot.tier-super { width: 18px; height: 11px; min-width: 18px; min-height: 11px; }
       .hero-terracotta {
-        padding-top: 1.1rem;
+        padding-top: 0;
       }
 
-      header { padding-top: 2.5rem; }
+      .hero-terracotta-top {
+        padding-top: env(safe-area-inset-top, 0);
+      }
+
+      header { padding-top: 2.15rem; }
 
       .header-book-btn {
         left: auto;
-        right: 0.4rem;
-        top: 0;
+        right: max(0.4rem, env(safe-area-inset-right, 0.4rem));
+        top: 0.35rem;
         font-size: 0.78rem;
         padding: 0.5rem 0.75rem;
         white-space: nowrap;
