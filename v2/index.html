@@ -565,7 +565,7 @@
 
     .calendar-month .days-grid {
       padding: 0.15rem 0 0.4rem;
-      gap: 5px 2px;
+      gap: 6px 3px;
     }
 
     .calendar-panel .status-label,
@@ -1124,13 +1124,13 @@
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       justify-items: center;
-      gap: 6px 2px;
+      gap: 7px 3px;
       padding: 0.2rem 0.5rem 0.65rem;
       min-width: 0;
     }
 
     .day:not(.empty) {
-      --cal-bubble-size: 34px;
+      --cal-bubble-size: 40px;
       width: var(--cal-bubble-size);
       height: var(--cal-bubble-size);
       min-width: var(--cal-bubble-size);
@@ -1148,8 +1148,8 @@
     }
 
     .day.empty {
-      width: var(--cal-bubble-size, 34px);
-      height: var(--cal-bubble-size, 34px);
+      width: var(--cal-bubble-size, 40px);
+      height: var(--cal-bubble-size, 40px);
       cursor: default;
       background: transparent;
       border: none;
@@ -1180,17 +1180,17 @@
 
     .day-num {
       font-family: 'Outfit', sans-serif;
-      font-size: 0.72rem;
+      font-size: 0.78rem;
       font-weight: 600;
       line-height: 1;
       color: var(--page-text);
       letter-spacing: 0;
-      margin-top: -1px;
+      margin-top: 0;
     }
 
     .calendar-panel .day-num {
       font-family: 'Outfit', sans-serif;
-      font-size: 0.76rem;
+      font-size: 0.84rem;
       font-weight: 600;
       color: var(--page-text);
     }
@@ -1210,7 +1210,7 @@
 
     .day-status {
       position: absolute;
-      bottom: 2px;
+      bottom: 3px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -1221,8 +1221,8 @@
     }
 
     .status-dot {
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       flex-shrink: 0;
       box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45);
@@ -2195,22 +2195,22 @@
       }
 
       .days-grid {
-        gap: 4px 1px;
+        gap: 5px 2px;
         padding: 0.12rem 0.25rem 0.55rem;
       }
 
       .day:not(.empty),
       .day.empty {
-        --cal-bubble-size: 29px;
-        width: 29px;
-        height: 29px;
-        min-width: 29px;
-        max-width: 29px;
+        --cal-bubble-size: 34px;
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        max-width: 34px;
       }
 
-      .day-num { font-size: 0.66rem; }
-      .calendar-panel .day-num { font-size: 0.68rem; }
-      .status-dot { width: 4px; height: 4px; }
+      .day-num { font-size: 0.72rem; }
+      .calendar-panel .day-num { font-size: 0.76rem; }
+      .status-dot { width: 5px; height: 5px; }
 
       .main-stack { gap: 1rem; }
       .rates-scroll-hint { font-size: 0.78rem; margin-top: 0.5rem; }
