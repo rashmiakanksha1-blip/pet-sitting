@@ -1,5 +1,7 @@
 scripts/.env
+scripts/venv/
 scripts/__pycache__/
+receipts/output/*.pdf
 __pycache__/
 *.pyc
 .DS_Store

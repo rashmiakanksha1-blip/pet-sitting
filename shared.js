@@ -15,8 +15,8 @@ const STORAGE_KEYS = {
   inquiriesQuoted: 'paws-stay-inquiries-quoted',
 };
 
-const INQUIRIES_URL = 'data/inquiries.json';
-const STORE_URL = 'data/store.json';
+const INQUIRIES_URL = '/data/inquiries.json';
+const STORE_URL = '/data/store.json';
 
 let storeEnquiries = [];
 
