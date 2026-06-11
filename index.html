@@ -442,8 +442,20 @@
       border-color: #ebe5dd;
     }
 
+    .calendar-panel .day.available .status-dot {
+      background: var(--accent);
+    }
+
     .calendar-panel .day.available .status-label {
       color: var(--accent-dark);
+    }
+
+    .calendar-panel .day.booked .status-dot {
+      background: #b0aaa2;
+    }
+
+    .calendar-panel .day.unavailable .status-dot {
+      background: #8a8480;
     }
 
     .calendar-panel .day.booked,
@@ -469,25 +481,44 @@
       border-left-color: rgba(255, 255, 255, 0.25);
     }
 
-    .calendar-panel .legend-title,
-    .calendar-panel .legend-item {
+    .calendar-panel .calendar-legend .legend-title,
+    .calendar-panel .calendar-legend .legend-item {
       color: var(--text);
     }
 
-    .calendar-panel .legend-dot.dot-available {
-      background: rgba(255, 255, 255, 0.9);
+    .calendar-panel .calendar-legend .legend-dot.dot-available,
+    .calendar-panel .calendar-legend .legend-dot.dot-booked,
+    .calendar-panel .calendar-legend .legend-dot.dot-unavailable {
+      width: 10px;
+      height: 10px;
+      min-width: 10px;
+      min-height: 10px;
+      border-radius: 50%;
+      border: none;
     }
 
-    .calendar-panel .legend-dot.tier-off,
-    .calendar-panel .legend-dot.tier-peak,
-    .calendar-panel .legend-dot.tier-super {
+    .calendar-panel .calendar-legend .legend-dot.dot-available {
+      background: var(--accent);
+    }
+
+    .calendar-panel .calendar-legend .legend-dot.dot-booked {
+      background: #b0aaa2;
+    }
+
+    .calendar-panel .calendar-legend .legend-dot.dot-unavailable {
+      background: #8a8480;
+    }
+
+    .calendar-panel .calendar-legend .legend-dot.tier-off,
+    .calendar-panel .calendar-legend .legend-dot.tier-peak,
+    .calendar-panel .calendar-legend .legend-dot.tier-super {
+      width: 16px;
+      height: 12px;
+      min-width: 16px;
+      min-height: 12px;
+      border-radius: 3px;
       background: #ffffff;
-      border-color: #ebe5dd;
-    }
-
-    .calendar-panel .legend-dot.dot-booked,
-    .calendar-panel .legend-dot.dot-unavailable {
-      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid #ebe5dd;
     }
 
     .content-ribbon {
@@ -1545,6 +1576,22 @@
       .legend-item { font-size: 0.66rem; }
       .legend-title { font-size: 0.62rem; }
       .legend-dot { width: 9px; height: 9px; min-width: 9px; min-height: 9px; }
+      .calendar-panel .calendar-legend .legend-dot.dot-available,
+      .calendar-panel .calendar-legend .legend-dot.dot-booked,
+      .calendar-panel .calendar-legend .legend-dot.dot-unavailable {
+        width: 9px;
+        height: 9px;
+        min-width: 9px;
+        min-height: 9px;
+      }
+      .calendar-panel .calendar-legend .legend-dot.tier-off,
+      .calendar-panel .calendar-legend .legend-dot.tier-peak,
+      .calendar-panel .calendar-legend .legend-dot.tier-super {
+        width: 14px;
+        height: 10px;
+        min-width: 14px;
+        min-height: 10px;
+      }
       .legend-dot.tier-off,
       .legend-dot.tier-peak,
       .legend-dot.tier-super { width: 18px; height: 11px; min-width: 18px; min-height: 11px; }
@@ -1834,7 +1881,7 @@
     <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (bd)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (be)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
