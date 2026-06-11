@@ -743,6 +743,45 @@
       opacity: 0.7;
     }
 
+    .cal-day-tooltip {
+      position: fixed;
+      z-index: 9999;
+      transform: translate(-50%, calc(-100% - 8px));
+      pointer-events: none;
+      background: linear-gradient(180deg, #fffaf7 0%, #f5ebe4 100%);
+      border: 1.5px solid var(--accent-light-border);
+      border-bottom: 2.5px solid rgba(154, 92, 68, 0.28);
+      border-radius: 10px;
+      padding: 0.45rem 0.7rem 0.5rem;
+      box-shadow: 0 6px 18px rgba(44, 36, 25, 0.14);
+      text-align: center;
+      min-width: 9.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.15s ease, visibility 0.15s ease;
+    }
+
+    .cal-day-tooltip.is-visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .cal-day-tooltip-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--page-text);
+      line-height: 1.2;
+      margin-bottom: 0.25rem;
+    }
+
+    .cal-day-tooltip-line {
+      display: block;
+      font-size: 0.68rem;
+      color: var(--page-text-muted);
+      line-height: 1.4;
+    }
+
     .calendar-panel .calendar-legend {
       border-top: 2px solid var(--raised-accent-light-top);
       border-bottom: none;
@@ -2588,6 +2627,59 @@
       'July', 'August', 'September', 'October', 'November', 'December',
     ];
 
+    let calDayTooltipEl = null;
+
+    function formatTooltipDate(date) {
+      const day = date.getDate();
+      const suffix = day % 10 === 1 && day !== 11 ? 'st'
+        : day % 10 === 2 && day !== 12 ? 'nd'
+        : day % 10 === 3 && day !== 13 ? 'rd' : 'th';
+      return `${MONTH_NAMES[date.getMonth()]} ${day}${suffix} ${date.getFullYear()}`;
+    }
+
+    function tierPeriodLabel(tier) {
+      if (tier === 'super-peak') return 'Super peak';
+      if (tier === 'peak') return 'Peak';
+      return 'Off-peak';
+    }
+
+    function ensureCalDayTooltip() {
+      if (calDayTooltipEl) return calDayTooltipEl;
+      calDayTooltipEl = document.createElement('div');
+      calDayTooltipEl.id = 'calDayTooltip';
+      calDayTooltipEl.className = 'cal-day-tooltip';
+      calDayTooltipEl.setAttribute('role', 'tooltip');
+      document.body.appendChild(calDayTooltipEl);
+      window.addEventListener('scroll', hideCalDayTooltip, { passive: true, capture: true });
+      window.addEventListener('resize', hideCalDayTooltip, { passive: true });
+      return calDayTooltipEl;
+    }
+
+    function showCalDayTooltip(cell, date, status, tier) {
+      const tip = ensureCalDayTooltip();
+      tip.innerHTML = `
+        <div class="cal-day-tooltip-date">${formatTooltipDate(date)}</div>
+        <span class="cal-day-tooltip-line">Status: ${STATUS_LABELS[status]}</span>
+        <span class="cal-day-tooltip-line">Period: ${tierPeriodLabel(tier)}</span>
+      `;
+      const rect = cell.getBoundingClientRect();
+      tip.style.left = (rect.left + rect.width / 2) + 'px';
+      tip.style.top = rect.top + 'px';
+      tip.classList.add('is-visible');
+    }
+
+    function hideCalDayTooltip() {
+      if (!calDayTooltipEl) return;
+      calDayTooltipEl.classList.remove('is-visible');
+    }
+
+    function bindCalDayTooltip(cell, date, status, tier) {
+      cell.addEventListener('mouseenter', function () {
+        showCalDayTooltip(cell, date, status, tier);
+      });
+      cell.addEventListener('mouseleave', hideCalDayTooltip);
+    }
+
     function renderMonthGrid(grid, year, month) {
       if (!grid) return;
       const firstDay = getMondayWeekStartPad(new Date(year, month, 1));
@@ -2613,19 +2705,14 @@
         cell.className = `day ${status} ${tierDayClass}${past ? ' past' : ''}`.trim();
         cell.dataset.date = key;
 
-        const tierName = tier === 'peak' ? 'Peak' : tier === 'super-peak' ? 'Super peak' : 'Off-peak';
-        let dayTip = `${d} — ${STATUS_LABELS[status]} · ${tierName}`;
-        if (owner && booking) {
-          dayTip += ` · ${!isConfirmedBooking(booking) ? 'Quote: ' : ''}${booking.petName}`;
-        }
-        cell.title = dayTip;
-
         cell.innerHTML = `
           <span class="day-num">${d}</span>
           <span class="day-status" aria-label="${STATUS_LABELS[status]}">
             <span class="status-dot" aria-hidden="true"></span>
           </span>
         `;
+
+        bindCalDayTooltip(cell, date, status, tier);
 
         if (!past) {
           cell.addEventListener('click', () => selectDay(date));
