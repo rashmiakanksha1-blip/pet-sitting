@@ -1575,22 +1575,22 @@
 
     .about-band-inner {
       position: relative;
-      z-index: 2;
+      z-index: 1;
       max-width: 1200px;
       margin: 0 auto;
       padding: 1.15rem 1.5rem 0;
       color: var(--accent-light-text);
-      background: linear-gradient(180deg, var(--accent-light-mid) 0%, var(--accent-light-soft) 100%);
+      background: transparent;
     }
 
     .about-band-foot {
       position: relative;
-      z-index: 2;
+      z-index: 1;
       max-width: 1200px;
       margin: 0 auto;
       padding: 0.7rem 1.5rem 0.85rem;
       text-align: center;
-      background: linear-gradient(180deg, var(--accent-light-mid) 0%, var(--accent-light-soft) 100%);
+      background: transparent;
     }
 
     .about-section .section-dots {
@@ -2333,6 +2333,11 @@
 
       .about-band-inner {
         padding: 0.85rem 1rem 0;
+      }
+
+      .about-band::before {
+        background-size: 160px 160px;
+        opacity: 1;
       }
 
       .about-copy-full {
