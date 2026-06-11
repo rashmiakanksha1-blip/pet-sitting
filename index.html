@@ -1609,6 +1609,10 @@
       margin: 0;
     }
 
+    .about-copy-short {
+      display: none;
+    }
+
     .about-ribbon-full {
       width: 100%;
       margin: 1rem 0 0;
@@ -2265,6 +2269,24 @@
         padding: 0.65rem 0.75rem;
       }
 
+      .about-band-inner {
+        padding: 0.85rem 1rem 0;
+      }
+
+      .about-copy-full {
+        display: none;
+      }
+
+      .about-copy-short {
+        display: block;
+      }
+
+      .about-copy p,
+      .about-copy-short {
+        font-size: 0.86rem;
+        line-height: 1.45;
+      }
+
       .hero-ribbon-full .about-ribbon-track .content-ribbon-item {
         font-size: 0.9rem;
       }
@@ -2548,21 +2570,27 @@
       </div>
       <div class="about-band-inner">
         <div class="about-copy">
-          <p>
-            <span id="aboutBusinessName">Pet Sitters Club</span> is a small, dedicated pet sitting service in London.
-            We offer calm, reliable care for cats and small dogs, with daily visits in your home or overnight stays at ours.
-            Every booking gets the same attention we’d give our own pets: feeding routines kept, litter trays tidy,
-            medication on schedule, and a quick photo update so you know they’re fine while you’re away.
-          </p>
-          <p>
-            We’re London-based and keep things personal. You’ll know who’s coming, and we try to be the familiar face
-            your pet recognises each time. Nervous rescues, indoor cats, and lively small dogs are all everyday work
-            for us.
-          </p>
-          <p>
-            Whether you need a weekday check-in while you’re at work or cover for a longer trip, we’ll fit visits around
-            your pet’s routine. We keep you updated, turn up on time, and leave your home tidy. That’s standard for
-            every booking.
+          <div class="about-copy-full">
+            <p>
+              <span id="aboutBusinessName">Pet Sitters Club</span> is a small, dedicated pet sitting service in London.
+              We offer calm, reliable care for cats and small dogs, with daily visits in your home or overnight stays at ours.
+              Every booking gets the same attention we’d give our own pets: feeding routines kept, litter trays tidy,
+              medication on schedule, and a quick photo update so you know they’re fine while you’re away.
+            </p>
+            <p>
+              We’re London-based and keep things personal. You’ll know who’s coming, and we try to be the familiar face
+              your pet recognises each time. Nervous rescues, indoor cats, and lively small dogs are all everyday work
+              for us.
+            </p>
+            <p>
+              Whether you need a weekday check-in while you’re at work or cover for a longer trip, we’ll fit visits around
+              your pet’s routine. We keep you updated, turn up on time, and leave your home tidy. That’s standard for
+              every booking.
+            </p>
+          </div>
+          <p class="about-copy-short">
+            <span id="aboutBusinessNameShort">Pet Sitters Club</span> is a small London service for cats and small dogs —
+            daily visits at yours or overnight stays at ours. Calm, reliable care with photo updates while you’re away.
           </p>
           <p class="about-contact">
             Questions before you book?
@@ -2591,8 +2619,10 @@
       document.getElementById('petsDogs').textContent = SITE_CONFIG.petsInfo.dogs;
     }
     const aboutName = document.getElementById('aboutBusinessName');
+    const aboutNameShort = document.getElementById('aboutBusinessNameShort');
     const aboutEmail = document.getElementById('aboutEmail');
     if (aboutName) aboutName.textContent = SITE_CONFIG.businessName;
+    if (aboutNameShort) aboutNameShort.textContent = SITE_CONFIG.businessName;
     if (aboutEmail && SITE_CONFIG.contactEmail) {
       aboutEmail.textContent = SITE_CONFIG.contactEmail;
       aboutEmail.href = `mailto:${SITE_CONFIG.contactEmail}`;
