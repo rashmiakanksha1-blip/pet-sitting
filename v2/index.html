@@ -224,7 +224,7 @@
     .hero-terracotta {
       width: 100%;
       margin: 0;
-      padding: 2rem 0 1.4rem;
+      padding: 2rem 0 0;
       background: linear-gradient(160deg, var(--accent-dark) 0%, var(--accent) 55%, #cf8468 100%);
       position: relative;
       overflow: hidden;
@@ -248,12 +248,41 @@
     }
 
     header {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       margin-bottom: 0;
-      padding-top: 0;
+      padding-top: 0.25rem;
+    }
+
+    .header-book-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0.8rem 1.35rem;
+      background: #fff;
+      color: var(--sage-dark);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-sm);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      text-decoration: none;
+      text-align: center;
+      white-space: nowrap;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+      z-index: 2;
+    }
+
+    .header-book-btn:hover {
+      transform: translateY(-1px);
+      background: var(--sage-light);
+      box-shadow: var(--shadow-lg);
+      color: var(--sage-dark);
     }
 
     .hero-terracotta .logo h1 {
@@ -273,35 +302,33 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.8rem;
       width: 100%;
       max-width: 400px;
       margin: 1rem auto 0;
     }
 
-    .hero-book-btn {
-      display: inline-block;
-      min-width: 240px;
-      padding: 1rem 2rem;
-      background: var(--surface);
-      color: white;
-      border: none;
-      border-radius: var(--radius-sm);
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.08rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      text-decoration: none;
-      text-align: center;
-      white-space: nowrap;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    .hero-ribbon-full {
+      width: 100%;
+      margin: 1rem 0 0;
+      background: var(--panel-bg);
+      border-top: 1px solid rgba(255, 255, 255, 0.35);
+      border-bottom: none;
+      box-shadow: none;
+      overflow: hidden;
+      padding: 0.7rem 0;
+      display: block;
     }
 
-    .hero-book-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-lg);
-      color: white;
+    .hero-ribbon-full .about-ribbon-track .content-ribbon-item {
+      font-size: 0.92rem;
+      color: var(--reviewer-name-color);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+    }
+
+    .hero-ribbon-full .content-ribbon-dot {
+      background: var(--accent);
+      opacity: 0.7;
     }
 
     .logo {
@@ -1271,7 +1298,8 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .about-ribbon-full {
+      .about-ribbon-full,
+      .hero-ribbon-full {
         overflow: visible;
         padding: 0.75rem 1rem;
         display: flex;
@@ -1802,21 +1830,27 @@
       .legend-dot.tier-off,
       .legend-dot.tier-peak,
       .legend-dot.tier-super { width: 18px; height: 11px; min-width: 18px; min-height: 11px; }
+      header { padding-top: 2.75rem; }
+
+      .header-book-btn {
+        font-size: 0.82rem;
+        padding: 0.65rem 0.9rem;
+        max-width: 44%;
+        white-space: normal;
+        line-height: 1.25;
+        text-align: right;
+      }
+
       .hero-cta-stack {
         max-width: 300px;
-        gap: 0.65rem;
       }
 
       .hero-terracotta .pets-info {
         max-width: 230px;
       }
 
-      .hero-book-btn {
-        font-size: 0.98rem;
-        padding: 0.9rem 1.5rem;
-        min-width: 210px;
-        width: 100%;
-        max-width: 260px;
+      .hero-ribbon-full .about-ribbon-track .content-ribbon-item {
+        font-size: 0.85rem;
       }
 
       .about-ribbon-full .about-ribbon-track .content-ribbon-item {
@@ -1831,13 +1865,13 @@
   <div class="hero-terracotta">
     <div class="hero-terracotta-inner">
       <header>
+        <a class="header-book-btn" id="bookBtn" href="#">Book my slot</a>
         <div class="logo">
           <div class="logo-icon">🐾</div>
           <h1 id="businessName">Paws & Stay</h1>
         </div>
         <p class="tagline" id="tagline">Sit, stay. We'll take it from here</p>
         <div class="hero-cta-stack">
-          <a class="hero-book-btn" id="bookBtn" href="#">Book my slot</a>
           <div class="pets-info" id="petsInfo">
             <div class="pets-info-item">
               <span class="pets-info-icon" aria-hidden="true">🐱</span>
@@ -1856,6 +1890,26 @@
           </div>
         </div>
       </header>
+    </div>
+    <div class="content-ribbon about-ribbon hero-ribbon-full" aria-label="Services we offer">
+      <div class="about-ribbon-track">
+        <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
+        <span class="content-ribbon-dot" aria-hidden="true"></span>
+        <span class="content-ribbon-item">Overnight stays at our home</span>
+        <span class="content-ribbon-dot" aria-hidden="true"></span>
+        <span class="content-ribbon-item">Cats · all sizes welcome</span>
+        <span class="content-ribbon-dot" aria-hidden="true"></span>
+        <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
+        <span class="about-ribbon-duplicate" aria-hidden="true">
+          <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Overnight stays at our home</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Cats · all sizes welcome</span>
+          <span class="content-ribbon-dot" aria-hidden="true"></span>
+          <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
+        </span>
+      </div>
     </div>
   </div>
 
@@ -2086,26 +2140,6 @@
             your pet’s routine. We keep you updated, turn up on time, and leave your home tidy. That’s standard for
             every booking.
           </p>
-        </div>
-      </div>
-      <div class="content-ribbon about-ribbon about-ribbon-full" aria-label="Services we offer">
-        <div class="about-ribbon-track">
-          <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Overnight stays at our home</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Cats · all sizes welcome</span>
-          <span class="content-ribbon-dot" aria-hidden="true"></span>
-          <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
-          <span class="about-ribbon-duplicate" aria-hidden="true">
-            <span class="content-ribbon-item">Daily visits · 25-45 minutes</span>
-            <span class="content-ribbon-dot" aria-hidden="true"></span>
-            <span class="content-ribbon-item">Overnight stays at our home</span>
-            <span class="content-ribbon-dot" aria-hidden="true"></span>
-            <span class="content-ribbon-item">Cats · all sizes welcome</span>
-            <span class="content-ribbon-dot" aria-hidden="true"></span>
-            <span class="content-ribbon-item">Dogs · small breeds, pug-sized &amp; similar</span>
-          </span>
         </div>
       </div>
       <div class="about-band-foot">
