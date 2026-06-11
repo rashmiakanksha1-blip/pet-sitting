@@ -462,10 +462,11 @@
 
     .calendar-header h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       font-weight: 600;
-      min-width: 200px;
       text-align: center;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
     }
 
     .nav-btn {
@@ -1331,7 +1332,7 @@
         <main class="calendar-panel">
           <div class="calendar-header">
             <button class="nav-btn" id="prevMonth" aria-label="Previous months">‹</button>
-            <h2 id="monthRangeLabel"></h2>
+            <h2 id="monthRangeLabel">Availability</h2>
             <button class="nav-btn" id="nextMonth" aria-label="Next months">›</button>
           </div>
           <p class="calendar-hint" id="calendarHint" hidden>Click a day to update availability</p>
@@ -1538,7 +1539,7 @@
     </section>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (u)</span><br />
+      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (v)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
@@ -1709,8 +1710,6 @@
 
       document.getElementById('monthLabel0').textContent = `${MONTH_NAMES[month]} ${year}`;
       document.getElementById('monthLabel1').textContent = `${MONTH_NAMES[nextMonth]} ${nextYear}`;
-      document.getElementById('monthRangeLabel').textContent =
-        `${MONTH_NAMES[month]} & ${MONTH_NAMES[nextMonth]} ${nextYear}`;
 
       renderMonthGrid(document.getElementById('daysGrid0'), year, month);
       renderMonthGrid(document.getElementById('daysGrid1'), nextYear, nextMonth);
