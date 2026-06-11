@@ -1239,15 +1239,9 @@
       padding: 0;
     }
 
-    .about-section-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
     .about-band {
       width: 100%;
-      margin-top: 1.25rem;
+      margin-top: 0;
       background: linear-gradient(180deg, var(--accent-light-mid) 0%, var(--accent-light-soft) 100%);
       border: none;
       border-top: 2px solid var(--raised-accent-light-top);
@@ -1261,6 +1255,16 @@
       margin: 0 auto;
       padding: 1.15rem 1.5rem 0;
       color: var(--accent-light-text);
+    }
+
+    .about-band .section-header {
+      margin-bottom: 1rem;
+      padding: 0;
+      text-align: center;
+    }
+
+    .about-band .section-header p {
+      color: var(--accent-light-text-muted);
     }
 
     .about-band-foot {
@@ -2171,14 +2175,12 @@
   </div>
 
   <section class="about-section" aria-label="Who we are">
-    <div class="about-section-inner">
-      <div class="section-header">
-        <h3>Who we are</h3>
-        <p>Small-team pet sitting in London</p>
-      </div>
-    </div>
     <div class="about-band">
       <div class="about-band-inner">
+        <div class="section-header">
+          <h3>Who we are</h3>
+          <p>Small-team pet sitting in London</p>
+        </div>
         <div class="about-copy">
           <p>
             <span id="aboutBusinessName">Pet Sitters Club</span> is a small, dedicated pet sitting service in London.
