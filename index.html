@@ -467,37 +467,41 @@
     }
 
     .calendar-panel .calendar-legend {
-      border-top-color: var(--sage-light-border);
-      background: var(--sage-light);
+      border-top: 1px solid var(--sage-hue);
+      background: linear-gradient(135deg, var(--sage-hue), var(--sage-dark));
     }
 
     .calendar-panel .calendar-legend .legend-section + .legend-section {
-      border-left-color: var(--sage-light-border);
+      border-left-color: rgba(255, 255, 255, 0.25);
     }
 
     .calendar-panel .legend-title,
     .calendar-panel .legend-item {
-      color: var(--sage-light-text-muted);
+      color: var(--text);
+    }
+
+    .calendar-panel .legend-dot.dot-available {
+      background: rgba(255, 255, 255, 0.9);
     }
 
     .calendar-panel .legend-dot.tier-off {
-      background: #fff;
-      border-color: #ddd6cc;
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(255, 255, 255, 0.5);
     }
 
     .calendar-panel .legend-dot.tier-peak {
-      background: #fdf8f5;
-      border-color: rgba(196, 120, 92, 0.4);
+      background: rgba(255, 255, 255, 0.55);
+      border-color: rgba(255, 255, 255, 0.4);
     }
 
     .calendar-panel .legend-dot.tier-super {
-      background: #faf0eb;
-      border-color: rgba(196, 120, 92, 0.55);
+      background: rgba(255, 255, 255, 0.35);
+      border-color: rgba(255, 255, 255, 0.35);
     }
 
     .calendar-panel .legend-dot.dot-booked,
     .calendar-panel .legend-dot.dot-unavailable {
-      background: #b0aaa2;
+      background: rgba(255, 255, 255, 0.45);
     }
 
     .content-ribbon {
@@ -1212,10 +1216,12 @@
       border-radius: 20px;
     }
 
-    .rates-block .tier-badge.off {
-      background: var(--sage-light-soft);
-      color: var(--sage-light-text-muted);
-      border: 1px solid var(--sage-light-border);
+    .rates-block .tier-badge.off,
+    .rates-block .tier-badge.peak,
+    .rates-block .tier-badge.super {
+      background: linear-gradient(135deg, var(--sage-hue), var(--sage-dark));
+      color: var(--text);
+      border: 1px solid var(--sage-hue);
     }
 
     .tier-badge.off { background: var(--surface-raised); color: var(--text-muted); border: 1px solid var(--border); }
@@ -1657,7 +1663,7 @@
 
       <section class="rates-section" id="ratesSection">
         <div class="section-header">
-          <h3>Rates</h3>
+          <h3>Our rate card</h3>
           <p>Pricing varies by season &amp; demand</p>
         </div>
         <div class="rates-block">
@@ -1817,7 +1823,7 @@
     <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (ap)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (aq)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
