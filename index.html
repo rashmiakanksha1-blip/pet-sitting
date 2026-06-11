@@ -878,9 +878,18 @@
 
     .reviews-section {
       margin-top: 2.5rem;
-      padding: 2rem 0.25rem 0;
-      border-top: 1px solid var(--sage-light-border);
+      padding: 0 0.25rem;
       overflow: visible;
+    }
+
+    .reviews-section::before {
+      content: '';
+      display: block;
+      width: 5rem;
+      height: 2px;
+      margin: 0 auto 2rem;
+      background: var(--sage-hue);
+      opacity: 0.85;
     }
 
     .title-play {
@@ -1801,7 +1810,7 @@
     <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (am)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (an)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
