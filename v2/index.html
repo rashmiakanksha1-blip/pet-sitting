@@ -237,39 +237,27 @@
       overflow: hidden;
     }
 
-    .hero-paw {
+    .hero-paw-pulse {
       position: absolute;
-      width: 110px;
-      height: 70px;
-      background: linear-gradient(160deg, var(--accent-dark) 0%, var(--accent) 55%, #cf8468 100%);
-      background-repeat: no-repeat;
+      width: 220px;
+      height: 220px;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23ffffff' fill-opacity='0.11'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3Cg fill='%23ffffff' fill-opacity='0.07' transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
       background-size: 220px 220px;
-      background-position: -6px -82px;
-      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
-      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
-      -webkit-mask-size: 220px 220px;
-      mask-size: 220px 220px;
-      -webkit-mask-repeat: no-repeat;
-      mask-repeat: no-repeat;
+      background-repeat: no-repeat;
       opacity: 0;
-      animation: heroPawCover var(--paw-dur, 9s) ease-in-out infinite;
-      animation-delay: var(--paw-delay, 0s);
+      animation: heroPawPulse ease-in-out forwards;
     }
 
-    .hero-paw.alt {
-      background-position: -140px -204px;
-      -webkit-mask-position: -140px -204px;
-      mask-position: -140px -204px;
-    }
-
-    @keyframes heroPawCover {
-      0%, 72%, 100% { opacity: 0; }
-      38% { opacity: 0.97; }
-      52% { opacity: 0.97; }
+    @keyframes heroPawPulse {
+      0% { opacity: 0; }
+      18% { opacity: 1; }
+      42% { opacity: 0.92; }
+      100% { opacity: 0; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .hero-paw { animation: none; }
+      .hero-paw-pulse { display: none; }
     }
 
     .paw-twinkle-host {
@@ -2898,93 +2886,67 @@
     }
 
     function initHeroPaws() {
-      const host = document.querySelector('.hero-terracotta-top');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
       const layer = document.getElementById('heroPawLayer');
-      if (!host || !layer) return;
+      if (!layer) return;
 
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const TILE = 220;
+      const MAX_ACTIVE = 8;
+      const SIDE_BAND = 0.34;
 
-      function exclusionZones(hostRect) {
-        const zones = [];
-        const targets = [
-          { el: host.querySelector('.header-book-btn'), pad: 14 },
-          { el: host.querySelector('.logo'), pad: 16 },
-          { el: host.querySelector('.tagline'), pad: 14 },
-          { el: host.querySelector('.pets-info'), pad: 16 },
-        ];
-        targets.forEach(({ el, pad }) => {
-          if (!el) return;
-          const r = el.getBoundingClientRect();
-          zones.push({
-            left: r.left - hostRect.left - pad,
-            top: r.top - hostRect.top - pad,
-            right: r.right - hostRect.left + pad,
-            bottom: r.bottom - hostRect.top + pad,
-          });
-        });
-        return zones;
-      }
-
-      const HERO_PAW_W = 110;
-      const HERO_PAW_H = 70;
-
-      function overlaps(x, y, pawW, pawH, zones, maxW, maxH) {
-        const edge = 10;
-        if (x < edge || y < edge || x + pawW > maxW - edge || y + pawH > maxH - edge) return true;
-        for (const z of zones) {
-          if (x < z.right && x + pawW > z.left && y < z.bottom && y + pawH > z.top) return true;
+      function heroSideSpot(w, h) {
+        const pad = 4;
+        const leftMax = w * SIDE_BAND;
+        const rightMin = w * (1 - SIDE_BAND);
+        const useLeft = Math.random() < 0.5;
+        let x;
+        if (useLeft) {
+          x = pad + Math.random() * Math.max(0, leftMax - TILE - pad);
+        } else {
+          x = rightMin + Math.random() * Math.max(0, w - rightMin - TILE - pad);
         }
-        return false;
+        const y = pad + Math.random() * Math.max(0, h - TILE - pad * 2);
+        return { x, y };
       }
 
-      function layoutPaws() {
-        layer.innerHTML = '';
-        const hostRect = host.getBoundingClientRect();
-        const layerRect = layer.getBoundingClientRect();
-        const maxW = layerRect.width;
-        const maxH = layerRect.height;
-        if (maxW < HERO_PAW_W + 20 || maxH < HERO_PAW_H + 12) return;
-
-        const zones = exclusionZones(hostRect);
-        const count = Math.min(14, Math.max(6, Math.floor((maxW * maxH) / 12000)));
-        let placed = 0;
-        let attempts = 0;
-
-        while (placed < count && attempts < count * 40) {
-          attempts += 1;
-          const x = Math.random() * Math.max(0, maxW - HERO_PAW_W);
-          const y = Math.random() * Math.max(0, maxH - HERO_PAW_H);
-          if (overlaps(x, y, HERO_PAW_W, HERO_PAW_H, zones, maxW, maxH)) continue;
-
-          const paw = document.createElement('div');
-          let pawClass = 'hero-paw';
-          if (Math.random() < 0.5) pawClass += ' alt';
-          paw.className = pawClass;
-          paw.setAttribute('aria-hidden', 'true');
-          paw.style.left = x + 'px';
-          paw.style.top = y + 'px';
-          if (!reducedMotion) {
-            paw.style.setProperty('--paw-dur', (5 + Math.random() * 9) + 's');
-            paw.style.setProperty('--paw-delay', (Math.random() * 12) + 's');
-          }
-          layer.appendChild(paw);
-          placed += 1;
+      function spawnHeroPaw() {
+        if (layer.querySelectorAll('.hero-paw-pulse').length >= MAX_ACTIVE) {
+          setTimeout(spawnHeroPaw, 350 + Math.random() * 650);
+          return;
         }
+
+        const w = layer.clientWidth;
+        const h = layer.clientHeight;
+        if (w < TILE + 8 || h < 56) {
+          setTimeout(spawnHeroPaw, 900);
+          return;
+        }
+
+        const spot = heroSideSpot(w, h);
+        const pulse = document.createElement('div');
+        pulse.className = 'hero-paw-pulse';
+        pulse.setAttribute('aria-hidden', 'true');
+        pulse.style.left = spot.x + 'px';
+        pulse.style.top = spot.y + 'px';
+        pulse.style.animationDuration = (3.8 + Math.random() * 5.5) + 's';
+        pulse.style.animationDelay = (Math.random() * 0.5) + 's';
+        pulse.addEventListener('animationend', function () { pulse.remove(); });
+        layer.appendChild(pulse);
+
+        setTimeout(spawnHeroPaw, 450 + Math.random() * 1600);
       }
 
-      function boot() {
-        layoutPaws();
-        let resizeTimer;
-        window.addEventListener('resize', function () {
-          clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(layoutPaws, 180);
-        });
+      function bootHeroPaws() {
+        for (let i = 0; i < 5; i++) {
+          setTimeout(spawnHeroPaw, i * (280 + Math.random() * 420));
+        }
       }
 
       if (document.readyState === 'complete') {
-        boot();
+        bootHeroPaws();
       } else {
-        window.addEventListener('load', boot, { once: true });
+        window.addEventListener('load', bootHeroPaws, { once: true });
       }
     }
 
