@@ -40,57 +40,25 @@ if "<base " not in html:
         '  <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n' + base_tag,
         1,
     )
-marker = "        var live = 'https://rashmiakanksha1-blip.github.io/pet-sitting/';"
-if marker in html:
-    html = html.replace(
-        marker,
-        "        var live = 'https://rashmiakanksha1-blip.github.io/pet-sitting/availability/';",
-    )
 index.write_text(html)
 
-Path("availability.html").write_text("""<!DOCTYPE html>
+BOOK = "https://petsittersclublondon.netlify.app/book"
+redirect = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=availability/" />
-  <title>Check availability</title>
-  <script>location.replace('availability/');</script>
+  <meta http-equiv="refresh" content="0; url={BOOK}" />
+  <title>Redirecting…</title>
+  <script>location.replace('{BOOK}');</script>
 </head>
 <body>
-  <p><a href="availability/">Open availability calendar</a></p>
-</body>
-</html>
-""")
-
-book_html = """<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=availability/" />
-  <title>Book pet sitting</title>
-  <script>location.replace('availability/');</script>
-</head>
-<body>
-  <p><a href="availability/">Book pet sitting</a></p>
+  <p><a href="{BOOK}">Open Pet Sitters Club calendar</a></p>
 </body>
 </html>
 """
-Path("book.html").write_text(book_html)
-
-Path("v2/index.html").parent.mkdir(parents=True, exist_ok=True)
-Path("v2/index.html").write_text("""<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=../availability/" />
-  <title>Redirecting…</title>
-  <script>location.replace('../availability/');</script>
-</head>
-<body>
-  <p><a href="../availability/">Open availability calendar</a></p>
-</body>
-</html>
-""")
+Path("availability.html").write_text(redirect.replace("Redirecting…", "Check availability"))
+Path("book.html").write_text(redirect.replace("Redirecting…", "Book pet sitting").replace("Open Pet Sitters Club calendar", "Book pet sitting"))
+Path("v2/index.html").write_text(redirect)
 PY
 
 git -c user.email="petsittersclublondon@gmail.com" -c user.name="Pet Sitters Club" add availability availability.html book.html v2
@@ -98,4 +66,4 @@ git -c user.email="petsittersclublondon@gmail.com" -c user.name="Pet Sitters Clu
 git push "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${REPO}.git" main
 
 git checkout "${RETURN_BRANCH}"
-echo "Live calendar: https://${GITHUB_USER}.github.io/${REPO}/availability/"
+echo "Share this link: https://petsittersclublondon.netlify.app/book"

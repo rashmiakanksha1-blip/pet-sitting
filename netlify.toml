@@ -1,7 +1,6 @@
 # Drag the pet-sitting folder onto https://app.netlify.com/drop
-# Your permanent client link will be:
-#   https://petsittersclublondon.netlify.app/availability/
-#   Short link: https://petsittersclublondon.netlify.app/book
+# Your permanent client link (share this):
+#   https://petsittersclublondon.netlify.app/book
 
 [build]
   publish = "."
@@ -12,5 +11,5 @@
 
 [[redirects]]
   from = "/book"
-  to = "/availability/"
+  to = "/index.html"
   status = 200

@@ -8,10 +8,17 @@
   <meta http-equiv="Expires" content="0" />
   <script>
     (function () {
-      if (/netlify\.app$/i.test(location.hostname)) {
-        var live = 'https://rashmiakanksha1-blip.github.io/pet-sitting/availability/';
-        location.replace(live + location.search + location.hash);
+      var book = 'https://petsittersclublondon.netlify.app/book';
+      if (/github\.io$/i.test(location.hostname)) {
+        location.replace(book + location.search + location.hash);
         return;
+      }
+      if (/netlify\.app$/i.test(location.hostname)) {
+        var path = location.pathname.replace(/\/+$/, '') || '/';
+        if (path === '/' || path === '/index.html' || /\/availability$/i.test(path)) {
+          location.replace(book + location.search + location.hash);
+          return;
+        }
       }
       if (/\/index\.html$/i.test(location.pathname)) {
         history.replaceState(null, '', location.pathname.replace(/\/index\.html$/i, '/') + location.search + location.hash);
