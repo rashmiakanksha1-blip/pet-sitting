@@ -99,6 +99,12 @@
       --radius: 16px;
       --radius-sm: 10px;
       --paw-ribbon-side-mask: linear-gradient(90deg, #000 0%, #000 7%, rgba(0, 0, 0, 0.55) 13%, rgba(0, 0, 0, 0.12) 21%, transparent 29%, transparent 71%, rgba(0, 0, 0, 0.12) 79%, rgba(0, 0, 0, 0.55) 87%, #000 93%, #000 100%);
+      --ribbon-bar-min-h: 2.85rem;
+      --ribbon-service-min-h: 3.55rem;
+      --ribbon-bar-pad-y: 0.65rem;
+      --ribbon-bar-pad-x: 1rem;
+      --ribbon-bar-text: 0.92rem;
+      --ribbon-bar-sub: 0.72rem;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -410,9 +416,10 @@
       border-radius: 0;
       box-shadow: var(--raised-sage-shadow);
       overflow: hidden;
-      padding: 0.8rem 0;
-      min-height: 3.1rem;
-      display: block;
+      padding: var(--ribbon-bar-pad-y) 0;
+      min-height: var(--ribbon-service-min-h);
+      display: flex;
+      align-items: center;
       flex-wrap: nowrap;
     }
 
@@ -434,7 +441,7 @@
     }
 
     .hero-ribbon-full .about-ribbon-track .content-ribbon-item {
-      font-size: 1rem;
+      font-size: var(--ribbon-bar-text);
       color: #fff;
       font-family: 'Outfit', sans-serif;
       font-weight: 600;
@@ -939,9 +946,9 @@
     .content-ribbon.info-ribbon.pet-fact {
       margin-bottom: 1rem;
       margin-top: 0;
-      padding: 1rem 1.35rem;
-      min-height: 4rem;
-      gap: 0.75rem 1rem;
+      padding: var(--ribbon-bar-pad-y) var(--ribbon-bar-pad-x);
+      min-height: var(--ribbon-bar-min-h);
+      gap: 0.5rem 0.75rem;
       background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
       border: none;
       border-top: 2px solid var(--raised-accent-top);
@@ -952,19 +959,21 @@
 
     .info-ribbon .pet-fact-label {
       color: var(--page-text);
-      font-size: 0.95rem;
+      font-size: 0.82rem;
       font-weight: 600;
       letter-spacing: 0.03em;
+      white-space: nowrap;
     }
 
     .info-ribbon .pet-fact-emoji {
-      font-size: 1.4rem;
+      font-size: 1.1rem;
+      line-height: 1;
     }
 
     .info-ribbon .pet-fact-text {
       color: rgba(255, 255, 255, 0.95);
-      font-size: 1.05rem;
-      line-height: 1.5;
+      font-size: var(--ribbon-bar-text);
+      line-height: 1.35;
     }
 
     .pet-fact {
@@ -1055,26 +1064,35 @@
 
     @media (max-width: 600px) {
       .pet-fact {
-        align-items: flex-start;
-        flex-wrap: wrap;
+        align-items: center;
+        flex-wrap: nowrap;
       }
 
-      .pet-fact-body { flex: 1 1 100%; }
+      .pet-fact-body {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
 
       .info-ribbon.pet-fact {
-        padding: 0.9rem 1.1rem;
+        padding: var(--ribbon-bar-pad-y) var(--ribbon-bar-pad-x);
+        min-height: var(--ribbon-bar-min-h);
       }
 
       .info-ribbon .pet-fact-label {
-        font-size: 0.88rem;
+        font-size: 0.78rem;
       }
 
       .info-ribbon .pet-fact-text {
-        font-size: 0.98rem;
+        font-size: var(--ribbon-bar-text);
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
       .info-ribbon .pet-fact-emoji {
-        font-size: 1.25rem;
+        font-size: 1rem;
       }
     }
 
@@ -1806,6 +1824,12 @@
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
     }
 
+    .rates-block .rate-card-head {
+      min-height: var(--ribbon-service-min-h);
+      display: flex;
+      align-items: stretch;
+    }
+
     .rates-block .rate-card-head::before,
     .about-band .about-section-head::before {
       content: '';
@@ -1822,8 +1846,14 @@
     .rates-block .rate-card-head-text {
       position: relative;
       z-index: 1;
-      display: inline-block;
-      max-width: 78%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+      width: 100%;
+      max-width: 100%;
+      padding: var(--ribbon-bar-pad-y) var(--ribbon-bar-pad-x);
+      box-sizing: border-box;
       background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
     }
 
@@ -1843,7 +1873,25 @@
       background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
     }
 
-    .rates-block .service-card-title,
+    .rates-block .service-card-title {
+      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+      line-height: 1.15;
+      padding: 0;
+      text-shadow: 0 1px 1px rgba(74, 50, 40, 0.2);
+    }
+
+    .rates-block .service-card-sub {
+      font-size: var(--ribbon-bar-sub);
+      color: rgba(255, 255, 255, 0.88);
+      margin: 0.1rem 0 0;
+      line-height: 1.25;
+      padding: 0;
+    }
+
     .about-band .about-section-head .service-card-title {
       color: #fff;
       font-family: 'Cormorant Garamond', serif;
@@ -1855,7 +1903,6 @@
       text-shadow: 0 1px 1px rgba(74, 50, 40, 0.2);
     }
 
-    .rates-block .service-card-sub,
     .about-band .about-section-head .service-card-sub {
       font-size: 0.72rem;
       color: rgba(255, 255, 255, 0.88);
@@ -2309,21 +2356,14 @@
         line-height: 1.45;
       }
 
-      .hero-ribbon-full {
-        min-height: 2.85rem;
-      }
-
       .hero-ribbon-full::before {
         -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 4%, rgba(0, 0, 0, 0.65) 11%, transparent 24%, transparent 76%, rgba(0, 0, 0, 0.65) 89%, #000 96%, #000 100%);
         mask-image: linear-gradient(90deg, #000 0%, #000 4%, rgba(0, 0, 0, 0.65) 11%, transparent 24%, transparent 76%, rgba(0, 0, 0, 0.65) 89%, #000 96%, #000 100%);
       }
 
-      .hero-ribbon-full .about-ribbon-track .content-ribbon-item {
-        font-size: 0.9rem;
-      }
-
+      .hero-ribbon-full .about-ribbon-track .content-ribbon-item,
       .about-ribbon-full .about-ribbon-track .content-ribbon-item {
-        font-size: 0.92rem;
+        font-size: var(--ribbon-bar-text);
       }
     }
   </style>
