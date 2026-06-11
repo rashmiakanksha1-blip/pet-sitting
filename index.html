@@ -26,21 +26,21 @@
       --page-bg-warm: #f1ebe4;
       --page-text: #2c2824;
       --page-text-muted: #7a7368;
-      /* 2 — Logo green (one family: hue + dark from logo) */
-      --sage-hue: #5a8a6e;
-      --sage-dark: #3f6654;
-      --sage-light: #e6efe9;
-      --sage-light-soft: #eef4f0;
-      --sage-light-border: #b3ccc0;
-      --sage-light-text: #2d4a3a;
-      --sage-light-text-muted: #5a8a6e;
+      /* 2 — Turquoise (one family: hue + dark) */
+      --sage-hue: #3dadb8;
+      --sage-dark: #2a858c;
+      --sage-light: #dff4f6;
+      --sage-light-soft: #ecf8f9;
+      --sage-light-border: #a8d8de;
+      --sage-light-text: #1a4a50;
+      --sage-light-text-muted: #3dadb8;
       --bg: var(--sage-dark);
       --bg-warm: var(--sage-dark);
       --surface: var(--sage-dark);
-      --surface-raised: #355847;
-      --text: #f4f6f4;
-      --text-muted: #c5d4cb;
-      --border: #4d7260;
+      --surface-raised: #2d7a82;
+      --text: #f4f8f8;
+      --text-muted: #c5dce0;
+      --border: #4dabb5;
       /* 3 — Terracotta (single accent) */
       --accent: #c4785c;
       --accent-dark: #9a5c44;
@@ -49,17 +49,17 @@
       --accent-light-border: #e0c4b4;
       --accent-light-text: #4a3228;
       --accent-light-text-muted: #7a5c4e;
-      --accent-tint: #3f6654;
+      --accent-tint: #2a858c;
       --tier-off-bg: var(--surface);
-      --tier-peak-bg: #3a5c4a;
-      --tier-peak-border: #5a8a6e;
-      --tier-super-bg: #426555;
-      --tier-super-border: #5a8a6e;
+      --tier-peak-bg: #2d7a82;
+      --tier-peak-border: #3dadb8;
+      --tier-super-bg: #358d96;
+      --tier-super-border: #3dadb8;
       --tier-peak-label: var(--accent);
       --tier-super-label: var(--accent);
-      --day-muted-bg: #355847;
-      --day-muted-border: #4d7260;
-      --day-muted-text: #a8b8ae;
+      --day-muted-bg: #2d7a82;
+      --day-muted-border: #4dabb5;
+      --day-muted-text: #a8ccd0;
       --status-available: var(--accent);
       --status-available-text: #e0a090;
       --status-booked: #8a8480;
@@ -68,8 +68,8 @@
       --status-unavail-text: #8a8480;
       --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
       --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.45);
-      --card-shadow: 0 10px 40px rgba(42, 56, 48, 0.11), 0 2px 8px rgba(42, 56, 48, 0.06);
-      --card-shadow-lift: 0 14px 48px rgba(42, 56, 48, 0.15), 0 4px 14px rgba(42, 56, 48, 0.09);
+      --card-shadow: 0 10px 40px rgba(42, 72, 80, 0.11), 0 2px 8px rgba(42, 72, 80, 0.06);
+      --card-shadow-lift: 0 14px 48px rgba(42, 72, 80, 0.15), 0 4px 14px rgba(42, 72, 80, 0.09);
       --panel-bg: #ffffff;
       --panel-border: #e8e2da;
       --cal-day-off-bg: #ffffff;
@@ -109,7 +109,7 @@
       content: '';
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23c4785c' fill-opacity='0.13'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3Cg fill='%235a8a6e' fill-opacity='0.13' transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23c4785c' fill-opacity='0.13'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3Cg fill='%233dadb8' fill-opacity='0.13' transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
       background-size: 220px 220px;
       pointer-events: none;
       z-index: 0;
@@ -174,7 +174,7 @@
     }
 
     .paw-trail.alt::before {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%235a8a6e'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%233dadb8'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
     }
 
     @keyframes pawFloat {
@@ -197,7 +197,7 @@
     }
 
     .ambient-paw.sage {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%235a8a6e'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%233dadb8'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
     }
 
     @keyframes ambientRise {
