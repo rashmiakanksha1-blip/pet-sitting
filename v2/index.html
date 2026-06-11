@@ -224,8 +224,8 @@
 
     .hero-paw {
       position: absolute;
-      width: 220px;
-      height: 220px;
+      width: 104px;
+      height: 66px;
       background-repeat: no-repeat;
       background-size: 220px 220px;
       background-position: 0 0;
@@ -237,7 +237,7 @@
     }
 
     .hero-paw.alt {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23ffffff' transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
+      background-position: -134px -123px;
     }
 
     .hero-paw.soft {
@@ -2906,8 +2906,8 @@
         return zones;
       }
 
-      const HERO_PAW_W = 220;
-      const HERO_PAW_H = 220;
+      const HERO_PAW_W = 104;
+      const HERO_PAW_H = 66;
 
       function overlaps(x, y, pawW, pawH, zones, maxW, maxH) {
         const edge = 10;
@@ -2924,10 +2924,10 @@
         const layerRect = layer.getBoundingClientRect();
         const maxW = layerRect.width;
         const maxH = layerRect.height;
-        if (maxW < HERO_PAW_W + 40 || maxH < HERO_PAW_H + 40) return;
+        if (maxW < HERO_PAW_W + 20 || maxH < HERO_PAW_H + 12) return;
 
         const zones = exclusionZones(hostRect);
-        const count = Math.min(10, Math.max(4, Math.floor((maxW * maxH) / 32000)));
+        const count = Math.min(18, Math.max(8, Math.floor((maxW * maxH) / 9000)));
         let placed = 0;
         let attempts = 0;
 
