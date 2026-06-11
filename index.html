@@ -1157,7 +1157,7 @@
     }
 
     .rate-service-card {
-      padding: 1rem 1.15rem 0;
+      padding: 0.7rem 1rem 0;
       border: 1px solid var(--panel-border);
       border-radius: var(--radius-sm);
       background: var(--panel-bg);
@@ -1169,15 +1169,17 @@
     .service-card-title {
       color: var(--page-text);
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.45rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.1rem;
+      line-height: 1.15;
     }
 
     .service-card-sub {
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       color: var(--page-text-muted);
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
     }
 
     .tier-badge {
@@ -1187,6 +1189,11 @@
       letter-spacing: 0.06em;
       padding: 3px 8px;
       border-radius: 20px;
+    }
+
+    .rates-block .tier-badge {
+      font-size: 0.58rem;
+      padding: 2px 6px;
     }
 
     .rates-block .tier-badge.off,
@@ -1222,8 +1229,8 @@
     }
 
     .rates-block .rate-rows {
-      margin: 0.85rem -1.15rem 0;
-      padding: 0.65rem 1.15rem 0.85rem;
+      margin: 0.5rem -1rem 0;
+      padding: 0.4rem 1rem 0.5rem;
       background: linear-gradient(135deg, var(--sage-hue), var(--sage-dark));
       border-top: 1px solid var(--sage-hue);
       box-shadow: var(--ribbon-shadow);
@@ -1233,13 +1240,13 @@
       background: transparent;
       border: none;
       border-radius: 0;
-      padding: 0.55rem 0;
+      padding: 0.3rem 0;
     }
 
     .rates-block .rate-row + .rate-row {
       border-top: 1px solid rgba(255, 255, 255, 0.15);
-      margin-top: 0.5rem;
-      padding-top: 0.55rem;
+      margin-top: 0.25rem;
+      padding-top: 0.3rem;
     }
 
     .rate-type {
@@ -1251,17 +1258,25 @@
       gap: 0.3rem;
     }
 
-    .rates-block .rate-type,
+    .rates-block .rate-type {
+      font-size: 0.78rem;
+      gap: 0.15rem;
+      color: var(--text);
+    }
+
     .rates-block .rate-price {
+      font-size: 1.05rem;
       color: var(--text);
     }
 
     .rates-block .tier-when,
     .rates-block .rate-type .tier-when {
+      font-size: 0.62rem;
       color: rgba(244, 246, 244, 0.78);
     }
 
     .rates-block .rate-price small {
+      font-size: 0.65rem;
       color: rgba(244, 246, 244, 0.65);
     }
 
@@ -1812,7 +1827,7 @@
     <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (ax)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (ay)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
