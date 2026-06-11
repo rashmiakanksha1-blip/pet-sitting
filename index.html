@@ -238,7 +238,12 @@
       overflow: hidden;
     }
 
-    .hero-terracotta::before {
+    .hero-terracotta-top {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-terracotta-top::before {
       content: '';
       position: absolute;
       inset: 0;
@@ -257,37 +262,18 @@
       z-index: 0;
       pointer-events: none;
       opacity: 0;
-      -webkit-mask-repeat: no-repeat;
-      mask-repeat: no-repeat;
+      border-radius: 50%;
+      -webkit-mask-image: radial-gradient(circle, #000 0%, #000 38%, transparent 72%);
+      mask-image: radial-gradient(circle, #000 0%, #000 38%, transparent 72%);
       animation: pawFadeToRibbon ease-in-out forwards;
     }
 
     .calendar-panel .calendar-header .paw-twinkle-pulse {
       background: linear-gradient(180deg, #faf4f0 0%, var(--accent-light-soft) 100%);
-      -webkit-mask-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='68' viewBox='0 0 92 68'%3E%3Cg fill='%23ffffff' transform='translate(4 6) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%23ffffff' transform='translate(50 30) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E"),
-        linear-gradient(90deg, #000 0%, #000 14%, transparent 24%, transparent 76%, #000 86%, #000 100%);
-      -webkit-mask-composite: source-in, source-over;
-      mask-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='68' viewBox='0 0 92 68'%3E%3Cg fill='%23ffffff' transform='translate(4 6) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%23ffffff' transform='translate(50 30) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E"),
-        linear-gradient(90deg, #000 0%, #000 14%, transparent 24%, transparent 76%, #000 86%, #000 100%);
-      mask-composite: intersect, add;
-      -webkit-mask-size: 92px 68px, 100% 100%;
-      mask-size: 92px 68px, 100% 100%;
     }
 
     .rates-block .rate-card-head .paw-twinkle-pulse {
       background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
-      -webkit-mask-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='68' viewBox='0 0 92 68'%3E%3Cg fill='%23ffffff' transform='translate(4 6) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%23ffffff' transform='translate(50 30) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E"),
-        linear-gradient(90deg, #000 0%, #000 10%, transparent 20%, transparent 72%, #000 82%, #000 100%);
-      -webkit-mask-composite: source-in, source-over;
-      mask-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='68' viewBox='0 0 92 68'%3E%3Cg fill='%23ffffff' transform='translate(4 6) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%23ffffff' transform='translate(50 30) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E"),
-        linear-gradient(90deg, #000 0%, #000 10%, transparent 20%, transparent 72%, #000 82%, #000 100%);
-      mask-composite: intersect, add;
-      -webkit-mask-size: 92px 68px, 100% 100%;
-      mask-size: 92px 68px, 100% 100%;
     }
 
     @keyframes pawFadeToRibbon {
@@ -390,6 +376,8 @@
     }
 
     .content-ribbon.about-ribbon.hero-ribbon-full {
+      position: relative;
+      z-index: 1;
       width: 100%;
       margin: 1rem 0 0;
       background: linear-gradient(180deg, var(--sage-hue) 0%, var(--sage-dark) 100%);
@@ -2122,6 +2110,7 @@
   <div class="bg-glow" id="bgGlow" aria-hidden="true"></div>
   <div class="bg-glow-core" id="bgGlowCore" aria-hidden="true"></div>
   <div class="hero-terracotta">
+    <div class="hero-terracotta-top">
     <div class="hero-terracotta-inner">
       <header>
         <a class="header-book-btn" id="bookBtn" href="#">Book my slot</a>
@@ -2151,6 +2140,7 @@
           </div>
         </div>
       </header>
+    </div>
     </div>
     <div class="content-ribbon about-ribbon hero-ribbon-full" aria-label="Services we offer">
       <div class="about-ribbon-track" id="heroRibbonTrack">
@@ -2928,9 +2918,24 @@
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       const PAW_TWINKLE_TILES = [
-        { selector: '.calendar-panel .calendar-header', tileW: 92, tileH: 68, maxActive: 6 },
-        { selector: '.rates-block .rate-card-head', tileW: 92, tileH: 68, maxActive: 5 },
+        { selector: '.calendar-panel .calendar-header', sideBand: 0.22, maxActive: 5 },
+        { selector: '.rates-block .rate-card-head', sideBand: 0.2, maxActive: 4 },
       ];
+
+      function randomSideSpot(rect, size, sideBand) {
+        const pad = 8;
+        const leftMax = rect.width * sideBand;
+        const rightMin = rect.width * (1 - sideBand);
+        const useLeft = Math.random() < 0.5;
+        let x;
+        if (useLeft) {
+          x = pad + Math.random() * Math.max(0, leftMax - size - pad);
+        } else {
+          x = rightMin + Math.random() * Math.max(0, rect.width - rightMin - size - pad);
+        }
+        const y = pad + Math.random() * Math.max(0, rect.height - size - pad * 2);
+        return { x, y };
+      }
 
       function spawnPulse(host, config) {
         if (host.querySelectorAll('.paw-twinkle-pulse').length >= config.maxActive) {
@@ -2939,40 +2944,28 @@
         }
 
         const rect = host.getBoundingClientRect();
-        const minW = config.tileW * 0.42;
-        const minH = config.tileH * 0.42;
-        if (rect.width < minW || rect.height < minH) {
+        const size = 36 + Math.random() * 28;
+        if (rect.width < size + 16 || rect.height < size + 16) {
           setTimeout(() => spawnPulse(host, config), 800);
           return;
         }
 
-        const sizeW = config.tileW * (0.5 + Math.random() * 0.45);
-        const sizeH = config.tileH * (0.5 + Math.random() * 0.45);
-        const x = Math.random() * Math.max(0, rect.width - sizeW);
-        const y = Math.random() * Math.max(0, rect.height - sizeH);
-        const maskX = -(x % config.tileW);
-        const maskY = -(y % config.tileH);
-        const isSideMasked = host.matches('.calendar-panel .calendar-header, .rates-block .rate-card-head');
-        const maskPos = isSideMasked
-          ? (maskX + 'px ' + maskY + 'px, 0 0')
-          : (maskX + 'px ' + maskY + 'px');
+        const spot = randomSideSpot(rect, size, config.sideBand);
 
         const pulse = document.createElement('div');
         pulse.className = 'paw-twinkle-pulse';
         pulse.setAttribute('aria-hidden', 'true');
-        pulse.style.width = sizeW + 'px';
-        pulse.style.height = sizeH + 'px';
-        pulse.style.left = x + 'px';
-        pulse.style.top = y + 'px';
-        pulse.style.webkitMaskPosition = maskPos;
-        pulse.style.maskPosition = maskPos;
+        pulse.style.width = size + 'px';
+        pulse.style.height = size + 'px';
+        pulse.style.left = spot.x + 'px';
+        pulse.style.top = spot.y + 'px';
         pulse.style.animationDuration = (1.2 + Math.random() * 2) + 's';
         pulse.style.animationDelay = (Math.random() * 0.35) + 's';
 
         pulse.addEventListener('animationend', () => pulse.remove());
         host.appendChild(pulse);
 
-        setTimeout(() => spawnPulse(host, config), 180 + Math.random() * 900);
+        setTimeout(() => spawnPulse(host, config), 220 + Math.random() * 1100);
       }
 
       function bootTwinkle() {
