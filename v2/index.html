@@ -532,9 +532,27 @@
     }
 
     .calendar-panel .calendar-header {
+      position: relative;
+      overflow: hidden;
       background: linear-gradient(180deg, #faf4f0 0%, var(--accent-light-soft) 100%);
       border-bottom: 2px solid rgba(154, 92, 68, 0.14);
       padding: 0.7rem 1rem;
+    }
+
+    .calendar-panel .calendar-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%239a5c44' fill-opacity='0.22'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3Cg fill='%237a5c4e' fill-opacity='0.16' transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    .calendar-panel .calendar-header h2,
+    .calendar-panel .calendar-header .nav-btn {
+      position: relative;
+      z-index: 1;
     }
 
     .calendar-panel .calendar-header h2 {
