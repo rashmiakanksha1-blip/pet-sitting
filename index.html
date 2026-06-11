@@ -36,6 +36,11 @@
       --accent-dark: #9a5c44;
       --accent-tint: #2e3a32;
       --sage-hue: #5a8a6e;
+      --sage-light: #e4ede8;
+      --sage-light-soft: #edf4ef;
+      --sage-light-border: #b8c9be;
+      --sage-light-text: #2a3830;
+      --sage-light-text-muted: #5a6d62;
       --tier-off-bg: var(--surface);
       --tier-peak-bg: #3a453c;
       --tier-peak-border: #5a6e60;
@@ -269,13 +274,13 @@
       align-items: center;
       gap: 0.65rem;
       padding: 0.65rem 1rem;
-      background: var(--page-bg-warm);
-      border: 1px solid #e8e2da;
-      border-top: 3px solid var(--accent);
+      background: var(--sage-light);
+      border: 1px solid var(--sage-light-border);
+      border-top: 3px solid var(--sage-hue);
       border-radius: var(--radius-sm);
-      box-shadow: 0 4px 16px rgba(44, 40, 36, 0.06);
+      box-shadow: 0 4px 16px rgba(42, 56, 48, 0.07);
       font-size: 0.88rem;
-      color: var(--page-text);
+      color: var(--sage-light-text);
     }
 
     .pets-info-icon { font-size: 1.35rem; line-height: 1; }
@@ -283,12 +288,12 @@
     .pets-info-item strong {
       display: block;
       font-weight: 500;
-      color: var(--page-text);
+      color: var(--sage-light-text);
       line-height: 1.2;
     }
 
     .pets-info-item span {
-      color: var(--page-text-muted);
+      color: var(--sage-light-text-muted);
       font-size: 0.82rem;
     }
 
@@ -379,12 +384,12 @@
     }
 
     .calendar-panel .calendar-header {
-      background: var(--page-bg-warm);
-      border-bottom-color: #e8e2da;
+      background: var(--sage-light);
+      border-bottom-color: var(--sage-light-border);
     }
 
     .calendar-panel .calendar-header h2 {
-      color: var(--page-text-muted);
+      color: var(--sage-light-text-muted);
     }
 
     .calendar-panel .nav-btn {
@@ -457,17 +462,17 @@
     }
 
     .calendar-panel .calendar-legend {
-      border-top-color: #e8e2da;
-      background: var(--page-bg-warm);
+      border-top-color: var(--sage-light-border);
+      background: var(--sage-light);
     }
 
     .calendar-panel .calendar-legend .legend-section + .legend-section {
-      border-left-color: #ddd6cc;
+      border-left-color: var(--sage-light-border);
     }
 
     .calendar-panel .legend-title,
     .calendar-panel .legend-item {
-      color: var(--page-text-muted);
+      color: var(--sage-light-text-muted);
     }
 
     .calendar-panel .legend-dot.tier-off {
@@ -979,19 +984,19 @@
     }
 
     .about-card {
-      background: #ffffff;
-      border: 1px solid #e8e2da;
+      background: var(--sage-light);
+      border: 1px solid var(--sage-light-border);
       border-radius: var(--radius);
       padding: 1.25rem 1.35rem 0;
-      box-shadow: 0 8px 36px rgba(44, 40, 36, 0.08);
+      box-shadow: 0 8px 36px rgba(42, 56, 48, 0.08);
       overflow: hidden;
-      color: var(--page-text);
+      color: var(--sage-light-text);
     }
 
     .about-copy p {
       font-size: 0.92rem;
       line-height: 1.55;
-      color: var(--page-text);
+      color: var(--sage-light-text);
       margin-bottom: 0.75rem;
     }
 
@@ -1001,18 +1006,18 @@
 
     .about-card .content-ribbon.about-ribbon {
       margin: 1.25rem -1.35rem 0;
-      background: var(--page-bg-warm);
+      background: var(--sage-light-soft);
       border-left: none;
       border-right: none;
       border-radius: 0;
-      border-color: #e8e2da;
+      border-color: var(--sage-light-border);
       overflow: hidden;
       padding: 0.85rem 0;
       display: block;
     }
 
     .about-card .content-ribbon-item {
-      color: var(--page-text-muted);
+      color: var(--sage-light-text-muted);
     }
 
     .about-ribbon-track {
@@ -1063,8 +1068,8 @@
 
     .about-contact {
       font-size: 0.8rem;
-      color: var(--page-text-muted);
-      border-top: 1px solid #e8e2da;
+      color: var(--sage-light-text-muted);
+      border-top: 1px solid var(--sage-light-border);
       padding: 0.85rem 0 1.15rem;
       margin-top: 1rem;
     }
@@ -1118,12 +1123,12 @@
     .rates-scroll-hint a:hover { text-decoration: underline; }
 
     .rates-block {
-      background: #ffffff;
+      background: transparent;
       border-radius: var(--radius);
-      box-shadow: 0 8px 36px rgba(44, 40, 36, 0.08);
-      border: 1px solid #e8e2da;
-      padding: 1rem 1.25rem;
-      color: var(--page-text);
+      box-shadow: none;
+      border: none;
+      padding: 0;
+      color: var(--sage-light-text);
     }
 
     .rates-block .rates-grid {
@@ -1134,14 +1139,15 @@
 
     .rate-service-card {
       padding: 1rem 1.15rem;
-      border: 1px solid #e8e2da;
+      border: 1px solid var(--sage-light-border);
       border-radius: var(--radius-sm);
-      background: var(--page-bg-warm);
-      color: var(--page-text);
+      background: var(--sage-light);
+      box-shadow: 0 8px 36px rgba(42, 56, 48, 0.08);
+      color: var(--sage-light-text);
     }
 
     .service-card-title {
-      color: var(--page-text);
+      color: var(--sage-light-text);
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.45rem;
       font-weight: 600;
@@ -1150,7 +1156,7 @@
 
     .service-card-sub {
       font-size: 0.78rem;
-      color: var(--page-text-muted);
+      color: var(--sage-light-text-muted);
       margin-bottom: 0.85rem;
     }
 
@@ -1164,9 +1170,9 @@
     }
 
     .rates-block .tier-badge.off {
-      background: var(--page-bg);
-      color: var(--page-text-muted);
-      border: 1px solid #ddd6cc;
+      background: var(--sage-light-soft);
+      color: var(--sage-light-text-muted);
+      border: 1px solid var(--sage-light-border);
     }
 
     .tier-badge.off { background: var(--surface-raised); color: var(--text-muted); border: 1px solid var(--border); }
@@ -1180,7 +1186,7 @@
 
     .rates-block .tier-when,
     .rates-block .rate-type .tier-when {
-      color: var(--page-text-muted);
+      color: var(--sage-light-text-muted);
     }
 
     .rate-rows {
@@ -1199,8 +1205,8 @@
     }
 
     .rates-block .rate-row {
-      background: #fff;
-      border: 1px solid #ebe5dd;
+      background: var(--sage-light-soft);
+      border: 1px solid var(--sage-light-border);
     }
 
     .rate-type {
@@ -1214,11 +1220,11 @@
 
     .rates-block .rate-type,
     .rates-block .rate-price {
-      color: var(--page-text);
+      color: var(--sage-light-text);
     }
 
     .rates-block .rate-price small {
-      color: var(--page-text-muted);
+      color: var(--sage-light-text-muted);
     }
 
     .rate-type .tier-when {
@@ -1766,7 +1772,7 @@
     </section>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (af)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (ah)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
