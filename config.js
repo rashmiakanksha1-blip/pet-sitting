@@ -12,7 +12,8 @@ const SITE_CONFIG = {
   },
 
   // ONE link for word-of-mouth — share this everywhere; it never changes.
-  publicBookingUrl: 'https://petsittersclublondon.netlify.app/book',
+  // Branded Netlify /book URL works once credits allow a fresh deploy of v2.
+  publicBookingUrl: 'https://rashmiakanksha1-blip.github.io/pet-sitting/book/',
 
   contactEmail: 'petsittersclublondon@gmail.com',
   bookingEmail: 'petsittersclublondon@gmail.com',
