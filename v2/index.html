@@ -249,49 +249,52 @@
       pointer-events: none;
     }
 
-    .hero-terracotta.paw-bg-twinkle::before,
-    .calendar-panel .calendar-header.paw-bg-twinkle::before,
-    .rates-block .rate-card-head.paw-bg-twinkle::before {
-      transition: opacity 0.45s ease, -webkit-mask-image 0.15s ease, mask-image 0.15s ease;
+    .paw-twinkle-host {
+      position: relative;
     }
 
-    .hero-terracotta.paw-bg-twinkle::before {
-      opacity: 0.55;
+    .paw-twinkle-pulse {
+      position: absolute;
+      z-index: 0;
+      pointer-events: none;
+      background-repeat: repeat;
+      opacity: 0;
+      -webkit-mask-image: radial-gradient(circle, #000 0%, #000 40%, transparent 74%);
+      mask-image: radial-gradient(circle, #000 0%, #000 40%, transparent 74%);
+      animation: pawSpotTwinkle ease-in-out forwards;
     }
 
-    .calendar-panel .calendar-header.paw-bg-twinkle::before,
-    .rates-block .rate-card-head.paw-bg-twinkle::before {
-      opacity: 0.42;
-    }
-
-    .hero-terracotta.paw-bg-twinkle.paw-flash-on::before {
-      opacity: 1;
-      -webkit-mask-image: radial-gradient(circle var(--flash-r, 52px) at var(--flash-x, 50%) var(--flash-y, 50%), #000 0%, #000 36%, transparent 100%);
-      mask-image: radial-gradient(circle var(--flash-r, 52px) at var(--flash-x, 50%) var(--flash-y, 50%), #000 0%, #000 36%, transparent 100%);
-    }
-
-    .calendar-panel .calendar-header.paw-bg-twinkle.paw-flash-on::before {
-      opacity: 1;
+    .calendar-panel .calendar-header .paw-twinkle-pulse {
       -webkit-mask-image:
-        radial-gradient(circle var(--flash-r, 52px) at var(--flash-x, 50%) var(--flash-y, 50%), #000 0%, #000 36%, transparent 100%),
+        radial-gradient(circle, #000 0%, #000 40%, transparent 74%),
         linear-gradient(90deg, #000 0%, #000 14%, transparent 24%, transparent 76%, #000 86%, #000 100%);
       -webkit-mask-composite: source-in, source-over;
       mask-image:
-        radial-gradient(circle var(--flash-r, 52px) at var(--flash-x, 50%) var(--flash-y, 50%), #000 0%, #000 36%, transparent 100%),
+        radial-gradient(circle, #000 0%, #000 40%, transparent 74%),
         linear-gradient(90deg, #000 0%, #000 14%, transparent 24%, transparent 76%, #000 86%, #000 100%);
       mask-composite: intersect, add;
     }
 
-    .rates-block .rate-card-head.paw-bg-twinkle.paw-flash-on::before {
-      opacity: 1;
+    .rates-block .rate-card-head .paw-twinkle-pulse {
       -webkit-mask-image:
-        radial-gradient(circle var(--flash-r, 52px) at var(--flash-x, 50%) var(--flash-y, 50%), #000 0%, #000 36%, transparent 100%),
+        radial-gradient(circle, #000 0%, #000 40%, transparent 74%),
         linear-gradient(90deg, #000 0%, #000 10%, transparent 20%, transparent 72%, #000 82%, #000 100%);
       -webkit-mask-composite: source-in, source-over;
       mask-image:
-        radial-gradient(circle var(--flash-r, 52px) at var(--flash-x, 50%) var(--flash-y, 50%), #000 0%, #000 36%, transparent 100%),
+        radial-gradient(circle, #000 0%, #000 40%, transparent 74%),
         linear-gradient(90deg, #000 0%, #000 10%, transparent 20%, transparent 72%, #000 82%, #000 100%);
       mask-composite: intersect, add;
+    }
+
+    @keyframes pawSpotTwinkle {
+      0% { opacity: 0; filter: brightness(1); }
+      20% { opacity: 0.92; filter: brightness(1.4); }
+      55% { opacity: 0.78; filter: brightness(1.28); }
+      100% { opacity: 0; filter: brightness(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .paw-twinkle-pulse { display: none; }
     }
 
     .hero-terracotta-inner {
@@ -2925,23 +2928,49 @@
       );
       if (!hosts.length) return;
 
-      function scheduleFlash(host) {
-        const wait = 500 + Math.random() * 2400;
-        setTimeout(() => {
-          host.style.setProperty('--flash-x', (6 + Math.random() * 88) + '%');
-          host.style.setProperty('--flash-y', (6 + Math.random() * 88) + '%');
-          host.style.setProperty('--flash-r', (38 + Math.random() * 42) + 'px');
-          host.classList.add('paw-flash-on');
-          setTimeout(() => {
-            host.classList.remove('paw-flash-on');
-            scheduleFlash(host);
-          }, 320 + Math.random() * 780);
-        }, wait);
+      function spawnPulse(host, bgImage, bgSize, maxActive) {
+        if (host.querySelectorAll('.paw-twinkle-pulse').length >= maxActive) {
+          setTimeout(() => spawnPulse(host, bgImage, bgSize, maxActive), 300 + Math.random() * 700);
+          return;
+        }
+
+        const pulse = document.createElement('div');
+        pulse.className = 'paw-twinkle-pulse';
+        pulse.setAttribute('aria-hidden', 'true');
+
+        const size = 48 + Math.random() * 28;
+        const rect = host.getBoundingClientRect();
+        const x = Math.random() * Math.max(0, rect.width - size);
+        const y = Math.random() * Math.max(0, rect.height - size);
+
+        pulse.style.width = size + 'px';
+        pulse.style.height = size + 'px';
+        pulse.style.left = x + 'px';
+        pulse.style.top = y + 'px';
+        pulse.style.backgroundImage = bgImage;
+        pulse.style.backgroundSize = bgSize;
+        pulse.style.backgroundPosition = '-' + x + 'px -' + y + 'px';
+        pulse.style.animationDuration = (1.6 + Math.random() * 2.4) + 's';
+        pulse.style.animationDelay = (Math.random() * 0.5) + 's';
+
+        pulse.addEventListener('animationend', () => pulse.remove());
+        host.appendChild(pulse);
+
+        setTimeout(() => spawnPulse(host, bgImage, bgSize, maxActive), 280 + Math.random() * 1600);
       }
 
-      hosts.forEach((host, index) => {
-        host.classList.add('paw-bg-twinkle');
-        setTimeout(() => scheduleFlash(host), index * (180 + Math.random() * 420));
+      hosts.forEach((host) => {
+        const beforeStyle = getComputedStyle(host, '::before');
+        const bgImage = beforeStyle.backgroundImage;
+        const bgSize = beforeStyle.backgroundSize;
+        if (!bgImage || bgImage === 'none') return;
+
+        host.classList.add('paw-twinkle-host');
+        const maxActive = host.classList.contains('hero-terracotta') ? 6 : 4;
+
+        for (let i = 0; i < 3; i++) {
+          setTimeout(() => spawnPulse(host, bgImage, bgSize, maxActive), i * (400 + Math.random() * 900));
+        }
       });
     }
 
