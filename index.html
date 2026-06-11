@@ -88,6 +88,15 @@
       --rate-card-accent-light-to: #c98972;
       --reviewer-name-color: var(--accent);
       --ribbon-shadow: inset 0 5px 14px -6px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      --raised-sage-top: rgba(255, 255, 255, 0.28);
+      --raised-sage-bottom: rgba(26, 74, 80, 0.55);
+      --raised-sage-shadow: 0 4px 14px rgba(42, 96, 104, 0.35), 0 2px 4px rgba(0, 0, 0, 0.12);
+      --raised-accent-top: rgba(255, 255, 255, 0.35);
+      --raised-accent-bottom: rgba(74, 50, 40, 0.45);
+      --raised-accent-shadow: 0 4px 14px rgba(154, 92, 68, 0.32), 0 2px 4px rgba(0, 0, 0, 0.1);
+      --raised-accent-light-top: rgba(255, 255, 255, 0.72);
+      --raised-accent-light-bottom: rgba(154, 92, 68, 0.32);
+      --raised-accent-light-shadow: 0 4px 14px rgba(154, 92, 68, 0.26), 0 2px 4px rgba(0, 0, 0, 0.08);
       --radius: 16px;
       --radius-sm: 10px;
     }
@@ -262,13 +271,13 @@
       font-weight: 600;
       color: #fff;
       background: linear-gradient(180deg, var(--sage-hue) 0%, var(--sage-dark) 100%);
-      border: 2px solid rgba(255, 255, 255, 0.28);
-      border-bottom: 3px solid rgba(26, 74, 80, 0.55);
+      border: 2px solid var(--raised-sage-top);
+      border-bottom: 3px solid var(--raised-sage-bottom);
       border-radius: var(--radius-sm);
       cursor: pointer;
       text-decoration: none;
       text-align: center;
-      box-shadow: 0 4px 14px rgba(42, 96, 104, 0.35), 0 2px 4px rgba(0, 0, 0, 0.12);
+      box-shadow: var(--raised-sage-shadow);
       transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
       appearance: none;
     }
@@ -324,10 +333,10 @@
       margin: 1rem 0 0;
       background: linear-gradient(180deg, var(--sage-hue) 0%, var(--sage-dark) 100%);
       border: none;
-      border-top: 2px solid rgba(255, 255, 255, 0.25);
-      border-bottom: 3px solid rgba(26, 74, 80, 0.55);
+      border-top: 2px solid var(--raised-sage-top);
+      border-bottom: 3px solid var(--raised-sage-bottom);
       border-radius: 0;
-      box-shadow: 0 4px 14px rgba(42, 96, 104, 0.35), 0 2px 4px rgba(0, 0, 0, 0.12);
+      box-shadow: var(--raised-sage-shadow);
       overflow: hidden;
       padding: 0.8rem 0;
       min-height: 0;
@@ -512,16 +521,18 @@
       flex-direction: column;
       background: #ffffff;
       border-radius: var(--radius);
-      box-shadow: var(--card-shadow);
-      border: 1px solid #e8e2da;
+      border: none;
+      border-top: 2px solid var(--raised-accent-light-top);
+      border-bottom: 3px solid var(--raised-accent-light-bottom);
+      box-shadow: var(--raised-accent-light-shadow);
       overflow: hidden;
       min-width: 0;
       color: var(--page-text);
     }
 
     .calendar-panel .calendar-header {
-      background: var(--accent-light-soft);
-      border-bottom-color: var(--accent-light-border);
+      background: linear-gradient(180deg, #faf4f0 0%, var(--accent-light-soft) 100%);
+      border-bottom: 2px solid rgba(154, 92, 68, 0.14);
       padding: 0.7rem 1rem;
     }
 
@@ -612,9 +623,10 @@
     }
 
     .calendar-panel .calendar-legend {
-      border-top: 1px solid var(--accent-light-border);
-      background: linear-gradient(135deg, var(--accent-light-mid), var(--accent-light-soft));
-      box-shadow: none;
+      border-top: 2px solid var(--raised-accent-light-top);
+      border-bottom: none;
+      background: linear-gradient(180deg, var(--accent-light-mid) 0%, var(--accent-light-soft) 100%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
     }
 
     .calendar-panel .calendar-legend .legend-section + .legend-section {
@@ -704,17 +716,18 @@
       flex-shrink: 0;
     }
 
-    .info-ribbon {
+    .content-ribbon.info-ribbon.pet-fact {
       margin-bottom: 1rem;
       margin-top: 0;
-      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
-      border: none;
-    }
-
-    .info-ribbon.pet-fact {
       padding: 1rem 1.35rem;
       min-height: 4rem;
       gap: 0.75rem 1rem;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+      border: none;
+      border-top: 2px solid var(--raised-accent-top);
+      border-bottom: 3px solid var(--raised-accent-bottom);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--raised-accent-shadow);
     }
 
     .info-ribbon .pet-fact-label {
@@ -1234,9 +1247,11 @@
     .about-band {
       width: 100%;
       margin-top: 1.25rem;
-      background: var(--accent-light-soft);
-      border-top: 1px solid var(--accent-light-border);
-      border-bottom: 1px solid var(--accent-light-border);
+      background: linear-gradient(180deg, var(--accent-light-mid) 0%, var(--accent-light-soft) 100%);
+      border: none;
+      border-top: 2px solid var(--raised-accent-light-top);
+      border-bottom: 3px solid var(--raised-accent-light-bottom);
+      box-shadow: var(--raised-accent-light-shadow);
       overflow: hidden;
     }
 
