@@ -340,7 +340,7 @@
       position: absolute;
       top: 0.25rem;
       right: 0.5cm;
-      left: calc(58% + 4.5cm);
+      left: calc(58% + 5.5cm);
       padding: 0.8rem 1.35rem;
       font-size: 0.95rem;
       white-space: nowrap;
@@ -2096,7 +2096,7 @@
       .header-book-btn {
         font-size: 0.82rem;
         padding: 0.65rem 0.75rem;
-        left: calc(40% + 4.5cm);
+        left: calc(40% + 5.5cm);
         right: 0.5cm;
         white-space: normal;
         line-height: 1.25;
@@ -2892,9 +2892,10 @@
       const host = document.querySelector('.hero-terracotta-top');
       if (!layer || !host) return;
 
-      const TILE = 220;
+      const TILE_W = 220;
+      const TILE_H = 88;
       const MAX_ACTIVE = 6;
-      const MIN_GAP = 108;
+      const MIN_GAP = 92;
       const PAD = 10;
 
       function textClusterRect() {
@@ -2961,17 +2962,18 @@
         }
 
         const zones = [];
-        const yMax = Math.max(PAD, h - TILE - PAD);
+        const yMin = PAD;
+        const yMax = Math.max(yMin, h - TILE_H - PAD);
 
-        const leftXMax = contentLeft - PAD - TILE;
+        const leftXMax = contentLeft - PAD - TILE_W;
         if (leftXMax >= PAD) {
-          zones.push({ side: 'left', xMin: PAD, xMax: leftXMax, yMin: PAD, yMax: yMax, weight: leftXMax - PAD });
+          zones.push({ side: 'left', xMin: PAD, xMax: leftXMax, yMin: yMin, yMax: yMax, weight: leftXMax - PAD });
         }
 
         const rightXMin = contentRight + PAD;
-        const rightXMax = w - TILE - PAD;
+        const rightXMax = w - TILE_W - PAD;
         if (rightXMax >= rightXMin) {
-          zones.push({ side: 'right', xMin: rightXMin, xMax: rightXMax, yMin: PAD, yMax: yMax, weight: rightXMax - rightXMin });
+          zones.push({ side: 'right', xMin: rightXMin, xMax: rightXMax, yMin: yMin, yMax: yMax, weight: rightXMax - rightXMin });
         }
 
         return zones;
@@ -2981,14 +2983,14 @@
         return Array.from(layer.querySelectorAll('.hero-paw-pulse')).map((el) => ({
           left: parseFloat(el.style.left) || 0,
           top: parseFloat(el.style.top) || 0,
-          right: (parseFloat(el.style.left) || 0) + TILE,
-          bottom: (parseFloat(el.style.top) || 0) + TILE,
+          right: (parseFloat(el.style.left) || 0) + TILE_W,
+          bottom: (parseFloat(el.style.top) || 0) + TILE_H,
         }));
       }
 
       function overlapsRect(x, y, rect, gap) {
-        return x - gap < rect.right && x + TILE + gap > rect.left
-          && y - gap < rect.bottom && y + TILE + gap > rect.top;
+        return x - gap < rect.right && x + TILE_W + gap > rect.left
+          && y - gap < rect.bottom && y + TILE_H + gap > rect.top;
       }
 
       function isFreeSpot(x, y, excludes, active) {
@@ -3020,7 +3022,7 @@
         const zone = pickZone(zones);
         const xSpan = Math.max(0, zone.xMax - zone.xMin);
         const ySpan = Math.max(0, zone.yMax - zone.yMin);
-        if (xSpan <= 0 || ySpan <= 0) return null;
+        if (xSpan <= 0) return null;
 
         const slotStep = 118;
         const xSlots = Math.max(1, Math.floor(xSpan / slotStep) + 1);
@@ -3028,9 +3030,11 @@
 
         for (let attempt = 0; attempt < 36; attempt += 1) {
           const xSlot = Math.floor(Math.random() * xSlots);
-          const ySlot = Math.floor(Math.random() * ySlots);
+          const ySlot = ySpan > 0 ? Math.floor(Math.random() * ySlots) : 0;
           const x = zone.xMin + Math.min(xSpan, xSlot * slotStep + Math.random() * Math.min(slotStep * 0.35, xSpan));
-          const y = zone.yMin + Math.min(ySpan, ySlot * slotStep + Math.random() * Math.min(slotStep * 0.35, ySpan));
+          const y = zone.yMin + (ySpan > 0
+            ? Math.min(ySpan, ySlot * slotStep + Math.random() * Math.min(slotStep * 0.35, ySpan))
+            : 0);
           if (isFreeSpot(x, y, excludes, active)) return { x, y };
         }
 
@@ -3045,7 +3049,7 @@
 
         const w = layer.clientWidth;
         const h = layer.clientHeight;
-        if (w < TILE + 8 || h < 56) {
+        if (w < TILE_W + 8 || h < 56) {
           setTimeout(spawnHeroPaw, 900);
           return;
         }
