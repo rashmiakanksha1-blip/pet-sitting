@@ -17,51 +17,51 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      color-scheme: dark;
-      /* Ink base */
-      --bg: #12161e;
-      --bg-warm: #181d27;
-      --surface: #1e2430;
-      --surface-raised: #262e3d;
-      --text: #e9ebf0;
-      --text-muted: #9399a8;
-      --border: #353d4f;
-      /* Range 1 — sage teal */
-      --sage: #6ba896;
-      --sage-light: #1a2420;
-      --sage-dark: #4a7d6e;
+      color-scheme: light;
+      /* Warm neutral base */
+      --bg: #f8f6f2;
+      --bg-warm: #f1ebe4;
+      --surface: #ffffff;
+      --surface-raised: #faf8f5;
+      --text: #1e2430;
+      --text-muted: #6b7280;
+      --border: #e2ddd4;
+      /* Range 1 — sage teal (accents only, not background) */
+      --sage: #5a9a8a;
+      --sage-light: #e8f2ef;
+      --sage-dark: #3d6b5f;
       /* Range 2 — terracotta */
       --coral: #d4846a;
-      --coral-light: #2a1f1c;
+      --coral-light: #fdf0eb;
       --coral-dark: #a85f48;
       /* Range 3 — dusty rose */
       --rose: #c47a94;
-      --rose-light: #281c22;
+      --rose-light: #fceef2;
       --rose-dark: #8f5568;
       /* Gold highlights */
-      --amber: #d4ad3a;
-      --amber-light: #2a2416;
+      --amber: #c9a227;
+      --amber-light: #fdf8e8;
       /* Slate neutral */
       --slate: #7a8a9e;
-      --slate-light: #1e242c;
-      --tier-off-bg: #222830;
-      --tier-peak-bg: #2c2818;
-      --tier-peak-border: #5a4e30;
-      --tier-super-bg: #2c2024;
-      --tier-super-border: #5a4048;
-      --tier-peak-label: #d4b45a;
-      --tier-super-label: #d492a8;
-      --day-muted-bg: #1e2228;
-      --day-muted-border: #343a44;
-      --day-muted-text: #7a848e;
-      --status-available: #5cb85c;
-      --status-available-text: #7dd67d;
-      --status-booked: #e05252;
-      --status-booked-text: #f08080;
-      --status-unavail: #8a9098;
-      --status-unavail-text: #a8aeb4;
-      --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
-      --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.45);
+      --slate-light: #eef1f4;
+      --tier-off-bg: #f4f5f7;
+      --tier-peak-bg: #faf6ec;
+      --tier-peak-border: #e8dcc0;
+      --tier-super-bg: #faf0f2;
+      --tier-super-border: #e8cdd5;
+      --tier-peak-label: #9a7830;
+      --tier-super-label: #a85a72;
+      --day-muted-bg: #eeeff2;
+      --day-muted-border: #d8dce2;
+      --day-muted-text: #8a9098;
+      --status-available: #4a9e5c;
+      --status-available-text: #3d8a4d;
+      --status-booked: #d45252;
+      --status-booked-text: #c04545;
+      --status-unavail: #9aa0a8;
+      --status-unavail-text: #7a8088;
+      --shadow: 0 4px 24px rgba(30, 36, 48, 0.06);
+      --shadow-lg: 0 12px 48px rgba(30, 36, 48, 0.1);
       --radius: 16px;
       --radius-sm: 10px;
     }
@@ -72,10 +72,9 @@
     body {
       font-family: 'Outfit', sans-serif;
       background:
-        radial-gradient(ellipse 95% 65% at 6% -8%, rgba(107, 168, 150, 0.14), transparent 60%),
-        radial-gradient(ellipse 75% 55% at 96% 4%, rgba(212, 132, 106, 0.12), transparent 58%),
-        radial-gradient(ellipse 85% 60% at 92% 106%, rgba(196, 122, 148, 0.1), transparent 60%),
-        linear-gradient(160deg, var(--bg) 0%, var(--bg-warm) 100%);
+        radial-gradient(ellipse 90% 60% at 8% -5%, rgba(212, 132, 106, 0.06), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 94% 8%, rgba(196, 122, 148, 0.05), transparent 55%),
+        linear-gradient(165deg, var(--bg) 0%, var(--bg-warm) 100%);
       background-attachment: fixed;
       color: var(--text);
       min-height: 100vh;
@@ -86,7 +85,7 @@
       content: '';
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%237fa886' fill-opacity='0.04'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3Cg transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23c4bdb4' fill-opacity='0.35'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3Cg transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
       background-size: 220px 220px;
       pointer-events: none;
       z-index: 0;
@@ -101,9 +100,9 @@
       margin: -280px 0 0 -280px;
       border-radius: 50%;
       background:
-        radial-gradient(circle, rgba(107, 143, 113, 0.16), transparent 65%),
-        radial-gradient(circle at 50% 50%, rgba(201, 162, 39, 0.14) 0%, transparent 38%);
-      mix-blend-mode: screen;
+        radial-gradient(circle, rgba(212, 132, 106, 0.12), transparent 65%),
+        radial-gradient(circle at 50% 50%, rgba(201, 162, 39, 0.1) 0%, transparent 38%);
+      mix-blend-mode: multiply;
       pointer-events: none;
       z-index: 0;
       opacity: 0;
@@ -1633,7 +1632,7 @@
     </section>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (y2)</span><br />
+      <span id="siteVersion" style="color:var(--text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (z)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
