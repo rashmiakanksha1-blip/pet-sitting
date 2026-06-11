@@ -215,15 +215,52 @@
       z-index: 1;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 2rem 1.5rem 3rem;
+      padding: 0 1.5rem 3rem;
       color: var(--page-text);
+    }
+
+    .hero-terracotta {
+      margin: 0 -1.5rem 3mm;
+      padding: 2rem 1.5rem 1.85rem;
+      background: linear-gradient(160deg, var(--accent-dark) 0%, var(--accent) 55%, #cf8468 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-terracotta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23ffffff' fill-opacity='0.11'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3Cg fill='%23ffffff' fill-opacity='0.07' transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 220px 220px;
+      pointer-events: none;
+    }
+
+    .hero-terracotta-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     header {
       position: relative;
       text-align: center;
-      margin-bottom: 2.5rem;
+      margin-bottom: 0;
       padding-top: 0.25rem;
+    }
+
+    .hero-terracotta .logo h1 {
+      color: #fff;
+    }
+
+    .hero-terracotta .logo-icon {
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14);
+    }
+
+    .hero-terracotta .tagline {
+      color: rgba(255, 255, 255, 0.9);
     }
 
     .header-book-btn {
@@ -1719,30 +1756,34 @@
   <div class="bg-glow" id="bgGlow" aria-hidden="true"></div>
   <div class="bg-glow-core" id="bgGlowCore" aria-hidden="true"></div>
   <div class="page">
-    <header>
-      <a class="header-book-btn" id="bookBtn" href="#">Book my slot</a>
-      <div class="logo">
-        <div class="logo-icon">🐾</div>
-        <h1 id="businessName">Paws & Stay</h1>
-      </div>
-      <p class="tagline" id="tagline">Sit, stay. We'll take it from here</p>
-      <div class="pets-info" id="petsInfo">
-        <div class="pets-info-item">
-          <span class="pets-info-icon" aria-hidden="true">🐱</span>
-          <div>
-            <strong>Cats</strong>
-            <span id="petsCats">All sizes welcome</span>
+    <div class="hero-terracotta">
+      <div class="hero-terracotta-inner">
+        <header>
+          <a class="header-book-btn" id="bookBtn" href="#">Book my slot</a>
+          <div class="logo">
+            <div class="logo-icon">🐾</div>
+            <h1 id="businessName">Paws & Stay</h1>
           </div>
-        </div>
-        <div class="pets-info-item">
-          <span class="pets-info-icon" aria-hidden="true">🐕</span>
-          <div>
-            <strong>Dogs</strong>
-            <span id="petsDogs">Small breeds · pug-sized &amp; similar</span>
+          <p class="tagline" id="tagline">Sit, stay. We'll take it from here</p>
+          <div class="pets-info" id="petsInfo">
+            <div class="pets-info-item">
+              <span class="pets-info-icon" aria-hidden="true">🐱</span>
+              <div>
+                <strong>Cats</strong>
+                <span id="petsCats">All sizes welcome</span>
+              </div>
+            </div>
+            <div class="pets-info-item">
+              <span class="pets-info-icon" aria-hidden="true">🐕</span>
+              <div>
+                <strong>Dogs</strong>
+                <span id="petsDogs">Small breeds · pug-sized &amp; similar</span>
+              </div>
+            </div>
           </div>
-        </div>
+        </header>
       </div>
-    </header>
+    </div>
 
     <nav class="site-nav owner-only" id="ownerNav" hidden>
       <a href="index.html" class="active">Calendar</a>
