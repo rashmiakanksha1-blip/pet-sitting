@@ -274,7 +274,8 @@
     }
 
     .calendar-panel .calendar-header .paw-twinkle-pulse,
-    .rates-block .rate-card-head .paw-twinkle-pulse {
+    .rates-block .rate-card-head .paw-twinkle-pulse,
+    .about-band .about-section-head .paw-twinkle-pulse {
       -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='76' viewBox='0 0 100 76'%3E%3Cg fill='%23ffffff' transform='translate(6 8) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%23ffffff' transform='translate(48 32) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
       mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='76' viewBox='0 0 100 76'%3E%3Cg fill='%23ffffff' transform='translate(6 8) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%23ffffff' transform='translate(48 32) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
       -webkit-mask-size: 84px 58px;
@@ -285,7 +286,8 @@
       background: linear-gradient(180deg, #faf4f0 0%, var(--accent-light-soft) 100%);
     }
 
-    .rates-block .rate-card-head .paw-twinkle-pulse {
+    .rates-block .rate-card-head .paw-twinkle-pulse,
+    .about-band .about-section-head .paw-twinkle-pulse {
       background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
     }
 
@@ -1263,9 +1265,6 @@
       color: var(--page-text);
     }
 
-    .about-section .section-header h3 {
-      color: var(--page-text);
-    }
 
     .reviews-section .title-play {
       font-style: italic;
@@ -1417,18 +1416,6 @@
       padding: 1.15rem 1.5rem 0;
       color: var(--accent-light-text);
       background: linear-gradient(180deg, var(--accent-light-mid) 0%, var(--accent-light-soft) 100%);
-    }
-
-    .about-band .section-header {
-      margin-bottom: 1rem;
-      padding: 0;
-      text-align: left;
-    }
-
-    .about-band .section-header p {
-      color: var(--page-text-muted);
-      margin: 0;
-      max-width: none;
     }
 
     .about-band-foot {
@@ -1647,7 +1634,8 @@
       overflow: hidden;
     }
 
-    .rates-block .rate-card-head {
+    .rates-block .rate-card-head,
+    .about-band .about-section-head {
       position: relative;
       overflow: hidden;
       background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
@@ -1655,7 +1643,8 @@
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
     }
 
-    .rates-block .rate-card-head::before {
+    .rates-block .rate-card-head::before,
+    .about-band .about-section-head::before {
       content: '';
       position: absolute;
       inset: 0;
@@ -1667,7 +1656,8 @@
       mask-image: var(--paw-ribbon-side-mask);
     }
 
-    .rates-block .rate-card-head-text {
+    .rates-block .rate-card-head-text,
+    .about-band .about-section-head .rate-card-head-text {
       position: relative;
       z-index: 1;
       display: inline-block;
@@ -1675,7 +1665,8 @@
       background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
     }
 
-    .rates-block .service-card-title {
+    .rates-block .service-card-title,
+    .about-band .about-section-head .service-card-title {
       color: #fff;
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.25rem;
@@ -1686,7 +1677,8 @@
       text-shadow: 0 1px 1px rgba(74, 50, 40, 0.2);
     }
 
-    .rates-block .service-card-sub {
+    .rates-block .service-card-sub,
+    .about-band .about-section-head .service-card-sub {
       font-size: 0.72rem;
       color: rgba(255, 255, 255, 0.88);
       margin-bottom: 0;
@@ -2383,11 +2375,13 @@
 
   <section class="about-section" aria-label="Who we are">
     <div class="about-band">
-      <div class="about-band-inner">
-        <div class="section-header">
-          <h3>Who we are</h3>
-          <p>Small-team pet sitting in London</p>
+      <div class="about-section-head">
+        <div class="rate-card-head-text">
+          <h3 class="service-card-title">Who we are</h3>
+          <p class="service-card-sub">Small-team pet sitting in London</p>
         </div>
+      </div>
+      <div class="about-band-inner">
         <div class="about-copy">
           <p>
             <span id="aboutBusinessName">Pet Sitters Club</span> is a small, dedicated pet sitting service in London.
@@ -3101,6 +3095,7 @@
       const PAW_TWINKLE_TILES = [
         { selector: '.calendar-panel .calendar-header', tileW: 84, tileH: 58, maxActive: 4, sideBand: 0.28 },
         { selector: '.rates-block .rate-card-head', tileW: 84, tileH: 58, maxActive: 3, sideBand: 0.26 },
+        { selector: '.about-band .about-section-head', tileW: 84, tileH: 58, maxActive: 3, sideBand: 0.26 },
       ];
 
       function randomTileSpot(rect, tileW, tileH, sideBand) {
