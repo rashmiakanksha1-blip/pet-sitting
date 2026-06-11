@@ -248,36 +248,49 @@
       pointer-events: none;
     }
 
-    .hero-paw-layer {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
+    .hero-terracotta.paw-bg-twinkle::before,
+    .calendar-panel .calendar-header.paw-bg-twinkle::before,
+    .rates-block .rate-card-head.paw-bg-twinkle::before {
+      transition: opacity 0.45s ease, -webkit-mask-image 0.15s ease, mask-image 0.15s ease;
     }
 
-    .hero-spark-paw {
-      position: absolute;
-      opacity: 0;
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
-      animation: heroPawPop ease-in-out forwards;
+    .hero-terracotta.paw-bg-twinkle::before {
+      opacity: 0.55;
     }
 
-    .hero-spark-paw.alt {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23ffffff' fill-opacity='0.72'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
+    .calendar-panel .calendar-header.paw-bg-twinkle::before,
+    .rates-block .rate-card-head.paw-bg-twinkle::before {
+      opacity: 0.42;
     }
 
-    @keyframes heroPawPop {
-      0% { opacity: 0; transform: scale(0.88) rotate(var(--paw-rot, 0deg)); }
-      14% { opacity: var(--paw-peak, 0.28); transform: scale(1) rotate(var(--paw-rot, 0deg)); }
-      58% { opacity: var(--paw-peak, 0.28); transform: scale(1) rotate(var(--paw-rot, 0deg)); }
-      100% { opacity: 0; transform: scale(0.92) rotate(var(--paw-rot, 0deg)); }
+    .hero-terracotta.paw-bg-twinkle.paw-flash-on::before {
+      opacity: 1;
+      -webkit-mask-image: radial-gradient(circle var(--flash-r, 52px) at var(--flash-x, 50%) var(--flash-y, 50%), #000 0%, #000 36%, transparent 100%);
+      mask-image: radial-gradient(circle var(--flash-r, 52px) at var(--flash-x, 50%) var(--flash-y, 50%), #000 0%, #000 36%, transparent 100%);
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .hero-paw-layer { display: none; }
+    .calendar-panel .calendar-header.paw-bg-twinkle.paw-flash-on::before {
+      opacity: 1;
+      -webkit-mask-image:
+        radial-gradient(circle var(--flash-r, 52px) at var(--flash-x, 50%) var(--flash-y, 50%), #000 0%, #000 36%, transparent 100%),
+        linear-gradient(90deg, #000 0%, #000 14%, transparent 24%, transparent 76%, #000 86%, #000 100%);
+      -webkit-mask-composite: source-in, source-over;
+      mask-image:
+        radial-gradient(circle var(--flash-r, 52px) at var(--flash-x, 50%) var(--flash-y, 50%), #000 0%, #000 36%, transparent 100%),
+        linear-gradient(90deg, #000 0%, #000 14%, transparent 24%, transparent 76%, #000 86%, #000 100%);
+      mask-composite: intersect, add;
+    }
+
+    .rates-block .rate-card-head.paw-bg-twinkle.paw-flash-on::before {
+      opacity: 1;
+      -webkit-mask-image:
+        radial-gradient(circle var(--flash-r, 52px) at var(--flash-x, 50%) var(--flash-y, 50%), #000 0%, #000 36%, transparent 100%),
+        linear-gradient(90deg, #000 0%, #000 10%, transparent 20%, transparent 72%, #000 82%, #000 100%);
+      -webkit-mask-composite: source-in, source-over;
+      mask-image:
+        radial-gradient(circle var(--flash-r, 52px) at var(--flash-x, 50%) var(--flash-y, 50%), #000 0%, #000 36%, transparent 100%),
+        linear-gradient(90deg, #000 0%, #000 10%, transparent 20%, transparent 72%, #000 82%, #000 100%);
+      mask-composite: intersect, add;
     }
 
     .hero-terracotta-inner {
@@ -2101,11 +2114,10 @@
   <div class="bg-glow" id="bgGlow" aria-hidden="true"></div>
   <div class="bg-glow-core" id="bgGlowCore" aria-hidden="true"></div>
   <div class="hero-terracotta">
-    <div class="hero-paw-layer" id="heroPawLayer" aria-hidden="true"></div>
     <div class="hero-terracotta-inner">
       <header>
         <a class="header-book-btn" id="bookBtn" href="#">Book my slot</a>
-        <div class="hero-brand-block" id="heroPawFreeZone">
+        <div class="hero-brand-block">
           <div class="logo">
             <div class="logo-icon">🐾</div>
             <h1 id="businessName">Paws & Stay</h1>
@@ -2904,107 +2916,35 @@
       });
     }
 
-    function initHeroSparkPaws() {
-      const layer = document.getElementById('heroPawLayer');
-      const freeZone = document.getElementById('heroPawFreeZone');
-      if (!layer) return;
+    function initExistingPawTwinkle() {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      const pawMax = window.innerWidth < 600 ? 12 : 18;
+      const hosts = document.querySelectorAll(
+        '.hero-terracotta, .calendar-panel .calendar-header, .rates-block .rate-card-head'
+      );
+      if (!hosts.length) return;
 
-      function textAvoidRect(layerRect) {
-        if (!freeZone) return null;
-        const r = freeZone.getBoundingClientRect();
-        const pad = 14;
-        return {
-          left: r.left - layerRect.left - pad,
-          right: r.right - layerRect.left + pad,
-          top: r.top - layerRect.top - pad,
-          bottom: r.bottom - layerRect.top + pad,
-        };
+      function scheduleFlash(host) {
+        const wait = 500 + Math.random() * 2400;
+        setTimeout(() => {
+          host.style.setProperty('--flash-x', (6 + Math.random() * 88) + '%');
+          host.style.setProperty('--flash-y', (6 + Math.random() * 88) + '%');
+          host.style.setProperty('--flash-r', (38 + Math.random() * 42) + 'px');
+          host.classList.add('paw-flash-on');
+          setTimeout(() => {
+            host.classList.remove('paw-flash-on');
+            scheduleFlash(host);
+          }, 320 + Math.random() * 780);
+        }, wait);
       }
 
-      function spawnRegions(layerRect, avoid) {
-        const min = 36;
-        const regions = [];
-        if (!avoid) {
-          regions.push({ x0: 0, y0: 0, x1: layerRect.width, y1: layerRect.height });
-          return regions;
-        }
-        if (avoid.left >= min) {
-          regions.push({ x0: 0, y0: 0, x1: avoid.left, y1: layerRect.height });
-        }
-        if (layerRect.width - avoid.right >= min) {
-          regions.push({ x0: avoid.right, y0: 0, x1: layerRect.width, y1: layerRect.height });
-        }
-        if (avoid.top >= min) {
-          regions.push({ x0: 0, y0: 0, x1: layerRect.width, y1: avoid.top });
-        }
-        if (layerRect.height - avoid.bottom >= min) {
-          regions.push({ x0: 0, y0: avoid.bottom, x1: layerRect.width, y1: layerRect.height });
-        }
-        return regions;
-      }
-
-      function randomSpot(size, layerRect, avoid) {
-        const regions = spawnRegions(layerRect, avoid);
-        const slots = regions.map((region) => {
-          const w = Math.max(0, region.x1 - region.x0 - size);
-          const h = Math.max(0, region.y1 - region.y0 - size);
-          return { region, area: w * h };
-        }).filter((slot) => slot.area > 0);
-        if (!slots.length) return null;
-
-        const total = slots.reduce((sum, slot) => sum + slot.area, 0);
-        let pick = Math.random() * total;
-        let chosen = slots[0];
-        for (const slot of slots) {
-          pick -= slot.area;
-          if (pick <= 0) { chosen = slot; break; }
-        }
-
-        const { region } = chosen;
-        return {
-          x: region.x0 + Math.random() * Math.max(0, region.x1 - region.x0 - size),
-          y: region.y0 + Math.random() * Math.max(0, region.y1 - region.y0 - size),
-        };
-      }
-
-      function spawnPaw() {
-        const layerRect = layer.getBoundingClientRect();
-        const avoid = textAvoidRect(layerRect);
-        const size = 52 + Math.random() * 36;
-        const spot = randomSpot(size, layerRect, avoid);
-        if (!spot) {
-          setTimeout(spawnPaw, 900 + Math.random() * 1200);
-          return;
-        }
-
-        const paw = document.createElement('div');
-        paw.className = 'hero-spark-paw' + (Math.random() > 0.5 ? ' alt' : '');
-        paw.style.width = size + 'px';
-        paw.style.height = size + 'px';
-        paw.style.left = spot.x + 'px';
-        paw.style.top = spot.y + 'px';
-        paw.style.setProperty('--paw-rot', (Math.random() * 50 - 25) + 'deg');
-        paw.style.setProperty('--paw-peak', (0.18 + Math.random() * 0.2).toFixed(2));
-        const dur = 2.8 + Math.random() * 5.2;
-        paw.style.animationDuration = dur + 's';
-        paw.addEventListener('animationend', () => paw.remove());
-        layer.appendChild(paw);
-        setTimeout(spawnPaw, dur * 1000 * (0.25 + Math.random() * 0.4));
-      }
-
-      for (let i = 0; i < pawMax; i++) {
-        setTimeout(spawnPaw, i * (280 + Math.random() * 420));
-      }
-
-      window.addEventListener('resize', () => {
-        layer.querySelectorAll('.hero-spark-paw').forEach((el) => el.remove());
+      hosts.forEach((host, index) => {
+        host.classList.add('paw-bg-twinkle');
+        setTimeout(() => scheduleFlash(host), index * (180 + Math.random() * 420));
       });
     }
 
-    initHeroSparkPaws();
+    initExistingPawTwinkle();
     initHeroRibbonMarquee();
     boot();
   </script>
