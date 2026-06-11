@@ -222,8 +222,8 @@
       pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23ffffff' fill-opacity='0.11'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3Cg fill='%23ffffff' fill-opacity='0.07' transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
       background-size: 220px 220px;
-      -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 8%, transparent 18%, transparent 82%, #000 92%, #000 100%);
-      mask-image: linear-gradient(90deg, #000 0%, #000 8%, transparent 18%, transparent 82%, #000 92%, #000 100%);
+      -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 10%, transparent 24%, transparent 76%, #000 90%, #000 100%);
+      mask-image: linear-gradient(90deg, #000 0%, #000 10%, transparent 24%, transparent 76%, #000 90%, #000 100%);
     }
 
     .hero-paw-layer {
@@ -2889,30 +2889,157 @@
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       const layer = document.getElementById('heroPawLayer');
-      if (!layer) return;
+      const host = document.querySelector('.hero-terracotta-top');
+      if (!layer || !host) return;
 
       const TILE = 220;
-      const MAX_ACTIVE = 8;
-      const SIDE_BAND = 0.34;
+      const MAX_ACTIVE = 6;
+      const MIN_GAP = 108;
+      const PAD = 10;
 
-      function heroSideSpot(w, h) {
-        const pad = 4;
-        const leftMax = w * SIDE_BAND;
-        const rightMin = w * (1 - SIDE_BAND);
-        const useLeft = Math.random() < 0.5;
-        let x;
-        if (useLeft) {
-          x = pad + Math.random() * Math.max(0, leftMax - TILE - pad);
-        } else {
-          x = rightMin + Math.random() * Math.max(0, w - rightMin - TILE - pad);
+      function textClusterRect() {
+        const layerRect = layer.getBoundingClientRect();
+        const parts = [
+          host.querySelector('.logo'),
+          host.querySelector('.tagline'),
+          host.querySelector('.hero-cta-stack'),
+        ].filter(Boolean);
+        if (!parts.length) return null;
+
+        let left = Infinity;
+        let right = -Infinity;
+        let top = Infinity;
+        let bottom = -Infinity;
+        parts.forEach((el) => {
+          const r = el.getBoundingClientRect();
+          left = Math.min(left, r.left);
+          right = Math.max(right, r.right);
+          top = Math.min(top, r.top);
+          bottom = Math.max(bottom, r.bottom);
+        });
+
+        return {
+          left: left - layerRect.left,
+          right: right - layerRect.left,
+          top: top - layerRect.top,
+          bottom: bottom - layerRect.top,
+        };
+      }
+
+      function exclusionRects() {
+        const layerRect = layer.getBoundingClientRect();
+        const rects = [];
+        const cluster = textClusterRect();
+        if (cluster) {
+          rects.push({
+            left: cluster.left - 18,
+            top: cluster.top - 12,
+            right: cluster.right + 18,
+            bottom: cluster.bottom + 12,
+          });
         }
-        const y = pad + Math.random() * Math.max(0, h - TILE - pad * 2);
-        return { x, y };
+        const bookBtn = host.querySelector('.header-book-btn');
+        if (bookBtn) {
+          const r = bookBtn.getBoundingClientRect();
+          rects.push({
+            left: r.left - layerRect.left - 14,
+            top: r.top - layerRect.top - 10,
+            right: r.right - layerRect.left + 14,
+            bottom: r.bottom - layerRect.top + 10,
+          });
+        }
+        return rects;
+      }
+
+      function buildSpawnZones(w, h) {
+        const cluster = textClusterRect();
+        let contentLeft = w * 0.22;
+        let contentRight = w * 0.78;
+        if (cluster) {
+          contentLeft = cluster.left;
+          contentRight = cluster.right;
+        }
+
+        const zones = [];
+        const yMax = Math.max(PAD, h - TILE - PAD);
+
+        const leftXMax = contentLeft - PAD - TILE;
+        if (leftXMax >= PAD) {
+          zones.push({ side: 'left', xMin: PAD, xMax: leftXMax, yMin: PAD, yMax: yMax, weight: leftXMax - PAD });
+        }
+
+        const rightXMin = contentRight + PAD;
+        const rightXMax = w - TILE - PAD;
+        if (rightXMax >= rightXMin) {
+          zones.push({ side: 'right', xMin: rightXMin, xMax: rightXMax, yMin: PAD, yMax: yMax, weight: rightXMax - rightXMin });
+        }
+
+        return zones;
+      }
+
+      function activeRects() {
+        return Array.from(layer.querySelectorAll('.hero-paw-pulse')).map((el) => ({
+          left: parseFloat(el.style.left) || 0,
+          top: parseFloat(el.style.top) || 0,
+          right: (parseFloat(el.style.left) || 0) + TILE,
+          bottom: (parseFloat(el.style.top) || 0) + TILE,
+        }));
+      }
+
+      function overlapsRect(x, y, rect, gap) {
+        return x - gap < rect.right && x + TILE + gap > rect.left
+          && y - gap < rect.bottom && y + TILE + gap > rect.top;
+      }
+
+      function isFreeSpot(x, y, excludes, active) {
+        for (const z of excludes) {
+          if (overlapsRect(x, y, z, 0)) return false;
+        }
+        for (const a of active) {
+          if (overlapsRect(x, y, a, MIN_GAP)) return false;
+        }
+        return true;
+      }
+
+      function pickZone(zones) {
+        const total = zones.reduce((sum, z) => sum + Math.max(1, z.weight), 0);
+        let roll = Math.random() * total;
+        for (const zone of zones) {
+          roll -= Math.max(1, zone.weight);
+          if (roll <= 0) return zone;
+        }
+        return zones[zones.length - 1];
+      }
+
+      function heroMarginSpot(w, h) {
+        const zones = buildSpawnZones(w, h);
+        if (!zones.length) return null;
+
+        const excludes = exclusionRects();
+        const active = activeRects();
+        const zone = pickZone(zones);
+        const xSpan = Math.max(0, zone.xMax - zone.xMin);
+        const ySpan = Math.max(0, zone.yMax - zone.yMin);
+        if (xSpan <= 0 || ySpan <= 0) return null;
+
+        const slotStep = 118;
+        const xSlots = Math.max(1, Math.floor(xSpan / slotStep) + 1);
+        const ySlots = Math.max(1, Math.floor(ySpan / slotStep) + 1);
+
+        for (let attempt = 0; attempt < 36; attempt += 1) {
+          const xSlot = Math.floor(Math.random() * xSlots);
+          const ySlot = Math.floor(Math.random() * ySlots);
+          const x = zone.xMin + Math.min(xSpan, xSlot * slotStep + Math.random() * Math.min(slotStep * 0.35, xSpan));
+          const y = zone.yMin + Math.min(ySpan, ySlot * slotStep + Math.random() * Math.min(slotStep * 0.35, ySpan));
+          if (isFreeSpot(x, y, excludes, active)) return { x, y };
+        }
+
+        return null;
       }
 
       function spawnHeroPaw() {
         if (layer.querySelectorAll('.hero-paw-pulse').length >= MAX_ACTIVE) {
-          setTimeout(spawnHeroPaw, 350 + Math.random() * 650);
+          setTimeout(spawnHeroPaw, 400 + Math.random() * 700);
           return;
         }
 
@@ -2923,7 +3050,12 @@
           return;
         }
 
-        const spot = heroSideSpot(w, h);
+        const spot = heroMarginSpot(w, h);
+        if (!spot) {
+          setTimeout(spawnHeroPaw, 700 + Math.random() * 900);
+          return;
+        }
+
         const pulse = document.createElement('div');
         pulse.className = 'hero-paw-pulse';
         pulse.setAttribute('aria-hidden', 'true');
@@ -2934,13 +3066,23 @@
         pulse.addEventListener('animationend', function () { pulse.remove(); });
         layer.appendChild(pulse);
 
-        setTimeout(spawnHeroPaw, 450 + Math.random() * 1600);
+        setTimeout(spawnHeroPaw, 550 + Math.random() * 1700);
       }
 
       function bootHeroPaws() {
-        for (let i = 0; i < 5; i++) {
-          setTimeout(spawnHeroPaw, i * (280 + Math.random() * 420));
+        for (let i = 0; i < 4; i++) {
+          setTimeout(spawnHeroPaw, i * (320 + Math.random() * 480));
         }
+        let resizeTimer;
+        window.addEventListener('resize', function () {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(function () {
+            layer.querySelectorAll('.hero-paw-pulse').forEach((el) => el.remove());
+            for (let i = 0; i < 3; i++) {
+              setTimeout(spawnHeroPaw, i * 400);
+            }
+          }, 200);
+        });
       }
 
       if (document.readyState === 'complete') {
