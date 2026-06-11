@@ -2941,8 +2941,6 @@
         { selector: '.rates-block .rate-card-head', tileW: 92, tileH: 68, maxActive: 5 },
       ];
 
-      const activeTiles = new WeakMap();
-
       function spawnPulse(host, config) {
         if (host.querySelectorAll('.paw-twinkle-pulse').length >= config.maxActive) {
           setTimeout(() => spawnPulse(host, config), 200 + Math.random() * 500);
@@ -2950,51 +2948,37 @@
         }
 
         const rect = host.getBoundingClientRect();
-        if (rect.width < config.tileW || rect.height < config.tileH) {
+        const minW = config.tileW * 0.42;
+        const minH = config.tileH * 0.42;
+        if (rect.width < minW || rect.height < minH) {
           setTimeout(() => spawnPulse(host, config), 800);
           return;
         }
 
-        const cols = Math.max(1, Math.floor(rect.width / config.tileW));
-        const rows = Math.max(1, Math.floor(rect.height / config.tileH));
-        const busy = activeTiles.get(host) || new Set();
-        let col = 0;
-        let row = 0;
-        let picked = false;
-        for (let attempt = 0; attempt < cols * rows; attempt++) {
-          col = Math.floor(Math.random() * cols);
-          row = Math.floor(Math.random() * rows);
-          const key = col + ':' + row;
-          if (!busy.has(key)) {
-            busy.add(key);
-            picked = true;
-            break;
-          }
-        }
-        if (!picked) {
-          setTimeout(() => spawnPulse(host, config), 300 + Math.random() * 500);
-          return;
-        }
-        activeTiles.set(host, busy);
-
-        const x = col * config.tileW;
-        const y = row * config.tileH;
-        const tileKey = col + ':' + row;
+        const sizeW = config.tileW * (0.5 + Math.random() * 0.45);
+        const sizeH = config.tileH * (0.5 + Math.random() * 0.45);
+        const x = Math.random() * Math.max(0, rect.width - sizeW);
+        const y = Math.random() * Math.max(0, rect.height - sizeH);
+        const maskX = -(x % config.tileW);
+        const maskY = -(y % config.tileH);
+        const isSideMasked = host.matches('.calendar-panel .calendar-header, .rates-block .rate-card-head');
+        const maskPos = isSideMasked
+          ? (maskX + 'px ' + maskY + 'px, 0 0')
+          : (maskX + 'px ' + maskY + 'px');
 
         const pulse = document.createElement('div');
         pulse.className = 'paw-twinkle-pulse';
         pulse.setAttribute('aria-hidden', 'true');
-        pulse.style.width = config.tileW + 'px';
-        pulse.style.height = config.tileH + 'px';
+        pulse.style.width = sizeW + 'px';
+        pulse.style.height = sizeH + 'px';
         pulse.style.left = x + 'px';
         pulse.style.top = y + 'px';
+        pulse.style.webkitMaskPosition = maskPos;
+        pulse.style.maskPosition = maskPos;
         pulse.style.animationDuration = (1.2 + Math.random() * 2) + 's';
-        pulse.style.animationDelay = (Math.random() * 0.2) + 's';
+        pulse.style.animationDelay = (Math.random() * 0.35) + 's';
 
-        pulse.addEventListener('animationend', () => {
-          busy.delete(tileKey);
-          pulse.remove();
-        });
+        pulse.addEventListener('animationend', () => pulse.remove());
         host.appendChild(pulse);
 
         setTimeout(() => spawnPulse(host, config), 180 + Math.random() * 900);
