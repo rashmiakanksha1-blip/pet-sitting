@@ -12,9 +12,7 @@ const SITE_CONFIG = {
   },
 
   // ONE link for word-of-mouth — share this everywhere; it never changes.
-  // After you host on Netlify, paste your real URL here (see netlify.toml).
-  // Netlify deploys are blocked until credits are restored — mirror is current.
-  publicBookingUrl: 'https://rashmiakanksha1-blip.github.io/pet-sitting/availability/',
+  publicBookingUrl: 'https://petsittersclublondon.netlify.app/book',
 
   contactEmail: 'petsittersclublondon@gmail.com',
   bookingEmail: 'petsittersclublondon@gmail.com',
