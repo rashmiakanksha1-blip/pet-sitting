@@ -72,6 +72,7 @@
       --cal-day-super-border: rgba(196, 120, 92, 0.5);
       --rate-card-green-from: #749e88;
       --rate-card-green-to: #58876e;
+      --reviewer-name-color: var(--accent);
       --ribbon-shadow: inset 0 5px 14px -6px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.1);
       --radius: 16px;
       --radius-sm: 10px;
@@ -570,7 +571,6 @@
     .content-ribbon-item {
       font-size: 0.82rem;
       font-weight: 500;
-      color: var(--text-muted);
       white-space: nowrap;
     }
 
@@ -1057,8 +1057,9 @@
     }
 
     .review-meta strong,
-    .about-card .about-ribbon .content-ribbon-item {
-      color: #c4785c;
+    .about-card .content-ribbon.about-ribbon .about-ribbon-track .content-ribbon-item {
+      color: var(--reviewer-name-color);
+      font-family: 'Outfit', sans-serif;
       font-weight: 500;
     }
 
@@ -1124,7 +1125,7 @@
       display: block;
     }
 
-    .about-card .about-ribbon .content-ribbon-item {
+    .about-card .content-ribbon.about-ribbon .about-ribbon-track .content-ribbon-item {
       font-size: 1rem;
     }
 
@@ -1665,7 +1666,7 @@
         text-align: right;
       }
 
-      .about-card .about-ribbon .content-ribbon-item {
+      .about-card .content-ribbon.about-ribbon .about-ribbon-track .content-ribbon-item {
         font-size: 0.92rem;
       }
     }
@@ -1945,7 +1946,7 @@
     <div class="section-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <footer>© 2026 Paws & Stay · Rates subject to change<br />
-      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (bu)</span><br />
+      <span id="siteVersion" style="color:var(--page-text-muted);font-size:0.72rem;">Site updated 10 Jun 2026 (bv)</span><br />
       <a href="owner.html" id="ownerLoginLink" style="color:var(--text-muted);font-size:0.72rem;margin-top:0.35rem;display:inline-block;">Owner login</a>
     </footer>
   </div>
