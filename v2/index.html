@@ -320,16 +320,17 @@
       margin: 1rem auto 0;
     }
 
-    .hero-ribbon-full {
+    .content-ribbon.about-ribbon.hero-ribbon-full {
       width: 100%;
       margin: 1rem 0 0;
-      background: var(--sage-light);
+      background: linear-gradient(180deg, var(--sage-hue) 0%, var(--sage-dark) 100%);
       border: none;
-      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-top: 2px solid rgba(255, 255, 255, 0.25);
+      border-bottom: 3px solid rgba(26, 74, 80, 0.55);
       border-radius: 0;
-      box-shadow: none;
+      box-shadow: 0 4px 14px rgba(42, 96, 104, 0.35), 0 2px 4px rgba(0, 0, 0, 0.12);
       overflow: hidden;
-      padding: 0.75rem 0;
+      padding: 0.8rem 0;
       min-height: 0;
       display: block;
       flex-wrap: nowrap;
@@ -337,15 +338,16 @@
 
     .hero-ribbon-full .about-ribbon-track .content-ribbon-item {
       font-size: 1rem;
-      color: var(--page-text);
+      color: #fff;
       font-family: 'Outfit', sans-serif;
       font-weight: 600;
       letter-spacing: 0.01em;
+      text-shadow: 0 1px 1px rgba(26, 74, 80, 0.25);
     }
 
     .hero-ribbon-full .content-ribbon-dot {
-      background: var(--sage-hue);
-      opacity: 0.9;
+      background: rgba(255, 255, 255, 0.88);
+      opacity: 1;
     }
 
     .logo {
