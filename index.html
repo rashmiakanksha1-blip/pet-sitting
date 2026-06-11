@@ -2581,9 +2581,8 @@
         cell.innerHTML = `
           <span class="day-num">${d}</span>
           ${tierLabel ? `<span class="day-tier-label">${tierLabel}</span>` : ''}
-          <span class="day-status">
-            <span class="status-dot"></span>
-            <span class="status-label">${STATUS_SHORT[status]}</span>
+          <span class="day-status" aria-label="${STATUS_LABELS[status]}">
+            <span class="status-dot" aria-hidden="true"></span>
           </span>
           ${owner && booking ? `<span class="day-client">${!isConfirmedBooking(booking) ? 'Quote: ' : ''}${booking.petName}</span>` : ''}
         `;
