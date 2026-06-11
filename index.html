@@ -99,6 +99,7 @@
       --raised-accent-light-shadow: 0 4px 14px rgba(154, 92, 68, 0.26), 0 2px 4px rgba(0, 0, 0, 0.08);
       --radius: 16px;
       --radius-sm: 10px;
+      --paw-ribbon-side-mask: linear-gradient(90deg, #000 0%, #000 7%, rgba(0, 0, 0, 0.55) 13%, rgba(0, 0, 0, 0.12) 21%, transparent 29%, transparent 71%, rgba(0, 0, 0, 0.12) 79%, rgba(0, 0, 0, 0.55) 87%, #000 93%, #000 100%);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -112,16 +113,6 @@
       min-height: 100vh;
       line-height: 1.5;
       overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23c4785c' fill-opacity='0.13'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3Cg fill='%233dadb8' fill-opacity='0.13' transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
-      background-size: 220px 220px;
-      pointer-events: none;
-      z-index: 0;
     }
 
     .bg-glow {
@@ -191,33 +182,8 @@
       100% { opacity: 0; transform: translateY(-18px) scale(0.92); }
     }
 
-    .ambient-paw {
-      position: fixed;
-      bottom: -40px;
-      z-index: 0;
-      pointer-events: none;
-      width: 30px;
-      height: 30px;
-      opacity: 0;
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23c4785c'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
-      animation: ambientRise linear forwards;
-    }
-
-    .ambient-paw.sage {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%233dadb8'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
-    }
-
-    @keyframes ambientRise {
-      0% { opacity: 0; transform: translateY(0) rotate(var(--amb-rot, 0deg)); }
-      12% { opacity: 0.16; }
-      88% { opacity: 0.16; }
-      100% { opacity: 0; transform: translateY(-115vh) rotate(var(--amb-rot, 0deg)); }
-    }
-
     @media (prefers-reduced-motion: reduce) {
-      .bg-glow, .bg-glow-core, .paw-trail, .ambient-paw { display: none !important; }
+      .bg-glow, .bg-glow-core, .paw-trail { display: none !important; }
     }
 
     .page {
@@ -241,16 +207,42 @@
     .hero-terracotta-top {
       position: relative;
       overflow: hidden;
+      isolation: isolate;
     }
 
-    .hero-terracotta-top::before {
-      content: '';
+    .hero-paw-layer {
       position: absolute;
-      inset: 0;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 18px;
       z-index: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23ffffff' fill-opacity='0.11'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3Cg fill='%23ffffff' fill-opacity='0.07' transform='translate(85 78)'%3E%3Cpath d='M35 60c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm18 0c4 0 7-4 7-9s-3-9-7-9-7 4-7 9 3 9 7 9zm-31 6c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zm49 0c3 0 6-3 6-7s-3-7-6-7-6 3-6 7 3 7 6 7zM44 66c-7 0-13 6-15 13-1 5 3 9 8 9 3 0 5-1 7-1s4 1 7 1c5 0 9-4 8-9-2-7-8-13-15-13z'/%3E%3C/g%3E%3C/svg%3E");
-      background-size: 220px 220px;
       pointer-events: none;
+      overflow: hidden;
+    }
+
+    .hero-paw {
+      position: absolute;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23ffffff'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
+      opacity: var(--paw-peak, 0.18);
+      transform: rotate(var(--paw-rot, 0deg));
+      animation: heroPawDissolve var(--paw-dur, 9s) ease-in-out infinite;
+      animation-delay: var(--paw-delay, 0s);
+    }
+
+    @keyframes heroPawDissolve {
+      0%, 100% { opacity: var(--paw-peak, 0.18); }
+      28% { opacity: calc(var(--paw-peak, 0.18) * 0.55); }
+      42% { opacity: 0; }
+      58% { opacity: 0; }
+      72% { opacity: calc(var(--paw-peak, 0.18) * 0.5); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-paw { animation: none; }
     }
 
     .paw-twinkle-host {
@@ -262,10 +254,17 @@
       z-index: 0;
       pointer-events: none;
       opacity: 0;
-      border-radius: 50%;
-      -webkit-mask-image: radial-gradient(circle, #000 0%, #000 38%, transparent 72%);
-      mask-image: radial-gradient(circle, #000 0%, #000 38%, transparent 72%);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
       animation: pawFadeToRibbon ease-in-out forwards;
+    }
+
+    .calendar-panel .calendar-header .paw-twinkle-pulse,
+    .rates-block .rate-card-head .paw-twinkle-pulse {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='76' viewBox='0 0 100 76'%3E%3Cg fill='%23ffffff' transform='translate(6 8) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%23ffffff' transform='translate(48 32) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='76' viewBox='0 0 100 76'%3E%3Cg fill='%23ffffff' transform='translate(6 8) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%23ffffff' transform='translate(48 32) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
+      -webkit-mask-size: 84px 58px;
+      mask-size: 84px 58px;
     }
 
     .calendar-panel .calendar-header .paw-twinkle-pulse {
@@ -278,8 +277,8 @@
 
     @keyframes pawFadeToRibbon {
       0% { opacity: 0; }
-      18% { opacity: 1; }
-      52% { opacity: 1; }
+      24% { opacity: 0.96; }
+      58% { opacity: 0.88; }
       100% { opacity: 0; }
     }
 
@@ -593,10 +592,10 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='68' viewBox='0 0 92 68'%3E%3Cg fill='%23c4785c' fill-opacity='0.26' transform='translate(4 6) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%233dadb8' fill-opacity='0.24' transform='translate(50 30) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
-      background-size: 92px 68px;
-      -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 14%, transparent 24%, transparent 76%, #000 86%, #000 100%);
-      mask-image: linear-gradient(90deg, #000 0%, #000 14%, transparent 24%, transparent 76%, #000 86%, #000 100%);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='76' viewBox='0 0 100 76'%3E%3Cg fill='%23c4785c' fill-opacity='0.26' transform='translate(6 8) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%233dadb8' fill-opacity='0.24' transform='translate(48 32) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 84px 58px;
+      -webkit-mask-image: var(--paw-ribbon-side-mask);
+      mask-image: var(--paw-ribbon-side-mask);
     }
 
     .calendar-panel .calendar-header h2,
@@ -1648,10 +1647,10 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='68' viewBox='0 0 92 68'%3E%3Cg fill='%23ffffff' fill-opacity='0.14' transform='translate(4 6) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%233dadb8' fill-opacity='0.34' transform='translate(50 30) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
-      background-size: 92px 68px;
-      -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 10%, transparent 20%, transparent 72%, #000 82%, #000 100%);
-      mask-image: linear-gradient(90deg, #000 0%, #000 10%, transparent 20%, transparent 72%, #000 82%, #000 100%);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='76' viewBox='0 0 100 76'%3E%3Cg fill='%23ffffff' fill-opacity='0.14' transform='translate(6 8) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3Cg fill='%233dadb8' fill-opacity='0.34' transform='translate(48 32) scale(0.33)'%3E%3Cellipse cx='28' cy='26' rx='6' ry='9'/%3E%3Cellipse cx='44' cy='22' rx='6' ry='9'/%3E%3Cellipse cx='59' cy='28' rx='5.5' ry='8'/%3E%3Cellipse cx='16' cy='38' rx='5.5' ry='8'/%3E%3Cpath d='M40 38c-10 0-18 8-20 18-1.5 7 4 12 11 12 4 0 6-1.5 9-1.5s5 1.5 9 1.5c7 0 12.5-5 11-12-2-10-10-18-20-18z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 84px 58px;
+      -webkit-mask-image: var(--paw-ribbon-side-mask);
+      mask-image: var(--paw-ribbon-side-mask);
     }
 
     .rates-block .rate-card-head-text {
@@ -2111,6 +2110,7 @@
   <div class="bg-glow-core" id="bgGlowCore" aria-hidden="true"></div>
   <div class="hero-terracotta">
     <div class="hero-terracotta-top">
+    <div class="hero-paw-layer" id="heroPawLayer" aria-hidden="true"></div>
     <div class="hero-terracotta-inner">
       <header>
         <a class="header-book-btn" id="bookBtn" href="#">Book my slot</a>
@@ -2756,50 +2756,6 @@
       const finePointer = window.matchMedia('(pointer: fine)').matches;
       if (reduceMotion) return;
 
-      // Ambient paws drift up gently on every device
-      (function ambientPaws() {
-        function aboutContentXRange() {
-          const inner = document.querySelector('.about-band-inner');
-          if (!inner) return null;
-          const rect = inner.getBoundingClientRect();
-          return { left: rect.left, right: rect.right };
-        }
-
-        function randomPawLeft() {
-          const content = aboutContentXRange();
-          const vw = window.innerWidth;
-          if (!content || content.right - content.left >= vw - 24) {
-            const edge = Math.random() < 0.5;
-            return edge ? Math.random() * 4 : 96 + Math.random() * 4;
-          }
-          const leftGutter = Math.max(0, content.left);
-          const rightGutter = Math.max(0, vw - content.right);
-          if (leftGutter < 28 && rightGutter < 28) {
-            return Math.random() < 0.5 ? Math.random() * 4 : 96 + Math.random() * 4;
-          }
-          const pickLeft = rightGutter < 28 || (leftGutter >= 28 && Math.random() < leftGutter / (leftGutter + rightGutter));
-          if (pickLeft) {
-            return (Math.random() * leftGutter / vw) * 100;
-          }
-          return ((content.right + Math.random() * rightGutter) / vw) * 100;
-        }
-
-        function spawn() {
-          const paw = document.createElement('div');
-          paw.className = 'ambient-paw' + (Math.random() > 0.5 ? ' sage' : '');
-          const size = 22 + Math.random() * 22;
-          paw.style.width = paw.style.height = size + 'px';
-          paw.style.left = randomPawLeft() + 'vw';
-          paw.style.setProperty('--amb-rot', (Math.random() * 60 - 30) + 'deg');
-          const dur = 14 + Math.random() * 12;
-          paw.style.animationDuration = dur + 's';
-          document.body.appendChild(paw);
-          setTimeout(() => paw.remove(), dur * 1000 + 200);
-        }
-        for (let i = 0; i < 3; i++) setTimeout(spawn, i * 2500);
-        setInterval(spawn, 3800);
-      })();
-
       if (!finePointer) return;
 
       const glow = document.getElementById('bgGlow');
@@ -2914,58 +2870,155 @@
       });
     }
 
+    function initHeroPaws() {
+      const host = document.querySelector('.hero-terracotta-top');
+      const layer = document.getElementById('heroPawLayer');
+      if (!host || !layer) return;
+
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function exclusionZones(hostRect) {
+        const zones = [];
+        const targets = [
+          { el: host.querySelector('.header-book-btn'), pad: 14 },
+          { el: host.querySelector('.logo'), pad: 16 },
+          { el: host.querySelector('.tagline'), pad: 14 },
+          { el: host.querySelector('.pets-info'), pad: 16 },
+        ];
+        targets.forEach(({ el, pad }) => {
+          if (!el) return;
+          const r = el.getBoundingClientRect();
+          zones.push({
+            left: r.left - hostRect.left - pad,
+            top: r.top - hostRect.top - pad,
+            right: r.right - hostRect.left + pad,
+            bottom: r.bottom - hostRect.top + pad,
+          });
+        });
+        return zones;
+      }
+
+      function overlaps(x, y, size, zones, maxW, maxH) {
+        const edge = 10;
+        if (x < edge || y < edge || x + size > maxW - edge || y + size > maxH - edge) return true;
+        for (const z of zones) {
+          if (x < z.right && x + size > z.left && y < z.bottom && y + size > z.top) return true;
+        }
+        return false;
+      }
+
+      function layoutPaws() {
+        layer.innerHTML = '';
+        const hostRect = host.getBoundingClientRect();
+        const layerRect = layer.getBoundingClientRect();
+        const maxW = layerRect.width;
+        const maxH = layerRect.height;
+        if (maxW < 80 || maxH < 80) return;
+
+        const zones = exclusionZones(hostRect);
+        const count = Math.min(36, Math.max(14, Math.floor((maxW * maxH) / 4200)));
+        let placed = 0;
+        let attempts = 0;
+
+        while (placed < count && attempts < count * 40) {
+          attempts += 1;
+          const size = 26 + Math.random() * 28;
+          const x = Math.random() * Math.max(0, maxW - size);
+          const y = Math.random() * Math.max(0, maxH - size);
+          if (overlaps(x, y, size, zones, maxW, maxH)) continue;
+
+          const paw = document.createElement('div');
+          paw.className = 'hero-paw';
+          paw.setAttribute('aria-hidden', 'true');
+          paw.style.width = size + 'px';
+          paw.style.height = size + 'px';
+          paw.style.left = x + 'px';
+          paw.style.top = y + 'px';
+          paw.style.setProperty('--paw-peak', (0.14 + Math.random() * 0.12).toFixed(3));
+          paw.style.setProperty('--paw-rot', (Math.random() * 50 - 25) + 'deg');
+          if (!reducedMotion) {
+            paw.style.setProperty('--paw-dur', (5 + Math.random() * 9) + 's');
+            paw.style.setProperty('--paw-delay', (Math.random() * 12) + 's');
+          }
+          layer.appendChild(paw);
+          placed += 1;
+        }
+      }
+
+      function boot() {
+        layoutPaws();
+        let resizeTimer;
+        window.addEventListener('resize', function () {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(layoutPaws, 180);
+        });
+      }
+
+      if (document.readyState === 'complete') {
+        boot();
+      } else {
+        window.addEventListener('load', boot, { once: true });
+      }
+    }
+
     function initExistingPawTwinkle() {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       const PAW_TWINKLE_TILES = [
-        { selector: '.calendar-panel .calendar-header', sideBand: 0.22, maxActive: 5 },
-        { selector: '.rates-block .rate-card-head', sideBand: 0.2, maxActive: 4 },
+        { selector: '.calendar-panel .calendar-header', tileW: 84, tileH: 58, maxActive: 4, sideBand: 0.28 },
+        { selector: '.rates-block .rate-card-head', tileW: 84, tileH: 58, maxActive: 3, sideBand: 0.26 },
       ];
 
-      function randomSideSpot(rect, size, sideBand) {
-        const pad = 8;
+      function randomTileSpot(rect, tileW, tileH, sideBand) {
+        const pad = 6;
         const leftMax = rect.width * sideBand;
         const rightMin = rect.width * (1 - sideBand);
         const useLeft = Math.random() < 0.5;
         let x;
         if (useLeft) {
-          x = pad + Math.random() * Math.max(0, leftMax - size - pad);
+          x = pad + Math.random() * Math.max(0, leftMax - tileW - pad);
         } else {
-          x = rightMin + Math.random() * Math.max(0, rect.width - rightMin - size - pad);
+          x = rightMin + Math.random() * Math.max(0, rect.width - rightMin - tileW - pad);
         }
-        const y = pad + Math.random() * Math.max(0, rect.height - size - pad * 2);
+        const y = pad + Math.random() * Math.max(0, rect.height - tileH - pad * 2);
         return { x, y };
       }
 
       function spawnPulse(host, config) {
         if (host.querySelectorAll('.paw-twinkle-pulse').length >= config.maxActive) {
-          setTimeout(() => spawnPulse(host, config), 200 + Math.random() * 500);
+          setTimeout(() => spawnPulse(host, config), 300 + Math.random() * 700);
           return;
         }
 
         const rect = host.getBoundingClientRect();
-        const size = 36 + Math.random() * 28;
-        if (rect.width < size + 16 || rect.height < size + 16) {
+        const { tileW, tileH } = config;
+        if (rect.width < tileW + 8 || rect.height < 44) {
           setTimeout(() => spawnPulse(host, config), 800);
           return;
         }
 
-        const spot = randomSideSpot(rect, size, config.sideBand);
+        const spot = randomTileSpot(rect, tileW, tileH, config.sideBand);
+
+        const maskX = -(spot.x % tileW);
+        const maskY = -(spot.y % tileH);
+        const maskPos = (maskX + 'px ' + maskY + 'px');
 
         const pulse = document.createElement('div');
         pulse.className = 'paw-twinkle-pulse';
         pulse.setAttribute('aria-hidden', 'true');
-        pulse.style.width = size + 'px';
-        pulse.style.height = size + 'px';
+        pulse.style.width = tileW + 'px';
+        pulse.style.height = tileH + 'px';
         pulse.style.left = spot.x + 'px';
         pulse.style.top = spot.y + 'px';
-        pulse.style.animationDuration = (1.2 + Math.random() * 2) + 's';
-        pulse.style.animationDelay = (Math.random() * 0.35) + 's';
+        pulse.style.webkitMaskPosition = maskPos;
+        pulse.style.maskPosition = maskPos;
+        pulse.style.animationDuration = (1.8 + Math.random() * 2.8) + 's';
+        pulse.style.animationDelay = (Math.random() * 0.6) + 's';
 
         pulse.addEventListener('animationend', () => pulse.remove());
         host.appendChild(pulse);
 
-        setTimeout(() => spawnPulse(host, config), 220 + Math.random() * 1100);
+        setTimeout(() => spawnPulse(host, config), 400 + Math.random() * 1400);
       }
 
       function bootTwinkle() {
@@ -2986,6 +3039,7 @@
       }
     }
 
+    initHeroPaws();
     initExistingPawTwinkle();
     initHeroRibbonMarquee();
     boot();
