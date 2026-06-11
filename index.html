@@ -777,9 +777,39 @@
 
     .cal-day-tooltip-line {
       display: block;
+      font-family: 'Outfit', sans-serif;
       font-size: 0.68rem;
+      font-weight: 600;
       color: var(--page-text-muted);
       line-height: 1.4;
+    }
+
+    .cal-day-tooltip-status.is-available {
+      color: var(--cal-status-available);
+    }
+
+    .cal-day-tooltip-status.is-booked {
+      color: var(--cal-status-booked);
+    }
+
+    .cal-day-tooltip-status.is-unavailable {
+      color: #8a8480;
+    }
+
+    .cal-day-tooltip-period.is-peak {
+      color: var(--accent);
+    }
+
+    .cal-day-tooltip-period.is-off-peak {
+      color: var(--cal-status-booked);
+    }
+
+    .cal-day-tooltip-period.is-super-peak {
+      color: #b84242;
+    }
+
+    .calendar-panel .day.available:not(.past) .day-num {
+      color: var(--cal-status-available);
     }
 
     .calendar-panel .calendar-legend {
@@ -2668,10 +2698,11 @@
 
     function showCalDayTooltip(cell, date, status, tier) {
       const tip = ensureCalDayTooltip();
+      const tierKey = tier === 'super-peak' ? 'super-peak' : tier === 'peak' ? 'peak' : 'off-peak';
       tip.innerHTML = `
         <div class="cal-day-tooltip-date">${formatTooltipDate(date)}</div>
-        <span class="cal-day-tooltip-line">Status: ${STATUS_LABELS[status]}</span>
-        <span class="cal-day-tooltip-line">Period: ${tierPeriodLabel(tier)}</span>
+        <span class="cal-day-tooltip-line cal-day-tooltip-status is-${status}">Status: ${STATUS_LABELS[status]}</span>
+        <span class="cal-day-tooltip-line cal-day-tooltip-period is-${tierKey}">Period: ${tierPeriodLabel(tier)}</span>
       `;
       const rect = cell.getBoundingClientRect();
       tip.style.left = (rect.left + rect.width / 2) + 'px';
