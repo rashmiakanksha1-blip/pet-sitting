@@ -1,6 +1,6 @@
 // ← Edit these to customise your site
 const SITE_CONFIG = {
-  siteVersion: 'Version 3 · voice demo',
+  siteVersion: 'Version 3 · calm voice (cv)',
   designVersion: 3,
   businessName: 'Pet Sitters Club',
   bookButtonLabel: 'Book my slot',
@@ -32,8 +32,9 @@ const SITE_CONFIG = {
   voice: {
     enabled: true,
     speakUrl: 'https://petsittersclublondon.netlify.app/.netlify/functions/speak',
-    // Charlotte — calm, reassuring British female
+    // Charlotte — calm, reassuring British female (ElevenLabs, when connected)
     voiceId: 'XB0fDUnXU5powFXDhCwa',
+    welcomeAudio: 'audio/welcome.m4a',
     welcomeText: 'Welcome to Pet Sitters Club. Sit, stay — we\'ll take it from here.',
   },
 

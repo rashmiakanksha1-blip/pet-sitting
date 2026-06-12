@@ -1,4 +1,4 @@
-// ElevenLabs voice demo (v3) — API key stays on Netlify, never in the browser.
+// Voice demo (v3) — recorded welcome + ElevenLabs for dynamic lines.
 (function () {
   const voiceCfg = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.voice) || {};
   if (!voiceCfg.enabled) return;
@@ -21,6 +21,29 @@
     if (resetBusy !== false) busy = false;
   }
 
+  function playAudioSrc(src, sourceLabel) {
+    return new Promise((resolve, reject) => {
+      const audio = new Audio(src);
+      const timer = setTimeout(() => {
+        audio.pause();
+        reject(new Error('Playback timed out'));
+      }, 60000);
+      audio.onended = () => {
+        clearTimeout(timer);
+        resolve(sourceLabel);
+      };
+      audio.onerror = () => {
+        clearTimeout(timer);
+        reject(new Error('Playback failed'));
+      };
+      audio.play().catch((err) => {
+        clearTimeout(timer);
+        reject(err);
+      });
+      activeAudio = audio;
+    });
+  }
+
   function warmVoices() {
     if (!window.speechSynthesis) return;
     window.speechSynthesis.getVoices();
@@ -31,7 +54,7 @@
   warmVoices();
 
   function pickCalmFemaleVoice(voices) {
-    const femaleName = /samantha|kate|serena|fiona|martha|victoria|stephanie|karen|moira|tessa|laura|emily|susan|jenny|heather|alice|charlotte|lily|female|woman/i;
+    const femaleName = /flo|shelley|sandy|samantha|kate|serena|fiona|martha|victoria|stephanie|karen|moira|tessa|laura|emily|susan|jenny|heather|alice|charlotte|lily|female|woman/i;
     const english = voices.filter((v) => /^en(-GB)?/i.test(v.lang));
     const britishFemale = english.find(
       (v) => /en-GB/i.test(v.lang) && femaleName.test(v.name),
@@ -39,9 +62,7 @@
     if (britishFemale) return britishFemale;
     const anyFemale = english.find((v) => femaleName.test(v.name));
     if (anyFemale) return anyFemale;
-    const british = english.find((v) => /en-GB/i.test(v.lang));
-    if (british) return british;
-    return english[0] || voices[0] || null;
+    return english.find((v) => /en-GB/i.test(v.lang)) || english[0] || voices[0] || null;
   }
 
   function waitForVoices(ms) {
@@ -88,8 +109,8 @@
 
       waitForVoices(800).then((voices) => {
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 0.88;
-        utterance.pitch = 0.96;
+        utterance.rate = 0.86;
+        utterance.pitch = 0.94;
         const picked = pickCalmFemaleVoice(voices);
         if (picked) utterance.voice = picked;
         utterance.onend = () => finish(true, 'browser');
@@ -119,28 +140,32 @@
     if (!res.ok) throw new Error('ElevenLabs unavailable');
     const blob = await res.blob();
     const objectUrl = URL.createObjectURL(blob);
-    const audio = new Audio(objectUrl);
-    audio.dataset.objectUrl = objectUrl;
-    return new Promise((resolve, reject) => {
-      const maxMs = Math.min(120000, Math.max(15000, text.length * 120));
-      const timer = setTimeout(() => {
-        audio.pause();
-        reject(new Error('Playback timed out'));
-      }, maxMs);
-      audio.onended = () => {
-        clearTimeout(timer);
-        resolve('elevenlabs');
-      };
-      audio.onerror = () => {
-        clearTimeout(timer);
-        reject(new Error('Playback failed'));
-      };
-      audio.play().catch((err) => {
-        clearTimeout(timer);
-        reject(err);
-      });
-      activeAudio = audio;
+    return playAudioSrc(objectUrl, 'elevenlabs').finally(() => {
+      URL.revokeObjectURL(objectUrl);
     });
+  }
+
+  async function speakWelcome() {
+    if (busy) return null;
+    busy = true;
+    stop(false);
+    setStatus('playing');
+    try {
+      if (voiceCfg.welcomeAudio) {
+        const source = await playAudioSrc(voiceCfg.welcomeAudio, 'recorded');
+        setStatus(source);
+        return source;
+      }
+      const text = voiceCfg.welcomeText
+        || `Welcome to ${SITE_CONFIG.businessName}. ${SITE_CONFIG.tagline || ''}`;
+      busy = false;
+      return speak(text.trim());
+    } catch {
+      setStatus('error');
+      return null;
+    } finally {
+      busy = false;
+    }
   }
 
   async function speak(text) {
@@ -172,16 +197,19 @@
   function setStatus(source) {
     document.querySelectorAll('[data-voice-status]').forEach((el) => {
       if (source === 'playing') {
-        el.textContent = 'Playing… tap again to stop';
+        el.textContent = 'Playing…';
         el.dataset.state = 'playing';
+      } else if (source === 'recorded') {
+        el.textContent = 'Calm British voice';
+        el.dataset.state = 'recorded';
       } else if (source === 'elevenlabs') {
-        el.textContent = 'Powered by ElevenLabs';
+        el.textContent = 'Calm British voice (ElevenLabs)';
         el.dataset.state = 'elevenlabs';
       } else if (source === 'browser') {
-        el.textContent = 'Using device voice — studio voice loads when ElevenLabs is connected';
+        el.textContent = 'Pet facts use device voice until ElevenLabs is connected';
         el.dataset.state = 'browser';
       } else if (source === 'error') {
-        el.textContent = 'Voice unavailable — try Chrome/Safari with sound on';
+        el.textContent = 'Voice unavailable — check sound is on';
         el.dataset.state = 'error';
       } else {
         el.textContent = '';
@@ -190,5 +218,5 @@
     });
   }
 
-  window.PSC_VOICE = { speak, stop };
+  window.PSC_VOICE = { speak, speakWelcome, stop };
 })();

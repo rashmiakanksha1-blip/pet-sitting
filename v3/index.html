@@ -1061,6 +1061,7 @@
     }
 
     .voice-status[data-state="elevenlabs"],
+    .voice-status[data-state="recorded"],
     .voice-status[data-state="playing"] {
       color: rgba(255, 255, 255, 0.95);
     }
@@ -2798,10 +2799,10 @@
     </div>
   </section>
 
-  <script src="config.js?v=v3"></script>
+  <script src="config.js?v=cv"></script>
   <script src="auth.js"></script>
   <script src="shared.js"></script>
-  <script src="voice.js?v=v3"></script>
+  <script src="voice.js?v=cv"></script>
   <script>
     document.title = `${SITE_CONFIG.customerPageTitle} - ${SITE_CONFIG.businessName}`;
     const ver = document.getElementById('siteVersion');
@@ -2848,10 +2849,20 @@
       }
 
       if (welcomeBtn) {
-        welcomeBtn.addEventListener('click', () => {
-          const welcome = SITE_CONFIG.voice.welcomeText
-            || `Welcome to ${SITE_CONFIG.businessName}. ${SITE_CONFIG.tagline || ''}`;
-          runSpeak(welcome.trim(), welcomeBtn);
+        welcomeBtn.addEventListener('click', async () => {
+          if (!window.PSC_VOICE) return;
+          welcomeBtn.disabled = true;
+          try {
+            if (window.PSC_VOICE.speakWelcome) {
+              await window.PSC_VOICE.speakWelcome();
+            } else {
+              const welcome = SITE_CONFIG.voice.welcomeText
+                || `Welcome to ${SITE_CONFIG.businessName}. ${SITE_CONFIG.tagline || ''}`;
+              await window.PSC_VOICE.speak(welcome.trim());
+            }
+          } finally {
+            welcomeBtn.disabled = false;
+          }
         });
       }
 
