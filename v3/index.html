@@ -1060,8 +1060,13 @@
       text-align: center;
     }
 
-    .voice-status[data-state="elevenlabs"] {
+    .voice-status[data-state="elevenlabs"],
+    .voice-status[data-state="playing"] {
       color: rgba(255, 255, 255, 0.95);
+    }
+
+    .voice-status[data-state="error"] {
+      color: #ffd4c8;
     }
 
     .pet-fact {
@@ -2476,7 +2481,7 @@
   </style>
 </head>
 <body>
-  <div class="v3-demo-banner" id="v3DemoBanner" hidden>
+  <div class="v3-demo-banner is-visible" id="v3DemoBanner">
     Voice demo (v3) — <a href="/book/">live site unchanged</a>
   </div>
   <div class="bg-glow" id="bgGlow" aria-hidden="true"></div>
@@ -2492,7 +2497,7 @@
             <h1 id="businessName">Paws & Stay</h1>
           </div>
           <p class="tagline" id="tagline">Sit, stay. We'll take it from here</p>
-          <button type="button" class="voice-btn voice-welcome-btn" id="voiceWelcomeBtn" hidden>
+          <button type="button" class="voice-btn voice-welcome-btn" id="voiceWelcomeBtn">
             <span class="voice-btn-icon" aria-hidden="true">🔊</span> Hear welcome
           </button>
           <span class="voice-status" id="voiceStatus" data-voice-status aria-live="polite"></span>
@@ -2557,7 +2562,7 @@
           <div class="pet-fact-body">
             <p class="pet-fact-text" id="petFactText">Your cat spends up to 16 hours a day resting, but rarely sleeps deeply - they stay half-alert even with their eyes closed.</p>
           </div>
-          <button type="button" class="voice-btn pet-fact-listen" id="petFactListen" hidden aria-label="Listen to this pet fact">
+          <button type="button" class="voice-btn pet-fact-listen" id="petFactListen" aria-label="Listen to this pet fact">
             <span class="voice-btn-icon" aria-hidden="true">🔊</span> Listen
           </button>
         </div>
@@ -2822,7 +2827,6 @@
 
       const banner = document.getElementById('v3DemoBanner');
       if (banner && SITE_CONFIG.designVersion === 3) {
-        banner.hidden = false;
         banner.classList.add('is-visible');
         const liveHref = (SITE_CONFIG.publicBookingUrl || '/book/').replace(/\/$/, '') || '/book';
         const link = banner.querySelector('a');
@@ -2832,8 +2836,6 @@
       const welcomeBtn = document.getElementById('voiceWelcomeBtn');
       const factBtn = document.getElementById('petFactListen');
       const factText = document.getElementById('petFactText');
-      if (welcomeBtn) welcomeBtn.hidden = false;
-      if (factBtn) factBtn.hidden = false;
 
       async function runSpeak(text, btn) {
         if (!text || !window.PSC_VOICE) return;

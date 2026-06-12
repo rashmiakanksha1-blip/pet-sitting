@@ -21,40 +21,109 @@
     if (resetBusy !== false) busy = false;
   }
 
+  function warmVoices() {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = () => {
+      window.speechSynthesis.getVoices();
+    };
+  }
+  warmVoices();
+
+  function waitForVoices(ms) {
+    return new Promise((resolve) => {
+      if (!window.speechSynthesis) {
+        resolve([]);
+        return;
+      }
+      const deadline = Date.now() + ms;
+      const tick = () => {
+        const voices = window.speechSynthesis.getVoices();
+        if (voices.length || Date.now() >= deadline) {
+          resolve(voices);
+          return;
+        }
+        setTimeout(tick, 50);
+      };
+      tick();
+    });
+  }
+
   function speakBrowser(text) {
     return new Promise((resolve, reject) => {
       if (!window.speechSynthesis) {
         reject(new Error('No speech support'));
         return;
       }
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 0.94;
-      utterance.pitch = 1;
-      const voices = window.speechSynthesis.getVoices();
-      const british = voices.find((v) => /en-GB/i.test(v.lang));
-      if (british) utterance.voice = british;
-      utterance.onend = () => resolve('browser');
-      utterance.onerror = () => reject(new Error('Browser speech failed'));
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(utterance);
+
+      const maxMs = Math.min(60000, Math.max(12000, text.length * 90));
+      let settled = false;
+
+      function finish(ok, value) {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        if (ok) resolve(value);
+        else reject(value);
+      }
+
+      const timer = setTimeout(() => {
+        window.speechSynthesis.cancel();
+        finish(false, new Error('Speech timed out'));
+      }, maxMs);
+
+      waitForVoices(800).then((voices) => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.94;
+        utterance.pitch = 1;
+        const british = voices.find((v) => /en-GB/i.test(v.lang))
+          || voices.find((v) => /^en/i.test(v.lang));
+        if (british) utterance.voice = british;
+        utterance.onend = () => finish(true, 'browser');
+        utterance.onerror = () => finish(false, new Error('Browser speech failed'));
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utterance);
+      });
     });
   }
 
   async function speakElevenLabs(text) {
-    const res = await fetch(speakUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text }),
-    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    let res;
+    try {
+      res = await fetch(speakUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text }),
+        signal: controller.signal,
+      });
+    } finally {
+      clearTimeout(timeout);
+    }
     if (!res.ok) throw new Error('ElevenLabs unavailable');
     const blob = await res.blob();
     const objectUrl = URL.createObjectURL(blob);
     const audio = new Audio(objectUrl);
     audio.dataset.objectUrl = objectUrl;
     return new Promise((resolve, reject) => {
-      audio.onended = () => resolve('elevenlabs');
-      audio.onerror = () => reject(new Error('Playback failed'));
-      audio.play().catch(reject);
+      const maxMs = Math.min(120000, Math.max(15000, text.length * 120));
+      const timer = setTimeout(() => {
+        audio.pause();
+        reject(new Error('Playback timed out'));
+      }, maxMs);
+      audio.onended = () => {
+        clearTimeout(timer);
+        resolve('elevenlabs');
+      };
+      audio.onerror = () => {
+        clearTimeout(timer);
+        reject(new Error('Playback failed'));
+      };
+      audio.play().catch((err) => {
+        clearTimeout(timer);
+        reject(err);
+      });
       activeAudio = audio;
     });
   }
@@ -63,22 +132,23 @@
     if (!text || busy) return null;
     busy = true;
     stop(false);
+    setStatus('playing');
     try {
       if (speakUrl) {
-        const source = await speakElevenLabs(text);
-        setStatus(source);
-        return source;
+        try {
+          const source = await speakElevenLabs(text);
+          setStatus(source);
+          return source;
+        } catch {
+          // Fall through to browser voice.
+        }
       }
-      throw new Error('No speak URL');
+      const source = await speakBrowser(text);
+      setStatus(source);
+      return source;
     } catch {
-      try {
-        const source = await speakBrowser(text);
-        setStatus(source);
-        return source;
-      } catch {
-        setStatus('error');
-        return null;
-      }
+      setStatus('error');
+      return null;
     } finally {
       busy = false;
     }
@@ -86,12 +156,18 @@
 
   function setStatus(source) {
     document.querySelectorAll('[data-voice-status]').forEach((el) => {
-      if (source === 'elevenlabs') {
+      if (source === 'playing') {
+        el.textContent = 'Playing… tap again to stop';
+        el.dataset.state = 'playing';
+      } else if (source === 'elevenlabs') {
         el.textContent = 'Powered by ElevenLabs';
         el.dataset.state = 'elevenlabs';
       } else if (source === 'browser') {
         el.textContent = 'Demo voice (add ElevenLabs key on Netlify for studio quality)';
         el.dataset.state = 'browser';
+      } else if (source === 'error') {
+        el.textContent = 'Voice unavailable — try Chrome/Safari with sound on';
+        el.dataset.state = 'error';
       } else {
         el.textContent = '';
         el.dataset.state = '';
