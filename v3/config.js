@@ -32,6 +32,8 @@ const SITE_CONFIG = {
   voice: {
     enabled: true,
     speakUrl: 'https://petsittersclublondon.netlify.app/.netlify/functions/speak',
+    // Charlotte — calm, reassuring British female
+    voiceId: 'XB0fDUnXU5powFXDhCwa',
     welcomeText: 'Welcome to Pet Sitters Club. Sit, stay — we\'ll take it from here.',
   },
 

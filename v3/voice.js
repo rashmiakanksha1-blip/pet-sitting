@@ -30,6 +30,20 @@
   }
   warmVoices();
 
+  function pickCalmFemaleVoice(voices) {
+    const femaleName = /samantha|kate|serena|fiona|martha|victoria|stephanie|karen|moira|tessa|laura|emily|susan|jenny|heather|alice|charlotte|lily|female|woman/i;
+    const english = voices.filter((v) => /^en(-GB)?/i.test(v.lang));
+    const britishFemale = english.find(
+      (v) => /en-GB/i.test(v.lang) && femaleName.test(v.name),
+    );
+    if (britishFemale) return britishFemale;
+    const anyFemale = english.find((v) => femaleName.test(v.name));
+    if (anyFemale) return anyFemale;
+    const british = english.find((v) => /en-GB/i.test(v.lang));
+    if (british) return british;
+    return english[0] || voices[0] || null;
+  }
+
   function waitForVoices(ms) {
     return new Promise((resolve) => {
       if (!window.speechSynthesis) {
@@ -74,11 +88,10 @@
 
       waitForVoices(800).then((voices) => {
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 0.94;
-        utterance.pitch = 1;
-        const british = voices.find((v) => /en-GB/i.test(v.lang))
-          || voices.find((v) => /^en/i.test(v.lang));
-        if (british) utterance.voice = british;
+        utterance.rate = 0.88;
+        utterance.pitch = 0.96;
+        const picked = pickCalmFemaleVoice(voices);
+        if (picked) utterance.voice = picked;
         utterance.onend = () => finish(true, 'browser');
         utterance.onerror = () => finish(false, new Error('Browser speech failed'));
         window.speechSynthesis.cancel();
@@ -92,10 +105,12 @@
     const timeout = setTimeout(() => controller.abort(), 10000);
     let res;
     try {
+      const payload = { text };
+      if (voiceCfg.voiceId) payload.voiceId = voiceCfg.voiceId;
       res = await fetch(speakUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify(payload),
         signal: controller.signal,
       });
     } finally {
@@ -163,7 +178,7 @@
         el.textContent = 'Powered by ElevenLabs';
         el.dataset.state = 'elevenlabs';
       } else if (source === 'browser') {
-        el.textContent = 'Demo voice (add ElevenLabs key on Netlify for studio quality)';
+        el.textContent = 'Using device voice — studio voice loads when ElevenLabs is connected';
         el.dataset.state = 'browser';
       } else if (source === 'error') {
         el.textContent = 'Voice unavailable — try Chrome/Safari with sound on';
